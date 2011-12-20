@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # Author: 	Kris Beazley
+# Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 # For now we define the location of x10config here
 x10config = "./x10config"
