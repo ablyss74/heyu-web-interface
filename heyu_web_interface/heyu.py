@@ -28,8 +28,8 @@ if 'HTTP_COOKIE' not in os.environ.keys():
 # Important! Make sure we have HTTP_COOKIE in the dictionary
 if 'HTTP_COOKIE' in os.environ:
     # subprocess hack? Make script CGI friendly
-    subprocess.call("echo Content-type:text/html", shell=True)
-    subprocess.call("echo", shell=True)
+    subprocess.call(["echo", "Content-type:text/html"], shell=False)
+    subprocess.call(["echo"], shell=False)
     try:
         for name in stdin.keys():
             if name == 'heyu_status_change':
@@ -133,7 +133,7 @@ for line in file:
         addr = line[1]
         
         # Call heyu and get on/off status and slice strings
-        process = subprocess.Popen("heyu -c /var/www/heyu_web_interface/x10config onstate " + addr, shell=True, stdout=subprocess.PIPE)
+        process = subprocess.Popen("heyu -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
         status = process.communicate()
         status = status[0]
         
@@ -147,7 +147,7 @@ for line in file:
         status = status.replace("0","Off")
         
         # Call heyu and get time stamp and slice strings. ** To do **
-        timestamp = subprocess.Popen("heyu -c /var/www/heyu_web_interface/x10config show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
+        timestamp = subprocess.Popen("heyu -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
         timestamp = timestamp.communicate()
         timestamp = timestamp[0]
                 
