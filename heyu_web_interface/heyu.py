@@ -1,34 +1,43 @@
 #! /usr/bin/env python
 # Author: 	Kris Beazley
 
+# For now we define the location of x10config here
 x10config = "./x10config"
 
+# The version of this script
 Heyu_web_interface_version = "11.56_beta_python"
+
+
 
 import cgitb, cgi, os, re, subprocess
 
 cgitb.enable()
 stdin = cgi.FieldStorage()
 
-
+# Default expiration for cookies
 expires = "expires=01-Jan-2036 12:00:00 GMT"
-     
+
+
+# Future cookie function will be something like this     
 if 'HTTP_COOKIE' not in os.environ.keys():
     print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
     print('Content-type:text/html')
     print('')
 
 
-
+# Important! Make sure we have HTTP_COOKIE in the dictionary
 if 'HTTP_COOKIE' in os.environ:
+    # subprocess hack? Make script CGI friendly
     subprocess.call("echo Content-type:text/html", shell=True)
     subprocess.call("echo", shell=True)
     try:
         for name in stdin.keys():
             if name == 'heyu_status_change':
-                #print "<pre>Input: " + name + " value: " + stdin[name].value + "</pre><BR>"
+                # Leave this line for debugging cgi Stdout
+                # print "<pre>Input: " + name + " value: " + stdin[name].value + "</pre><BR>"
                 try:
-                    subprocess.call(stdin[name].value, shell=True)
+                    # Execute heyu command here
+                    subprocess.call(stdin[name].value, shell=True,)
                 except:
                     pass
     except:
@@ -36,7 +45,7 @@ if 'HTTP_COOKIE' in os.environ:
 
 
 
-
+# Start HTML, Javascript 
 print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
 
 print("<html><head><title>Heyu Web Interface v." + Heyu_web_interface_version + "</title>")
@@ -63,10 +72,7 @@ textarea {
 
 <div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>
 <div id=content>
-"""
-)
-             
-print( """
+
 <table><tr><td>
 <h4 style=\"font-family:Tahoma\">HEYU WEB INTERFACE </h4>
 
@@ -85,23 +91,25 @@ Show All Modules</table></button>
 <table class=scene_button><tr><td class=scene_button>
 <img src=\"imgs/reload.png\" alt=none class=icons>
 Auto Refresh</table></button>
-
-
 </table></button></form></table>
 <br>
+
 <h4 style=\"font-family:Tahoma\">ALIASES</h4>
-
-
-
 """
 )
 
+# Open x10config file for reading
+# Use upper() to sanitize the content
+# Rm alias, STDLM, and STDAM strings.  Yes other strings will show for now.
+# Create list array by using replace() and split() ... Tricky!
+# Slice the list array
 
 file = open(x10config)
+
+# Set z for formating HTML rows/columns
 z = 1
 
 for line in file:
-  
     if re.match('ALIAS', line.upper()) and re.search('(EXCLUDE)', line.upper()) is None:
         
         a = re.search("ALIAS", line.upper())        
@@ -124,7 +132,7 @@ for line in file:
         unit = unit.replace("_"," ")
         addr = line[1]
         
-        # call heyu and get on/off status
+        # Call heyu and get on/off status and slice strings
         process = subprocess.Popen("heyu -c /var/www/heyu_web_interface/x10config onstate " + addr, shell=True, stdout=subprocess.PIPE)
         status = process.communicate()
         status = status[0]
@@ -138,21 +146,26 @@ for line in file:
         status = status.replace("1","On")
         status = status.replace("0","Off")
         
-        # call heyu and get time stamp 
+        # Call heyu and get time stamp and slice strings. ** To do **
         timestamp = subprocess.Popen("heyu -c /var/www/heyu_web_interface/x10config show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
         timestamp = timestamp.communicate()
         timestamp = timestamp[0]
                 
         print "<form method=\"post\"><button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\"class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
         print "<td class=info>", status, addr, "<br><br></table></button>"
+        
+        # For html formating rows/columns
         z = z+1
         if z == 3:
             print "<tr>"
  
     else:
         pass
+        
+# Close file
 file.closed
-print("</table>")
+print("</table></div></body></html>")
+
 
 
 
