@@ -1,7 +1,5 @@
 #! /usr/bin/env python
 # Author: 	Kris Beazley
-# Online: 	http://heyu.epluribusunix.net/
-# Online email: http://heyu.epluribusunix.net/?contactus
 
 x10config = "./x10config"
 
@@ -155,7 +153,6 @@ for line in file:
         pass
 file.closed
 print("</table>")
-
 
 
 
