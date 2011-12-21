@@ -14,19 +14,23 @@ import cgitb, cgi, os, re, subprocess
 cgitb.enable()
 stdin = cgi.FieldStorage()
 
-# Default expiration for cookies
-expires = "expires=01-Jan-2036 12:00:00 GMT"
 
-# Future cookie function will be something like this     
+
+# Future cookie function will be something like this.
+# Furture version might check the value of the cookies too.  
 if 'HTTP_COOKIE' not in os.environ.keys():
+    expires = "expires=01-Jan-2036 12:00:00 GMT"
     print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
+    # Important! Subprocess is not called we have to set the header Content-type
     print('Content-type:text/html')
     print('')
 
 
 # Important! Make sure we have HTTP_COOKIE in the dictionary
+# Furture version might check the value of the cookies too.
 if 'HTTP_COOKIE' in os.environ:
-    # subprocess hack? Make script CGI friendly
+    # Important! When calling subprocess and running as a CGI, the header Content-type must be set first. Unless
+    # other headers are to be set, however we can handle other headers without the subprocess much easier.
     subprocess.call(["echo", "Content-type:text/html"], shell=False)
     subprocess.call(["echo"], shell=False)
     try:
@@ -145,7 +149,8 @@ for line in file:
         status = status.replace("1","On")
         status = status.replace("0","Off")
         
-        # Call heyu and get time stamp and slice strings. ** To do **
+        # Call heyu and get time stamp and slice strings.
+        # This is unfinsihed.
         timestamp = subprocess.Popen(heyu + " -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
         timestamp = timestamp.communicate()
         timestamp = timestamp[0]
