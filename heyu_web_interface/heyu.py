@@ -156,7 +156,7 @@ for line in file:
         timestamp = timestamp[0]
                 
         print "<form method=\"post\">"
-        print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\"class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
+        print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
         print "<td class=info>", status, addr, "<br><br></table></button>"
         
         # For html formating rows/columns
@@ -169,4 +169,3 @@ for line in file:
         
 file.closed
 print("</form></table></div></body></html>")
-
