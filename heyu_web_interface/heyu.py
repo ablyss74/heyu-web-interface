@@ -2,13 +2,12 @@
 # Author: 	Kris Beazley
 # Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
-# For now we define the location of x10config here
+# For now we define the location of x10config and heyu here
 x10config = "./x10config"
+heyu = "/usr/local/bin/heyu"
 
 # The version of this script
 Heyu_web_interface_version = "11.56_beta_python"
-
-
 
 import cgitb, cgi, os, re, subprocess
 
@@ -17,7 +16,6 @@ stdin = cgi.FieldStorage()
 
 # Default expiration for cookies
 expires = "expires=01-Jan-2036 12:00:00 GMT"
-
 
 # Future cookie function will be something like this     
 if 'HTTP_COOKIE' not in os.environ.keys():
@@ -43,7 +41,6 @@ if 'HTTP_COOKIE' in os.environ:
                     pass
     except:
         pass
-
 
 
 # Start HTML, Javascript 
@@ -113,6 +110,7 @@ z = 1
 for line in file:
     if re.match('ALIAS', line.upper()) and re.search('(EXCLUDE)', line.upper()) is None:
         
+        # There is probably a better way ...
         a = re.search("ALIAS", line.upper())        
         if a:
             line = line[:a.start()] + line[a.end():]
@@ -134,7 +132,7 @@ for line in file:
         addr = line[1]
         
         # Call heyu and get on/off status and slice strings
-        process = subprocess.Popen("heyu -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
+        process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
         status = process.communicate()
         status = status[0]
         
@@ -148,11 +146,12 @@ for line in file:
         status = status.replace("0","Off")
         
         # Call heyu and get time stamp and slice strings. ** To do **
-        timestamp = subprocess.Popen("heyu -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
+        timestamp = subprocess.Popen(heyu + " -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
         timestamp = timestamp.communicate()
         timestamp = timestamp[0]
                 
-        print "<form method=\"post\"><button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\"class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
+        print "<form method=\"post\">"
+        print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\"class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
         print "<td class=info>", status, addr, "<br><br></table></button>"
         
         # For html formating rows/columns
@@ -163,13 +162,6 @@ for line in file:
     else:
         pass
         
-# Close file
 file.closed
-print("</table></div></body></html>")
-
-
-
-
-
-
+print("</form></table></div></body></html>")
 
