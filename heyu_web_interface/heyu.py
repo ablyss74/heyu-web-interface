@@ -2,12 +2,11 @@
 # Author: 	Kris Beazley
 # Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
-# For now we define the location of x10config and heyu here
+# For now we define some static variables.
+# In the future this should be controlled in the control panel
 x10config = "./x10config"
 heyu = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
-
-
 
 
 # The version of this script
@@ -15,18 +14,14 @@ Heyu_web_interface_version = "11.56_beta_python"
 
 import cgitb, cgi, os, re, subprocess
 
-
 cgitb.enable()
 stdin = cgi.FieldStorage()
-
 
 expires = "expires=01-Jan-2036 12:00:00 GMT"
 
  
 if 'HTTP_COOKIE' not in os.environ.keys():
-    print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
-    
-   
+    print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires     
    
    
 if 'HTTP_COOKIE' in os.environ.keys():
@@ -34,6 +29,10 @@ if 'HTTP_COOKIE' in os.environ.keys():
     for x in cookies:
         if re.search('(auto_refresh=True)', x) is not None:
             auto_refresh = "True"
+        if re.search('(heyu_show_all_modules=True)', x) is not None:
+            heyu_show_all_modules = "True"
+        if re.search('(heyu_theme=compactt)', x) is not None:
+            heyu_theme = "compact"
     
 try:
     if 'heyu_status_change' in stdin.keys():
