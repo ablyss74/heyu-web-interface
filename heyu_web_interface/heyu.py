@@ -7,6 +7,9 @@ x10config = "./x10config"
 heyu = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
 
+
+
+
 # The version of this script
 Heyu_web_interface_version = "11.56_beta_python"
 
@@ -23,6 +26,15 @@ expires = "expires=01-Jan-2036 12:00:00 GMT"
 if 'HTTP_COOKIE' not in os.environ.keys():
     print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
     
+   
+   
+   
+if 'HTTP_COOKIE' in os.environ.keys():
+    cookies = [os.environ['HTTP_COOKIE']]  
+    for x in cookies:
+        if re.search('(auto_refresh=True)', x) is not None:
+            auto_refresh = "True"
+    
 try:
     if 'heyu_status_change' in stdin.keys():
         #print "<pre>Input: " + name + " value: " + stdin[name].value + "</pre><BR>"
@@ -32,11 +44,12 @@ try:
             subprocess.call(stdin[name].value, shell=True,)
     else:
         for name in stdin.keys():
+
             if stdin[name].value == 'auto_refresh' or stdin[name].value == 'show_all_modules' or stdin[name].value == 'heyu_theme':             
                 try:
                     cookies = [os.environ['HTTP_COOKIE']]  
                     for x in cookies:	     
-                        for i in stdin.keys():            
+                        for i in stdin.keys():                                   
                             if stdin[i].value == 'auto_refresh' and re.search('(auto_refresh=True)', x) is None:
                                 print "Set-Cookie: auto_refresh=True;", expires
                                 auto_refresh = "True"
@@ -69,6 +82,8 @@ except:
 
     
 # Start HTML, Javascript 
+
+
 
 print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
 
