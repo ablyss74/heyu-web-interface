@@ -12,7 +12,8 @@ auto_refresh_rate = "10"
 # The version of this script
 Heyu_web_interface_version = "11.56_beta_python"
 
-import cgitb, cgi, os, re, subprocess
+import cgitb, sys, cgi, os, re, subprocess
+sys.path.append('./modules')
 
 cgitb.enable()
 stdin = cgi.FieldStorage()
@@ -41,6 +42,7 @@ try:
         subprocess.call(["echo"], shell=False)
         for name in stdin.keys():
             subprocess.call(stdin[name].value, shell=True,)
+            
     else:
         for name in stdin.keys():
 
@@ -79,11 +81,8 @@ except:
         print('Content-type:text/html')
         print('')
 
-    
+
 # Start HTML, Javascript 
-
-
-
 print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
 
 print("<html><head><title>Heyu Web Interface v." + Heyu_web_interface_version + "</title>")
@@ -119,12 +118,12 @@ print("""
 <h4 style=\"font-family:Tahoma\">HEYU WEB INTERFACE </h4>
 
 <form method="post">
-<button type=submit name=Button1 value=BasicUserConfig=css class=scene_button onclick=\"Status(); show('')\">
+<button type=submit name=Button1 value=control_panel class=scene_button onclick=\"Status(); show('')\">
 <table class=scene_button><tr><td class=scene_button>
 <img src=\"imgs/tool.png\" alt=none class=icons>
 Control Panel</table></button>
 
-<button type=submit name=Button2 value=show_all_modules class=scene_button onclick=\"Status(); show('This_is_Foobar')\">
+<button type=submit name=Button2 value=show_all_modules class=scene_button onclick=\"Status(); show('')\">
 <table class=scene_button><tr><td class=scene_button>
 <img src=\"imgs/horizon.png\" alt=none class=icons>
 Show All Modules</table></button>
@@ -183,24 +182,36 @@ for line in file:
         # Call heyu and get on/off status and slice strings
         process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
         status = process.communicate()
-        status = status[0]
-        
+        status = status[0]        
         on_icon = status.replace("1","<img src=\"imgs/on2.png\" class=icons>")
-        on_icon = on_icon.replace("0","")
-        
+        on_icon = on_icon.replace("0","")        
         xstatus = status.replace("1","off")
-        xstatus = xstatus.replace("0","on")
+        xstatus = xstatus.replace("0","on")        
+        status = status.replace("1","<font class=info_on_color>On,</font>")
+        status = status.replace("0","<font class=info_off_color>Off</font>")
         
-        status = status.replace("1","On")
-        status = status.replace("0","Off")
+        # Call heyu and get dimlevel.
+        dimlevel = subprocess.Popen(heyu + " -c " + x10config + " dimlevel " + addr, shell=True, stdout=subprocess.PIPE)
+        dimlevel = dimlevel.communicate()
+        dimlevel = dimlevel[0]
+        dimlevel = dimlevel.rstrip()
         
-        # Call heyu and get time stamp and slice strings. ** To do **
+        # Call heyu and get time stamp and slice strings.
         timestamp = subprocess.Popen(heyu + " -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
         timestamp = timestamp.communicate()
         timestamp = timestamp[0]
+        timestamp = timestamp.split(' ')
+        day = timestamp[1]
+        time = timestamp[3]
+        month = timestamp[5]
+        mday = timestamp[6]
+        year = timestamp[7]
+
                 
         print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\"class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
-        print "<td class=info>", status, addr, "<br><br></table></button>"
+        
+        # Info part of the button
+        print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
         
         # For html formating rows/columns
         z = z+1
