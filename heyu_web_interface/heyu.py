@@ -184,6 +184,7 @@ for line in file:
         unit = line[0]
         unit = unit.replace("_"," ")
         addr = line[1]
+        addr = addr.lstrip()
         
         # Call heyu and get on/off status and slice strings
         process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
@@ -192,7 +193,8 @@ for line in file:
         on_icon = status.replace("1","<img src=\"imgs/on2.png\" class=icons>")
         on_icon = on_icon.replace("0","")        
         xstatus = status.replace("1","off")
-        xstatus = xstatus.replace("0","on")        
+        xstatus = xstatus.replace("0","on")
+        xstatus = xstatus.rstrip() 
         status = status.replace("1","<font class=info_on_color>On,</font>")
         status = status.replace("0","<font class=info_off_color>Off</font>")
         
@@ -214,12 +216,13 @@ for line in file:
         year = timestamp[7]
 
                 
-        print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\"class=scene_button onclick=\"Status(); show('')\"><table class=button><tr><td class=button>" + on_icon + unit
+        print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\">"
+        print "<table class=button><tr><td class=button>" + on_icon + unit
         
         # Info part of the button
         print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
         
-        # For html formating rows/columns
+        # For html formatting rows/columns
         z = z+1
         if z == 3:
             print "<tr>"
@@ -230,3 +233,4 @@ for line in file:
         
 file.closed
 print("</form></table></div></body></html>")
+
