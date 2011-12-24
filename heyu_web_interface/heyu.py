@@ -22,7 +22,10 @@ expires = "expires=01-Jan-2036 12:00:00 GMT"
 
  
 if 'HTTP_COOKIE' not in os.environ.keys():
-    print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires     
+    print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
+    print "Set-Cookie: auto_refresh=False;", expires
+    print "Set-Cookie: heyu_show_all_modules=False;", expires
+    print "Set-Cookie: heyu_theme=default;", expires
    
    
 if 'HTTP_COOKIE' in os.environ.keys():
@@ -37,11 +40,14 @@ if 'HTTP_COOKIE' in os.environ.keys():
     
 try:
     if 'heyu_status_change' in stdin.keys():
-        #print "<pre>Input: " + name + " value: " + stdin[name].value + "</pre><BR>"
         subprocess.call(["echo", "Content-type:text/html"], shell=False)
         subprocess.call(["echo"], shell=False)
         for name in stdin.keys():
-            subprocess.call(stdin[name].value, shell=True,)
+            cmd = stdin[name].value
+            cmd = cmd.rstrip()
+            cmd = cmd.lstrip()
+            #print cmd  # Debug output
+            subprocess.call(cmd, shell=True,)
             
     else:
         for name in stdin.keys():
@@ -224,4 +230,3 @@ for line in file:
         
 file.closed
 print("</form></table></div></body></html>")
-
