@@ -207,30 +207,39 @@ for line in file:
         # Call heyu and get time stamp and slice strings.
         timestamp = subprocess.Popen(heyu + " -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
         timestamp = timestamp.communicate()
-        timestamp = timestamp[0]
-        timestamp = timestamp.split(' ')
-        day = timestamp[1]
-        time = timestamp[3]
-        month = timestamp[5]
-        mday = timestamp[6]
-        year = timestamp[7]
-
+        try:
+            timestamp = timestamp[0]
+            timestamp = timestamp.split(' ')
+            day = timestamp[1]
+            time = timestamp[3]
+            month = timestamp[5]
+            mday = timestamp[6]
+            year = timestamp[7]
                 
-        print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\">"
-        print "<table class=button><tr><td class=button>" + on_icon + unit
+            print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\">"
+            print "<table class=button><tr><td class=button>" + on_icon + unit
         
-        # Info part of the button
-        print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
+            # Info part of the button
+            print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
         
-        # For html formatting rows/columns
-        z = z+1
-        if z == 3:
-            print "<tr>"
-
- 
-    else:
-        pass
-        
+            # For html formatting rows/columns
+            z = z+1
+            if z == 3:
+                print "<tr>"
+        except:
+            z = "error"
+if 'error' == z:
+    print "<pre>Warning: Heyu not started or owned by the interface."
+    print "Trying to start heyu now..."
+    start_heyu = subprocess.Popen(heyu + " -c " + x10config + " start ", shell=True, stdout=subprocess.PIPE)
+    start_heyu = start_heyu.communicate()
+    start_heyu = start_heyu[0]
+    start_heyu = start_heyu.replace("starting","",1)
+    start_heyu = start_heyu.replace("heyu_engine","",1)
+    start_heyu = start_heyu.replace("Starting","")
+    print start_heyu.replace("heyu_engine","the heyu engine",1)
+    print "<form action=/ method=POST><input type=submit value=Reload>"
+         
 file.closed
 print("</form></table></div></body></html>")
 
