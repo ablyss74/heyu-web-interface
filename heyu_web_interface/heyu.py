@@ -16,7 +16,7 @@ import cgitb, sys, cgi, os, re, subprocess
 sys.path.append('./modules')
 
 cgitb.enable()
-stdin = cgi.FieldStorage()
+pdata = cgi.FieldStorage()
 
 expires = "expires=01-Jan-2036 12:00:00 GMT"
 
@@ -39,42 +39,42 @@ if 'HTTP_COOKIE' in os.environ.keys():
             heyu_theme = "compact"
     
 try:
-    if 'heyu_status_change' in stdin.keys():
+    if 'heyu_status_change' in pdata.keys():
         subprocess.call(["echo", "Content-type:text/html"], shell=False)
         subprocess.call(["echo"], shell=False)
-        for name in stdin.keys():
-            cmd = stdin[name].value
+        for name in pdata.keys():
+            cmd = pdata[name].value
             cmd = cmd.rstrip()
             cmd = cmd.lstrip()
             #print cmd  # Debug output
             subprocess.call(cmd, shell=True,)
             
     else:
-        for name in stdin.keys():
+        for name in pdata.keys():
 
-            if stdin[name].value == 'auto_refresh' or stdin[name].value == 'show_all_modules' or stdin[name].value == 'heyu_theme':             
+            if pdata[name].value == 'auto_refresh' or pdata[name].value == 'show_all_modules' or pdata[name].value == 'heyu_theme':             
                 try:
                     cookies = [os.environ['HTTP_COOKIE']]  
                     for x in cookies:	     
-                        for i in stdin.keys():                                   
-                            if stdin[i].value == 'auto_refresh' and re.search('(auto_refresh=True)', x) is None:
+                        for i in pdata.keys():                                   
+                            if pdata[i].value == 'auto_refresh' and re.search('(auto_refresh=True)', x) is None:
                                 print "Set-Cookie: auto_refresh=True;", expires
                                 auto_refresh = "True"
-                            if stdin[i].value == 'auto_refresh' and re.search('(auto_refresh=False)', x) is None:
+                            if pdata[i].value == 'auto_refresh' and re.search('(auto_refresh=False)', x) is None:
                                 print "Set-Cookie: auto_refresh=False;", expires
                                 auto_refresh = "False"   
                             
-                            if stdin[i].value == 'show_all_modules' and re.search('(heyu_show_all_modules=True)', x) is None:
+                            if pdata[i].value == 'show_all_modules' and re.search('(heyu_show_all_modules=True)', x) is None:
                                 print "Set-Cookie: heyu_show_all_modules=True;", expires
                                 heyu_show_all_modules = "True"
-                            if stdin[i].value == 'show_all_modules' and re.search('(heyu_show_all_modules=False)', x) is None:
+                            if pdata[i].value == 'show_all_modules' and re.search('(heyu_show_all_modules=False)', x) is None:
                                 print "Set-Cookie: heyu_show_all_modules=False;", expires
                                 heyu_show_all_modules = "False"  
                                                      
-                            if stdin[i].value == 'heyu_theme' and re.search('(heyu_theme=default)', x) is None:
+                            if pdata[i].value == 'heyu_theme' and re.search('(heyu_theme=default)', x) is None:
                                 print "Set-Cookie: heyu_theme=default;", expires
                                 heyu_theme = "default"
-                            if stdin[i].value == 'heyu_theme' and re.search('(heyu_theme=compact)', x) is None:
+                            if pdata[i].value == 'heyu_theme' and re.search('(heyu_theme=compact)', x) is None:
                                 print "Set-Cookie: heyu_theme=compact;", expires
                                 heyu_theme = "compact"
                 except:
