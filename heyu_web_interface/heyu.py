@@ -39,14 +39,14 @@ if 'HTTP_COOKIE' in os.environ.keys():
             heyu_theme = "compact"
     
 try:
-    if 'heyu_status_change' in pdata.keys():
+    if 'heyu_do_cmd' in pdata.keys():
         subprocess.call(["echo", "Content-type:text/html"], shell=False)
         subprocess.call(["echo"], shell=False)
         for name in pdata.keys():
             cmd = pdata[name].value
             cmd = cmd.rstrip()
             cmd = cmd.lstrip()
-            #print cmd  # Debug output
+            #print "<pre>" + cmd + "</pre>"  # Debug output
             subprocess.call(cmd, shell=True,)
             
     else:
@@ -145,11 +145,7 @@ except:
     pass
 print("""</table></button>
 </table></button></form></table>
-<br>
-
-<h4 style=\"font-family:Tahoma\">ALIASES</h4>
-"""
-)
+<br>""")
 
 # Open x10config file for reading
 # Use upper() to sanitize the content
@@ -158,10 +154,35 @@ print("""</table></button>
 # Slice the list array
 
 file = open(x10config)
+print "<form method=\"post\">"
+print("<h4 style=\"font-family:Tahoma\">Scenes</h4>")
+for scene in file:
+    if re.match('SCENE', scene.upper()) and re.search('(EXCLUDE)', scene.upper()) is None:
+        a = re.search("SCENE", scene.upper())        
+        if a:
+            scene = scene[:a.start()] + scene[a.end():]
+        scene = scene.rstrip()
+        scene = scene.lstrip()
+        scene = scene.replace("  "," ")
+        cmds = scene
+        name = scene.split(' ')
+        name = name[0]
+        cmds = cmds.replace(name,"")
+        cmds = cmds.replace(";","; heyu ")
+        cmds = cmds.lstrip()
+        name = name.replace("_"," ")
+        print "<button type=submit name=\"heyu_do_cmd\" value=\"heyu", cmds +  "\" class=scene_button onclick=\"Status(); show('')\">"
+        print "<table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>"
+        print name, "<br></table></button>"
+file.closed
 
+
+
+print("<br><h4 style=\"font-family:Tahoma\">ALIASES</h4>")
+
+file = open(x10config)
 # Set z for formating HTML rows/columns
 z = 0
-print "<form method=\"post\">"
 for line in file:
     if re.match('ALIAS', line.upper()) and re.search('(EXCLUDE)', line.upper()) is None:
         
@@ -216,7 +237,7 @@ for line in file:
             mday = timestamp[6]
             year = timestamp[7]
                 
-            print "<button type=submit name=\"heyu_status_change\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\">"
+            print "<button type=submit name=\"heyu_do_cmd\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\">"
             print "<table class=button><tr><td class=button>" + on_icon + unit
         
             # Info part of the button
