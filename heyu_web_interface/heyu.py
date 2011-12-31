@@ -39,46 +39,14 @@ if 'HTTP_COOKIE' in os.environ.keys():
    
 try:
     for data in sys.stdin:
-        data = data.replace("%95","")
-        data = data.replace("%C2","")
-        data = data.replace("%20"," ")
-        data = data.replace("%09","")
-        data = data.replace("%3C","<")
-        data = data.replace("%2F",",")
-        data = data.replace("%3E",">")
-        data = data.replace("%26","&")
-        data = data.replace("+"," ")
-        data = data.replace("%7E","~")
-        data = data.replace("%60","\`")
-        data = data.replace("%21","!")
-        data = data.replace("%40","@")
-        data = data.replace("%23","#")
-        data = data.replace("%24","$")
-        data = data.replace("%25","%")
-        data = data.replace("%5E","^")
-        data = data.replace("%2A","*")
-        data = data.replace("%28","(")
-        data = data.replace("%B4","\'")
-        data = data.replace("%29",")")
-        data = data.replace("%2D","-")
-        data = data.replace("%2B","+")
-        data = data.replace("%7C","|")
-        data = data.replace("%5C","\\")
-        data = data.replace("%5B","[")
-        data = data.replace("%5D","]")
-        data = data.replace("%3A",":")
-        data = data.replace("%3B",";")
-        data = data.replace("%3F","?")
-        data = data.replace("%2C",",")
-        data = data.replace("%0A","")
-        data = data.replace("%27","\'")
-        data = data.replace("%22","\"")
-        data = data.replace("%3D","=")
-        data = data.replace("%0D","\n")
-        data = data.replace("%7D","\}")
+
         if 'heyu_do_cmd' in data:
-            cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config + " turn ")
+            cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
             subprocess.call(cmd, shell=True,)
+            #print('Content-type:text/html')
+            #print('')
+            #print cmd
+            #urllib2.unquote("")
             
         else:
             if 'auto_refresh' in data or 'show_all_modules' in data or 'heyu_theme' in data:  
@@ -115,8 +83,6 @@ except:
 print('Content-type:text/html')
 print('')
     
-
-
 # Start HTML, Javascript 
 print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
 
@@ -266,7 +232,7 @@ for line in file:
             mday = timestamp[6]
             year = timestamp[7]
                 
-            print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + addr, xstatus + "')\">"
+            print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + xstatus, addr + "')\">"
             print "<table class=button><tr><td class=button>" + on_icon + unit
         
             # Info part of the button
