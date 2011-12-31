@@ -43,6 +43,7 @@ try:
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
             subprocess.call(cmd, shell=True,)
+            # For debugging 
             #print('Content-type:text/html')
             #print('')
             #print cmd
@@ -245,16 +246,10 @@ for line in file:
         except:
             z = "error"
 if 'error' == z:
-    print "<pre>Warning: Heyu not started or owned by the interface."
-    print "Trying to start heyu now..."
-    start_heyu = subprocess.Popen(heyu + " -c " + x10config + " start ", shell=True, stdout=subprocess.PIPE)
-    start_heyu = start_heyu.communicate()
-    start_heyu = start_heyu[0]
-    start_heyu = start_heyu.replace("starting","",1)
-    start_heyu = start_heyu.replace("heyu_engine","",1)
-    start_heyu = start_heyu.replace("Starting","")
-    print start_heyu.replace("heyu_engine","the heyu engine",1)
-    print "<form action=/ method=POST><input type=submit value=Reload>"
+    print("<pre>Error: The script ran into a problem.")
+    print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check your error.log for additonal information.</pre>")
+    print("<form action=/ method=POST><input type=submit value=Retry>")
+    del z
          
 file.closed
 print("</form></table></div></body></html>")
