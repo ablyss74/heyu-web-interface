@@ -12,12 +12,10 @@ auto_refresh_rate = "10"
 # The version of this script
 Heyu_web_interface_version = "11.56_beta_python"
 
-import cgitb, sys, cgi, os, re, subprocess
+import cgitb, sys, os, re, subprocess
 sys.path.append('./modules')
 
 cgitb.enable()
-pdata = cgi.FieldStorage()
-
 expires = "expires=01-Jan-2036 12:00:00 GMT"
 
  
@@ -38,54 +36,85 @@ if 'HTTP_COOKIE' in os.environ.keys():
         if re.search('(heyu_theme=compactt)', x) is not None:
             heyu_theme = "compact"
     
+   
 try:
-    if 'heyu_do_cmd' in pdata.keys():
-        subprocess.call(["echo", "Content-type:text/html"], shell=False)
-        subprocess.call(["echo"], shell=False)
-        for name in pdata.keys():
-            cmd = pdata[name].value
-            cmd = cmd.rstrip()
-            cmd = cmd.lstrip()
-            #print "<pre>" + cmd + "</pre>"  # Debug output
+    for data in sys.stdin:
+        data = data.replace("%95","")
+        data = data.replace("%C2","")
+        data = data.replace("%20"," ")
+        data = data.replace("%09","")
+        data = data.replace("%3C","<")
+        data = data.replace("%2F",",")
+        data = data.replace("%3E",">")
+        data = data.replace("%26","&")
+        data = data.replace("+"," ")
+        data = data.replace("%7E","~")
+        data = data.replace("%60","\`")
+        data = data.replace("%21","!")
+        data = data.replace("%40","@")
+        data = data.replace("%23","#")
+        data = data.replace("%24","$")
+        data = data.replace("%25","%")
+        data = data.replace("%5E","^")
+        data = data.replace("%2A","*")
+        data = data.replace("%28","(")
+        data = data.replace("%B4","\'")
+        data = data.replace("%29",")")
+        data = data.replace("%2D","-")
+        data = data.replace("%2B","+")
+        data = data.replace("%7C","|")
+        data = data.replace("%5C","\\")
+        data = data.replace("%5B","[")
+        data = data.replace("%5D","]")
+        data = data.replace("%3A",":")
+        data = data.replace("%3B",";")
+        data = data.replace("%3F","?")
+        data = data.replace("%2C",",")
+        data = data.replace("%0A","")
+        data = data.replace("%27","\'")
+        data = data.replace("%22","\"")
+        data = data.replace("%3D","=")
+        data = data.replace("%0D","\n")
+        data = data.replace("%7D","\}")
+        if 'heyu_do_cmd' in data:
+            cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config + " turn ")
             subprocess.call(cmd, shell=True,)
             
-    else:
-        for name in pdata.keys():
-
-            if pdata[name].value == 'auto_refresh' or pdata[name].value == 'show_all_modules' or pdata[name].value == 'heyu_theme':             
+        else:
+            if 'auto_refresh' in data or 'show_all_modules' in data or 'heyu_theme' in data:  
                 try:
-                    cookies = [os.environ['HTTP_COOKIE']]  
-                    for x in cookies:	     
-                        for i in pdata.keys():                                   
-                            if pdata[i].value == 'auto_refresh' and re.search('(auto_refresh=True)', x) is None:
+                    cookies = [os.environ['HTTP_COOKIE']] 
+                    for x in cookies:
+                        for i in data:
+                            if 'auto_refresh' in data and re.search('(auto_refresh=True)', x) is None:
                                 print "Set-Cookie: auto_refresh=True;", expires
                                 auto_refresh = "True"
-                            if pdata[i].value == 'auto_refresh' and re.search('(auto_refresh=False)', x) is None:
+                            if 'auto_refresh' in data and re.search('(auto_refresh=False)', x) is None:
                                 print "Set-Cookie: auto_refresh=False;", expires
-                                auto_refresh = "False"   
-                            
-                            if pdata[i].value == 'show_all_modules' and re.search('(heyu_show_all_modules=True)', x) is None:
+                                auto_refresh = "False"
+                                
+                            if  'show_all_modules' in data and re.search('(heyu_show_all_modules=True)', x) is None:
                                 print "Set-Cookie: heyu_show_all_modules=True;", expires
                                 heyu_show_all_modules = "True"
-                            if pdata[i].value == 'show_all_modules' and re.search('(heyu_show_all_modules=False)', x) is None:
+                            if  'show_all_modules' in data and re.search('(heyu_show_all_modules=False)', x) is None:
                                 print "Set-Cookie: heyu_show_all_modules=False;", expires
                                 heyu_show_all_modules = "False"  
                                                      
-                            if pdata[i].value == 'heyu_theme' and re.search('(heyu_theme=default)', x) is None:
+                            if 'heyu_theme' in data and re.search('(heyu_theme=default)', x) is None:
                                 print "Set-Cookie: heyu_theme=default;", expires
                                 heyu_theme = "default"
-                            if pdata[i].value == 'heyu_theme' and re.search('(heyu_theme=compact)', x) is None:
+                            if 'heyu_theme'in data and re.search('(heyu_theme=compact)', x) is None:
                                 print "Set-Cookie: heyu_theme=compact;", expires
                                 heyu_theme = "compact"
                 except:
                     pass
 
-        print('Content-type:text/html')
-        print('')
-    
 except:
-        print('Content-type:text/html')
-        print('')
+    pass
+    
+print('Content-type:text/html')
+print('')
+    
 
 
 # Start HTML, Javascript 
@@ -171,7 +200,7 @@ for scene in file:
         cmds = cmds.replace(";","; heyu ")
         cmds = cmds.lstrip()
         name = name.replace("_"," ")
-        print "<button type=submit name=\"heyu_do_cmd\" value=\"heyu", cmds +  "\" class=scene_button onclick=\"Status(); show('')\">"
+        print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + cmds + "')\">"
         print "<table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>"
         print name, "<br></table></button>"
 file.closed
@@ -237,7 +266,7 @@ for line in file:
             mday = timestamp[6]
             year = timestamp[7]
                 
-            print "<button type=submit name=\"heyu_do_cmd\" value=\"heyu turn", addr, xstatus +  "\" class=scene_button onclick=\"Status(); show('')\">"
+            print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + addr, xstatus + "')\">"
             print "<table class=button><tr><td class=button>" + on_icon + unit
         
             # Info part of the button
