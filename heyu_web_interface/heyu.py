@@ -281,7 +281,7 @@ try:
         out = out.replace("control_panel_schedule_config","")
         out = out.strip()
         #print "<pre>" + out
-        f = open('./dummy_file', 'w')
+        f = open(x10config, 'w')
         f.write(out)
         f.closed
         
@@ -334,7 +334,7 @@ try:
 		</table>
         """)
 
-        file = open('./dummy_file')
+        file = open(x10config)
         print "<textarea name=control_panel_save>"
         for line in file:
             line = line.strip()
