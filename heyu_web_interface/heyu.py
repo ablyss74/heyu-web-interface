@@ -24,6 +24,13 @@ engine = subprocess.Popen(heyu + " -c " + x10config + " enginestate ", shell=Tru
 engine = engine.communicate()
 if 'starting heyu_relay\n0\n' in engine or '0\n' in engine:
     subprocess.call(heyu + " -c " + x10config + " engine ", shell=True,)
+    
+# Ge default house code
+file = open(x10config)
+for H in file:
+    if re.match('HOUSECODE', H.upper()):
+        HC = H.replace("HOUSECODE ","")
+file.closed 
 
 expires = "expires=01-Jan-2036 12:00:00 GMT" 
 if 'HTTP_COOKIE' not in os.environ.keys():
@@ -212,13 +219,12 @@ def compact_theme():
     
     print(""" </optgroup>
 			<optgroup label=CONFIG>
-			<option value=?control_panel_@{x10_config}>Control Panel
-			<option value=?heyu_enable_all_units>All Units On
-			<option value=?heyu_disable_all_units>All Units Off
-			<option value=?kill_all_hc>All Units Off A-P
-			</optgroup>
-			</select>
-			</form>""")
+			<option value=?control_panel_@{x10_config}>Control Panel""")
+
+    print "<option value=?heyu_do_cmd%20allon%20" + HC + ">All Units On"
+    print "<option value=?heyu_do_cmd%20alloff%20" + HC + ">All Units Off"
+    print "<option value=?heyu_do_cmd%20kill_all_hc>All Units Off A-P"
+    print "</optgroup></select></form>"
     print "<form method=post><button class=userconfigbutton type=button onclick=\"Status(); show('heyu_theme')\"> Change Theme</button></form>"
 
     
@@ -633,7 +639,7 @@ try:
         except:
             pass      
         print("""
-                    <button class=userconfigbutton type=button onclick=\"Status(); show('')\"> Exit</button>
+                    <button class=userconfigbutton type=button onclick=\"Status(); show('#')\"> Exit</button>
                                         </td>
                                    </tr>
                            </table>
