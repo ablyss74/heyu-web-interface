@@ -8,6 +8,9 @@ x10config = "./x10config"
 heyu = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
 
+# Heyu needs time to clean up.
+# 5 seconds is pretty high but I would not go any lower than 3.
+restart_sleep_interval = "5"
 
 # The version of this script
 Heyu_web_interface_version = "11.56_beta"
@@ -297,6 +300,7 @@ def main():
 </html>""")
     
 try:
+    
     decoded_data = urllib2.unquote(data)
     if 'control_panel_save' in data:
     
@@ -423,9 +427,15 @@ try:
 			    <td><button type=button onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=help}')\">Help</button>
 		        </table></form>
             """)
+            
+        if 'control_panel_@{updates}' in data:
+            print "</textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff >"
+            print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + Heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
         
-        print("""
-                <textarea name=control_panel_save>""")
+        # We dont need textarea in updates or top         
+        if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data:
+            print("""
+                    <textarea name=control_panel_save>""")
         
         if 'control_panel_@{x10_config}@{info}' in data:
             info = subprocess.Popen(heyu + " -c " + x10config + " info ", shell=True, stdout=subprocess.PIPE)
@@ -433,12 +443,38 @@ try:
             info = info[0]
             print info
             
+        elif 'control_panel_@{top}' in data:
+            print("""
+                    </textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff ><iframe align=center 
+		        	src=./CGI/top.cgi border=0 height=600 width=650 scrolling=yes></iframe></table>""")
+            
+            
+        elif 'control_panel_@{x10_config}@{kill_all_hc}' in data:
+            out = data.replace("control_panel_@{x10_config}@{kill_all_hc}","")
+            out = out[:-1]
+            info = subprocess.Popen(heyu + " -c " + x10config + " kill_all_hc ", shell=True, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+
         elif 'control_panel_@{x10_config}@{manpage' in data:
             out = data.replace("control_panel_@{x10_config}@{manpage=","")
             out = out[:-1]
             info = subprocess.Popen("man -E UTF-8 " + out + "  2>/dev/null", shell=True, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
+            print info
+     
+        elif 'control_panel_@{x10_config}@{heyu_restart}' in data:
+            out = data.replace("control_panel_@{x10_config}@{heyu_restart}","")
+            out = out[:-1]
+            info = subprocess.Popen(heyu + " -c " + x10config + " stop; sleep " + restart_sleep_interval + "; " + heyu + " -c " + x10config + " start", shell=True, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            info = info.replace("starting heyu_relay","",1)
+            info = info.replace("starting heyu_engine","",1)
+            info = info.replace("starting","Restarted the")
+            info = info.strip()
             print info
          
 
@@ -455,7 +491,7 @@ try:
             print info
              
         
-        else:
+        elif 'control_panel_@{x10_config}' in data or 'control_panel_save' in data:
             file = open(x10config)
             for line in file:
                 line = line.strip()
