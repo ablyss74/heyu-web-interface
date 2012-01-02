@@ -294,7 +294,6 @@ try:
 
         f = open(x10config, 'w')
         f.write(out)
-        print data
         f.closed
         
         
