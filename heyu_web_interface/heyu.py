@@ -106,9 +106,7 @@ textarea {
 </style>""")
 
 print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", auto_refresh_rate + "000);</script>"
-
-print("""
-<script type=text/javascript src=javascript/ajax.js></script>
+print("""<script type=text/javascript src=javascript/ajax.js></script>
 <script type=text/javascript src=javascript/phone.js></script>
 <script type=text/javascript src=javascript/progressbar.js></script>
 <script type=text/javascript src=javascript/compact_theme.js></script>
@@ -119,14 +117,17 @@ print("""
 <META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">
 <META HTTP-EQUIV=\"Expires\" CONTENT=\"-1\">
 
-<div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>
-<div id=content>""")
+    <div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>
+        <!-- Begin Div -->
+        <div id=content>""")
 
 def main():
     print("""
 
     <table><tr><td>
     <h4 style=\"font-family:Tahoma\">HEYU WEB INTERFACE </h4>
+
+    <!-- Begin Form For Control Panel, Show All Modules, and Auto Refresh Buttons -->
 
     <form method="post">
     <button type=button class=scene_button onclick=\"Status(); show('control_panel_@{x10_config}')\">
@@ -145,14 +146,18 @@ def main():
     Auto Refresh
     """)
     try:
-        if 'auto_refresh' in data:  
-            cookies = [os.environ['HTTP_COOKIE']] 
-            for x in cookies:
-                for i in data:
-                    if 'auto_refresh' in data and re.search('(auto_refresh=True)', x) is None:
-                        auto_refresh = "True"
-                    if 'auto_refresh' in data and re.search('(auto_refresh=False)', x) is None:
-                        auto_refresh = "False"
+        # Getting the auto_refresh button to display correctly is tricky
+        # Have to read from both ajax threads and test
+        # Once the first thread finsihes then test again
+        if 'auto_refresh=True' in os.environ['HTTP_COOKIE']:
+            auto_refresh = "True"
+        cookies = [os.environ['HTTP_COOKIE']]
+        for x in cookies:
+            for i in data:
+                if 'auto_refresh' in data and re.search('(auto_refresh=True)', x) is None:
+                    auto_refresh = "True"
+                if 'auto_refresh' in data and re.search('(auto_refresh=False)', x) is None:
+                    auto_refresh = "False"
     except:
         pass
     try:
@@ -161,8 +166,14 @@ def main():
             print(auto_refresh.replace("True", auto_refresh_rate + "s"))
     except:
         pass
-    print("</table></button></table></button></form></table><br>")
+    print("""
+            </table></button>
+            <!-- Close form -->
+            </form>
+            </table>
+            <br>""")
 
+    
     # Open x10config file for reading
     # Use upper() to sanitize the content
     # Rm alias, STDLM, and STDAM strings.  Yes other strings will show for now.
@@ -170,8 +181,11 @@ def main():
     # Slice the list array
 
     file = open(x10config)
-    print "<form method=\"post\">"
-    print("<h4 style=\"font-family:Tahoma\">SCENES</h4>")
+    print("""
+            <!-- Begin Form For Scenes and Aliases -->
+            <form method=\"post\">
+            <h4 style=\"font-family:Tahoma\">SCENES</h4>""")
+            
     for scene in file:
         if re.match('SCENE', scene.upper()) and re.search('(EXCLUDE)', scene.upper()) is None:
             a = re.search("SCENE", scene.upper())        
@@ -194,7 +208,8 @@ def main():
 
 
 
-    print("<br><h4 style=\"font-family:Tahoma\">ALIASES</h4>")
+    print("""
+            <br><h4 style=\"font-family:Tahoma\">ALIASES</h4>""")
 
     file = open(x10config)
     # Set z for formating HTML rows/columns
@@ -273,7 +288,13 @@ def main():
         del z
          
     file.closed
-    print("</form></table></div></body></html>")
+    print("""
+            <!-- Close Form and Div -->
+                </form>
+           </table>
+        </div>
+    </body>
+</html>""")
     
 try:
     decoded_data = urllib2.unquote(data)
@@ -303,9 +324,12 @@ try:
         
         
     if 'control_panel' in data:
-        print("""<form method=post>
+        print("""
+            <!-- Begin Form Post For Control Panel -->
+            <form method=post>
+        
             <table class=control_panel align=center border=0 cellspacing=0 cellpadding=15>
-            <tr><td class=control_panel valign=top align=center style=\"background:#CCC\" >
+            <tr><td class=control_panel valign=top align=center style=\"background:#CCC\">
             """)
         if 'manpage' in data:
             print("""
@@ -349,7 +373,6 @@ try:
             """)
         else:
             print("""
-     
             <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{x10_config}')\">
 		    <table><tr><td width=20><img src=./imgs/OnLamp-icon.png width=25 height=25> 
 		    <td><span class=control_panel>Heyu Config</table></button><br>
@@ -378,7 +401,8 @@ try:
 		    <table><tr><td width=20><img src=./imgs/compact3.png width=25 height=25> 
 		    <td><span class=control_panel>Theme Compact</table></button><br>		
         """)
-        print "<td class=control_panel valign=top align=center style=\"background:#CCC\">"
+        print("""
+                <td class=control_panel valign=top align=center style=\"background:#CCC\">""")
         
         print("""
         <table><tr><td><table class=control_panel><tr>
@@ -400,7 +424,8 @@ try:
 		        </table></form>
             """)
         
-        print "<textarea name=control_panel_save>"
+        print("""
+                <textarea name=control_panel_save>""")
         
         if 'control_panel_@{x10_config}@{info}' in data:
             info = subprocess.Popen(heyu + " -c " + x10config + " info ", shell=True, stdout=subprocess.PIPE)
@@ -459,16 +484,29 @@ try:
             
             def save_exit_buttons():
                 print("""
-                <button class=userconfigbutton type=submit onclick=\"Status(); show('control_panel')\"> Save</button>
-                <button class=userconfigbutton type=button onclick=\"Status(); show('')\"> Exit</button></table></table></form>
-		        """)  
-        print("</textarea><br><br><table><tr><td>")
+                    <button class=userconfigbutton type=submit onclick=\"Status(); show('control_panel')\"> Save</button>""")  
+        print("""
+                    </textarea>
+                    <br>
+                        <br>
+                            <table>
+                                    <tr>
+                                        <td>""")
         
         try:
             save_exit_buttons()
         except:
             pass      
-
+        print("""
+                    <button class=userconfigbutton type=button onclick=\"Status(); show('')\"> Exit</button>
+                                        </td>
+                                   </tr>
+                           </table>
+                    </form>
+            </table>
+        </div>
+    </body>
+</html>""")
         
 except:
     main()
