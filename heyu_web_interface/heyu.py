@@ -14,11 +14,15 @@ Heyu_web_interface_version = "11.56_beta"
 
 import cgitb, sys, os, re, subprocess, urllib2
 sys.path.append('./modules')
-
 cgitb.enable()
-expires = "expires=01-Jan-2036 12:00:00 GMT"
 
- 
+# Make sure the heyu engine is running
+engine = subprocess.Popen(heyu + " -c " + x10config + " enginestate ", shell=True, stdout=subprocess.PIPE)
+engine = engine.communicate()
+if 'starting heyu_relay\n0\n' in engine or '0\n' in engine:
+    subprocess.call(heyu + " -c " + x10config + " engine ", shell=True,)
+
+expires = "expires=01-Jan-2036 12:00:00 GMT" 
 if 'HTTP_COOKIE' not in os.environ.keys():
     print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
     print "Set-Cookie: auto_refresh=False;", expires
@@ -218,6 +222,7 @@ def main():
             unit = unit.replace("_"," ")
             addr = line[1]
             addr = addr.lstrip()
+            
         
             # Call heyu and get on/off status and slice strings
             process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
