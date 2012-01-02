@@ -86,7 +86,6 @@ except:
 print('Content-type:text/html')
 print('')
 
-
 # Start HTML, Javascript 
 print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
 
@@ -126,7 +125,7 @@ def main():
     <h4 style=\"font-family:Tahoma\">HEYU WEB INTERFACE </h4>
 
     <form method="post">
-    <button type=button class=scene_button onclick=\"Status(); show('control_panel')\">
+    <button type=button class=scene_button onclick=\"Status(); show('control_panel_@{x10_config}')\">
     <table class=scene_button><tr><td class=scene_button>
     <img src=\"imgs/tool.png\" alt=none class=icons>
     Control Panel</table></button>
@@ -168,7 +167,7 @@ def main():
 
     file = open(x10config)
     print "<form method=\"post\">"
-    print("<h4 style=\"font-family:Tahoma\">Scenes</h4>")
+    print("<h4 style=\"font-family:Tahoma\">SCENES</h4>")
     for scene in file:
         if re.match('SCENE', scene.upper()) and re.search('(EXCLUDE)', scene.upper()) is None:
             a = re.search("SCENE", scene.upper())        
@@ -265,102 +264,208 @@ def main():
     if 'error' == z:
         print("<pre>Error: The script ran into a problem.")
         print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check your error.log for additonal information.</pre>")
-        print("<form action=/ method=POST><input type=submit value=Retry>")
+        print("<form method=POST><input type=submit value=Retry>")
         del z
          
     file.closed
     print("</form></table></div></body></html>")
     
 try:
+    decoded_data = urllib2.unquote(data)
     if 'control_panel_save' in data:
-        out = urllib2.unquote(data)
+    
+        out = urllib2.unquote(data)        
         out = out.replace("+"," ")
         out = out.replace("control_panel_save=","")
-        out = out.replace("control_panel_interface_config","")
-        out = out.replace("control_panel_x10_config","")
-        out = out.replace("control_panel_schedule_config","")
+        out = out.replace("control_panel_","")
+        out = out.replace("@{config}","")  
+        out = out.replace("@{x10_config}","")
+        out = out.replace("@{schedule_config}","")
+        out = out.replace("@{updates}","")
+        out = out.replace("@{crontab}","")
+        out = out.replace("@{top}","")
+        out = out.replace("@{theme}","")
+        out = out.replace("@{info}","")    
+        out = out.replace("@{manpage=heyu}","")  
+        out = out.replace("@{heyu=enter_cmd}","")  
+        out = out.replace("@{kill_all_hc}","")  
+        out = out.replace("@{heyu_restart}","")  
         out = out.strip()
-        #print "<pre>" + out
+
         f = open(x10config, 'w')
         f.write(out)
+        print data
         f.closed
         
         
     if 'control_panel' in data:
-        print("""
-        <form method=post>
-        <table class=control_panel align=center border=0 cellspacing=0 cellpadding=15>
-        <tr><td class=control_panel valign=top align=center style=\"background:#CCC\" >
+        print("""<form method=post>
+            <table class=control_panel align=center border=0 cellspacing=0 cellpadding=15>
+            <tr><td class=control_panel valign=top align=center style=\"background:#CCC\" >
+            """)
+        if 'manpage' in data:
+            print("""
+           
+            <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=heyu}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Heyu</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10config}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Config</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10sched}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Schedule</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10scripts}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Scripts</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10cm17a}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>CM17A</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10aux}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Aux</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10rfxsensors}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>RFXSensors</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10rfxmeters}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>RFXMeters</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10digimax}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Digimax</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10oregon}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Oregon</table></button><br>
+
+		    <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=x10kaku}')\">
+		    <table><tr><td width=20 height=25><td><span class=control_panel>Kaku</table></button><br>		    
+		                          
+            <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}')\">
+		    <table><tr><td width=20 height=25><img src=./imgs/alloff.png width=25 height=25><td><span class=control_panel>Exit</table></button><br>
+            
+            """)
+        else:
+            print("""
+     
+            <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{x10_config}')\">
+		    <table><tr><td width=20><img src=./imgs/OnLamp-icon.png width=25 height=25> 
+		    <td><span class=control_panel>Heyu Config</table></button><br>
 	
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_interface_config')\">
-		<table><tr><td width=20><img src=./imgs/edit_user.png width=25 height=25> 
-		<td><span class=control_panel>Interface Config</table></button><br>
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{config}')\">
+		    <table><tr><td width=20><img src=./imgs/edit_user.png width=25 height=25> 
+		    <td><span class=control_panel>Interface Config</table></button><br>
 		
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_x10_config')\">
-		<table><tr><td width=20><img src=./imgs/OnLamp-icon.png width=25 height=25> 
-		<td><span class=control_panel>Heyu Config</table></button><br>
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{schedule_config}')\">
+		    <table><tr><td width=20><img src=./imgs/macro.png width=25 height=25> 
+		    <td><span class=control_panel>Heyu Schedule</table></button><br>
 		
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_schedule_config')\">
-		<table><tr><td width=20><img src=./imgs/macro.png width=25 height=25> 
-		<td><span class=control_panel>Heyu Schedule</table></button><br>
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{updates}')\">
+		    <table><tr><td width=20><img src=./imgs/update3.png width=25 height=25> 
+		    <td><span class=control_panel>Updates</table></button><br>
 		
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_updates')\">
-		<table><tr><td width=20><img src=./imgs/update3.png width=25 height=25> 
-		<td><span class=control_panel>Updates</table></button><br>
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{crontab}')\">
+		    <table><tr><td width=20><img src=./imgs/cron.png width=25 height=25> 
+		    <td><span class=control_panel>Crontab</table></button><br>
 		
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_crontab')\">
-		<table><tr><td width=20><img src=./imgs/cron.png width=25 height=25> 
-		<td><span class=control_panel>Crontab</table></button><br>
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{top}')\">
+		    <table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
+		    <td><span class=control_panel>Top</table></button><br>	
 		
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_top')\">
-		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
-		<td><span class=control_panel>Top</table></button><br>	
-		
-		<button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_theme')\">
-		<table><tr><td width=20><img src=./imgs/compact3.png width=25 height=25> 
-		<td><span class=control_panel>Theme Compact</table></button><br>	
-		
-		<td class=control_panel valign=top align=center style=\"background:#CCC\">
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{theme}')\">
+		    <table><tr><td width=20><img src=./imgs/compact3.png width=25 height=25> 
+		    <td><span class=control_panel>Theme Compact</table></button><br>		
         """)
+        print "<td class=control_panel valign=top align=center style=\"background:#CCC\">"
         
         print("""
         <table><tr><td><table class=control_panel><tr>
 		<tr>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel=css')\">Interface Config</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel=Buttons')\">Buttons</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel=sub3cookie')\">Mobile</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel=sub2cookie')\">Tweaks</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel')\">Overrides</button>			
+		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{info}')\">Heyu Info</button>
+		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{manpage=heyu}')\">Heyu Manual</button>
+		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=}')\">Heyu Cmd...</button>
+		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{kill_all_hc}')\">All Off A-P</button>
+	    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_restart}')\">Heyu Restart</button>
 		</table>
         """)
-
-        file = open(x10config)
+ 
+        if 'control_panel_@{x10_config}@{heyu_cmd=' in decoded_data:
+            print("""<form method=POST>
+                <br><table class=control_panel><tr>
+			    <td>Enter Command:<input type=text name=\"control_panel_@{x10_config}@{heyu_cmd\" onsubmit=\"Status(); show('')\">
+			    <td><input type=submit value=Enter>
+			    <td><button type=button onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=help}')\">Help</button>
+		        </table></form>
+            """)
+        
         print "<textarea name=control_panel_save>"
-        for line in file:
-            line = line.strip()
-            print line
-        file.closed
-        out = urllib2.unquote(data)
-        out = out.replace("control_panel_save=","")
-        out = out.replace("control_panel_interface_config","")
-        out = out.replace("control_panel_x10_config","")
-        out = out.replace("control_panel_schedule_config","")
-        out = out.replace("control_panel","")
-        out = out.replace("+"," ")
-        out = out.strip()
-        print out
+        
+        if 'control_panel_@{x10_config}@{info}' in data:
+            info = subprocess.Popen(heyu + " -c " + x10config + " info ", shell=True, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+            
+        elif 'control_panel_@{x10_config}@{manpage' in data:
+            out = data.replace("control_panel_@{x10_config}@{manpage=","")
+            out = out[:-1]
+            info = subprocess.Popen("man -E UTF-8 " + out + "  2>/dev/null", shell=True, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+         
 
-
+        elif 'control_panel_@{x10_config}@{heyu_cmd=' in decoded_data:
+            out = urllib2.unquote(data)
+            out = out.replace("+"," ")
+            out = out.replace("monitor","")
+            out = out.replace("control_panel_@{x10_config}@{heyu_cmd=","")                 
+            out = out.replace("@{heyu_cmd=","")
+            out = out.replace("}","")
+            info = subprocess.Popen(heyu + " -c " + x10config + " " + out, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+             
+        
+        else:
+            file = open(x10config)
+            for line in file:
+                line = line.strip()
+                print line
+            file.closed
+        
+            out = urllib2.unquote(data)
+            out = out.replace("+"," ")
+            out = out.replace("control_panel_save=","")
+            out = out.replace("control_panel_","")
+            out = out.replace("@{config}","")  
+            out = out.replace("@{x10_config}","")
+            out = out.replace("@{schedule_config}","")
+            out = out.replace("@{updates}","")
+            out = out.replace("@{crontab}","")
+            out = out.replace("@{top}","")
+            out = out.replace("@{theme}","")
+            out = out.replace("@{info}","")    
+            out = out.replace("@{manpage=heyu}","")  
+            out = out.replace("@{heyu=enter_cmd}","")  
+            out = out.replace("@{kill_all_hc}","")  
+            out = out.replace("@{heyu_restart}","")  
+            out = out.strip()
+        
+            print out
+            
+            def save_exit_buttons():
+                print("""
+                <button class=userconfigbutton type=submit onclick=\"Status(); show('control_panel')\"> Save</button>
+                <button class=userconfigbutton type=button onclick=\"Status(); show('')\"> Exit</button></table></table></form>
+		        """)  
         print("</textarea><br><br><table><tr><td>")
         
-        print("""
-        <button class=userconfigbutton type=submit onclick=\"Status() ;show('control_panel')\"> 
-		Save</button>
-        <button class=userconfigbutton type=button onclick=\"Status(); show('')\">
-		Exit</button>
-		</table></table></form>
-		""")
+        try:
+            save_exit_buttons()
+        except:
+            pass      
 
+        
 except:
     main()
 try:
