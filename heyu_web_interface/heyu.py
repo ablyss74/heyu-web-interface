@@ -42,7 +42,7 @@ if 'HTTP_COOKIE' in os.environ.keys():
             auto_refresh = "False"
         if re.search('(heyu_show_all_modules=True)', x) is not None:
             heyu_show_all_modules = "True"
-        if re.search('(heyu_theme=compactt)', x) is not None:
+        if re.search('(heyu_theme=compact)', x) is not None:
             heyu_theme = "compact"
     
    
@@ -81,7 +81,7 @@ try:
                             if 'heyu_theme' in data and re.search('(heyu_theme=default)', x) is None:
                                 print "Set-Cookie: heyu_theme=default;", expires
                                 heyu_theme = "default"
-                            if 'heyu_theme'in data and re.search('(heyu_theme=compact)', x) is None:
+                            if 'heyu_theme' in data and re.search('(heyu_theme=compact)', x) is None:
                                 print "Set-Cookie: heyu_theme=compact;", expires
                                 heyu_theme = "compact"
                 except:
@@ -90,9 +90,21 @@ try:
 except:
     pass
     
+ 
+   
+    
 print('Content-type:text/html')
 print('')
 
+# If data is empty assign it to query_string for compact theme
+try:
+    if data:
+        pass
+except:
+    data = urllib2.unquote(os.environ['QUERY_STRING'])
+    cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
+    subprocess.call(cmd, shell=True,)
+    
 # Start HTML, Javascript 
 print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
 
@@ -123,7 +135,93 @@ print("""<script type=text/javascript src=javascript/ajax.js></script>
     <div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>
         <!-- Begin Div -->
         <div id=content>""")
+        
+        
+def compact_theme():
+    print("""
+            <form method=post><select name=states onChange=\"goPage(this.options[this.selectedIndex].value)\" size=1>
+            <option>Heyu
+            <optgroup label=SCENES>""")
+    file = open(x10config)
+    print("""
+            <!-- Begin Form For Scenes and Aliases -->
+            <form method=post>
+            <h4 style=\"font-family:Tahoma\">SCENES</h4>""")
+            
+    for scene in file:
+        if re.match('SCENE', scene.upper()) and re.search('(EXCLUDE)', scene.upper()) is None:
+            a = re.search("SCENE", scene.upper())        
+            if a:
+                scene = scene[:a.start()] + scene[a.end():]
+            scene = scene.rstrip()
+            scene = scene.lstrip()
+            scene = scene.replace("  "," ")
+            cmds = scene
+            name = scene.split(' ')
+            name = name[0]
+            cmds = cmds.replace(name,"")
+            cmds = cmds.replace(";","; heyu ")
+            cmds = cmds.lstrip()
+            name = name.replace("_"," ")
+            print "<option value=\"?heyu_do_cmd " + cmds + "\"> " + name
+    file.closed     
+       
+    print "</optgroup><optgroup label=ALIASES>"
+    
+    
+    file = open(x10config)
+    for line in file:
+        if re.match('ALIAS', line.upper()) and re.search('(EXCLUDE)', line.upper()) is None:
+        
+            a = re.search("ALIAS", line.upper())        
+            if a:
+                line = line[:a.start()] + line[a.end():]
+            b = re.search("STDLM", line.upper())        
+            if b:
+                line = line[:b.start()] + line[b.end():]
+            c = re.search("STDAM", line.upper())        
+            if c:
+                line = line[:c.start()] + line[c.end():]          
+            
+        
+            line = line.replace("#","")
+            line = line.lstrip()
+            line = line.rstrip()
+            line = line.replace(" "," =",1)
+            line = line.split('=')
+            unit = line[0]
+            unit = unit.replace("_"," ")
+            addr = line[1]
+            addr = addr.lstrip()
+            
+        
+            # Call heyu and get on/off status and slice strings
+            process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
+            status = process.communicate()
+            status = status[0]        
+            xstatus = status.replace("1","off")
+            xstatus = xstatus.replace("0","on")
+            xstatus = xstatus.rstrip() 
+            status = status.replace("1","- On")
+            status = status.replace("0","- Off")
+            print "<option value=\"?heyu_do_cmd " + xstatus, addr + "\">" + unit, status
 
+            
+    file.closed
+    
+    
+    print(""" </optgroup>
+			<optgroup label=CONFIG>
+			<option value=?control_panel_@{x10_config}>Control Panel
+			<option value=?heyu_enable_all_units>All Units On
+			<option value=?heyu_disable_all_units>All Units Off
+			<option value=?kill_all_hc>All Units Off A-P
+			</optgroup>
+			</select>
+			</form>""")
+    print "<form method=post><button class=userconfigbutton type=button onclick=\"Status(); show('heyu_theme')\"> Change Theme</button></form>"
+
+    
 def main():
     print("""
 
@@ -292,16 +390,17 @@ def main():
          
     file.closed
     print("""
-            <!-- Close Form and Div -->
+                <!-- Close Form and Div -->
                 </form>
-           </table>
-        </div>
-    </body>
-</html>""")
+                </table>
+            </div>
+        </body>
+    </html>""")
     
 try:
     
     decoded_data = urllib2.unquote(data)
+    #print decoded_data
     if 'control_panel_save' in data:
     
         out = urllib2.unquote(data)        
@@ -401,7 +500,7 @@ try:
 		    <table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
 		    <td><span class=control_panel>Top</table></button><br>	
 		
-		    <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{theme}')\">
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('heyu_theme')\">
 		    <table><tr><td width=20><img src=./imgs/compact3.png width=25 height=25> 
 		    <td><span class=control_panel>Theme Compact</table></button><br>		
         """)
@@ -491,7 +590,7 @@ try:
             print info
              
         
-        elif 'control_panel_@{x10_config}' in data or 'control_panel_save' in data:
+        elif 'control_panel_@{x10_config}' in data or 'control_panel_save' in data and '@{updates}' not in data:
             file = open(x10config)
             for line in file:
                 line = line.strip()
@@ -520,7 +619,7 @@ try:
             
             def save_exit_buttons():
                 print("""
-                    <button class=userconfigbutton type=submit onclick=\"Status(); show('control_panel')\"> Save</button>""")  
+                    <button class=userconfigbutton type=submit onclick=\"Status(); "show('control_panel')\"> Save</button>""")  
         print("""
                     </textarea>
                     <br>
@@ -545,10 +644,22 @@ try:
 </html>""")
         
 except:
-    main()
+    try:
+        if heyu_theme == 'compact':
+            compact_theme()
+        else:
+            main()
+    except:
+        main()
 try:
     if 'control_panel' not in data:
-        main()
+        try:
+            if heyu_theme == 'compact':
+                compact_theme() 
+            else:
+                main()
+        except:
+            main()
 except:
     pass
 
