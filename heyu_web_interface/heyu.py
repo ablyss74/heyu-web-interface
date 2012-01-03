@@ -5,6 +5,8 @@
 # For now we define some static variables.
 # In the future this should be controlled in the control panel
 x10config = "./x10config"
+x10sched = "./x10.sched"
+x10report = "./report.txt"
 heyu = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
 
@@ -406,7 +408,8 @@ def main():
 try:
     
     decoded_data = urllib2.unquote(data)
-    #print decoded_data
+    # Debug data
+    # print decoded_data
     if 'control_panel_save' in data:
     
         out = urllib2.unquote(data)        
@@ -480,6 +483,7 @@ try:
 		    <table><tr><td width=20 height=25><img src=./imgs/alloff.png width=25 height=25><td><span class=control_panel>Exit</table></button><br>
             
             """)
+             
         else:
             print("""
             <button class=control_panel_buttons type=button onclick=\"Status(); show('control_panel_@{x10_config}')\">
@@ -512,17 +516,44 @@ try:
         """)
         print("""
                 <td class=control_panel valign=top align=center style=\"background:#CCC\">""")
-        
-        print("""
-        <table><tr><td><table class=control_panel><tr>
-		<tr>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{info}')\">Heyu Info</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{manpage=heyu}')\">Heyu Manual</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=}')\">Heyu Cmd...</button>
-		<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{kill_all_hc}')\">All Off A-P</button>
-	    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_restart}')\">Heyu Restart</button>
-		</table>
-        """)
+        if 'control_panel_@{schedule_' in data:
+            # Schedule View
+            print("""
+            <table><tr><td><table class=control_panel><tr>
+		    <tr>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{schedule_config}@{status}')\">Status</button>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{schedule_config}@{examples}')\">Examples</button>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{schedule_config}@{report}')\">Report</button>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{schedule_config}@{upload}')\">Upload</button>
+	        <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{schedule_config}@{erase}')\">Erase</button>
+		    </table>""")
+		    
+        elif 'control_panel_@{crontab}' in data:
+            pass
+            
+        else:
+            # Heyu Config View
+            print("""
+            <table><tr><td><table class=control_panel><tr>
+		    <tr>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{info}')\">Heyu Info</button>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{manpage=heyu}')\">Heyu Manual</button>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=}')\">Heyu Cmd...</button>
+		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{kill_all_hc}')\">All Off A-P</button>
+	        <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_restart}')\">Heyu Restart</button>
+		    </table>
+            """)
+            
+            # Crontab
+        if 'control_panel_@{crontab}' in decoded_data:
+            try:
+                # Export data
+                os.environ["data"] = data                  
+                from heyu_def import crontab
+                crontab()
+            except:
+                print "<table><tr><td>Error loading crontab</table>"
+ 
  
         if 'control_panel_@{x10_config}@{heyu_cmd=' in decoded_data:
             print("""<form method=POST>
@@ -538,9 +569,13 @@ try:
             print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + Heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
         
         # We dont need textarea in updates or top         
-        if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data:
+        if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data and 'control_panel_@{crontab}' not in data:
             print("""
                     <textarea name=control_panel_save>""")
+                    
+                
+                
+        # Everything else belows gets put in textarea            
         
         if 'control_panel_@{x10_config}@{info}' in data:
             info = subprocess.Popen(heyu + " -c " + x10config + " info ", shell=True, stdout=subprocess.PIPE)
@@ -548,6 +583,53 @@ try:
             info = info[0]
             print info
             
+
+        elif 'control_panel_@{schedule_config}@{erase}' in data:
+            info = subprocess.Popen(heyu + " -c " + x10config + " -s " + x10sched + " erase", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+            
+            
+        elif 'control_panel_@{schedule_config}@{upload}' in data:
+            info = subprocess.Popen(heyu + " -c " + x10config + " -s " + x10sched + " upload", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+            
+        elif 'control_panel_@{schedule_config}@{report}' in data:
+            try:
+                file = open(x10report)
+                for line in file:
+                    line = line.strip()
+                    print line
+                file.closed
+            except:
+                print "Error reading x10report file. Are you sure you spelled it correctly?"
+            
+        elif 'control_panel_@{schedule_config}@{examples}' in data:
+            info = subprocess.Popen("man -E UTF-8 X10SCHED 2>/dev/null", shell=True, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info         
+
+        elif 'control_panel_@{schedule_config}@{status}' in data:
+            info = subprocess.Popen(heyu + " -c " + x10config + " -s " + x10sched + " upload status ", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = info.communicate()
+            info = info[0]
+            print info
+            
+        elif 'control_panel_@{schedule_config}' in data:
+            try:
+                file = open(x10sched)
+                for line in file:
+                    line = line.strip()
+                    print line
+                file.closed
+            except:
+                print "Error reading x10sched file. Are you sure you spelled it correctly?"
+
+           
         elif 'control_panel_@{top}' in data:
             print("""
                     </textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff ><iframe align=center 
@@ -555,8 +637,6 @@ try:
             
             
         elif 'control_panel_@{x10_config}@{kill_all_hc}' in data:
-            out = data.replace("control_panel_@{x10_config}@{kill_all_hc}","")
-            out = out[:-1]
             info = subprocess.Popen(heyu + " -c " + x10config + " kill_all_hc ", shell=True, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
@@ -571,8 +651,6 @@ try:
             print info
      
         elif 'control_panel_@{x10_config}@{heyu_restart}' in data:
-            out = data.replace("control_panel_@{x10_config}@{heyu_restart}","")
-            out = out[:-1]
             info = subprocess.Popen(heyu + " -c " + x10config + " stop; sleep " + restart_sleep_interval + "; " + heyu + " -c " + x10config + " start", shell=True, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
