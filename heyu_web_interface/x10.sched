@@ -1,0 +1,4 @@
+timer smtwtfs 01/01-12/31 dusk+21 23:31 lights_on lights_off 
+macro lights_on 0 on B8,13; dim D13 8
+macro lights_off 0 off B8,13; off D13
+
