@@ -3,12 +3,8 @@
 # Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 
-import os
-
-data = os.environ['data']
-
-
-def crontab():
+def crontab(data):
+    
     print("""
             <table><tr><td><table class=control_panel><tr>
 		    <tr>
