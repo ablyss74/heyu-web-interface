@@ -546,11 +546,9 @@ try:
             
             # Crontab
         if 'control_panel_@{crontab}' in decoded_data:
-            try:
-                # Export data
-                os.environ["data"] = data                  
+            try:                
                 from heyu_def import crontab
-                crontab()
+                crontab(data)
             except:
                 print "<table><tr><td>Error loading crontab</table>"
  
