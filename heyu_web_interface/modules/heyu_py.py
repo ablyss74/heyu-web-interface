@@ -9,10 +9,10 @@ cgitb.enable()
                 
 def engine(heyu, x10config):
     # Is the heyu engine running ?
-    engine = subprocess.Popen(heyu + " -c " + x10config + " enginestate ", shell=True, stdout=subprocess.PIPE)
+    engine = subprocess.Popen([heyu, '-c', x10config, 'enginestate'], stdout=subprocess.PIPE)
     engine = engine.communicate()
     if 'starting heyu_relay\n0\n' in engine or '0\n' in engine:
-        subprocess.call(heyu + " -c " + x10config + " engine ", shell=True,)
+        subprocess.call([heyu, '-c', x10config, 'engine'])
 
    
 def html(Heyu_web_interface_version, auto_refresh_rate):
@@ -196,7 +196,7 @@ def control_panel(data, x10config, x10sched, x10report,
         if 'control_panel_@{x10_config}@{heyu_cmd=' in decoded_data:
             print("""<form method=POST>
                 <br><table class=control_panel><tr>
-			    <td>Enter Command:<input type=text name=\"control_panel_@{x10_config}@{heyu_cmd\" onsubmit=\"Status(); show('')\">
+			    <td>Enter Command:<input type=text value=\"webhook config_dump\" name=\"control_panel_@{x10_config}@{heyu_cmd\" onsubmit=\"Status(); show('')\">
 			    <td><input type=submit value=Enter>
 			    <td><button type=button onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=help}')\">Help</button>
 		        </table></form>
@@ -216,21 +216,21 @@ def control_panel(data, x10config, x10sched, x10report,
         # Everything else belows gets put in textarea            
         
         if 'control_panel_@{x10_config}@{info}' in data:
-            info = subprocess.Popen(heyu + " -c " + x10config + " info ", shell=True, stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, 'info'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
             
 
         elif 'control_panel_@{schedule_config}@{erase}' in data:
-            info = subprocess.Popen(heyu + " -c " + x10config + " -s " + x10sched + " erase", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, '-s', x10sched, 'erase'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
             
             
         elif 'control_panel_@{schedule_config}@{upload}' in data:
-            info = subprocess.Popen(heyu + " -c " + x10config + " -s " + x10sched + " upload", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, '-s', x10sched, 'upload'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
@@ -246,13 +246,13 @@ def control_panel(data, x10config, x10sched, x10report,
                 print "Error reading x10report file. Are you sure you spelled it correctly?"
             
         elif 'control_panel_@{schedule_config}@{examples}' in data:
-            info = subprocess.Popen("man -E UTF-8 X10SCHED 2>/dev/null", shell=True, stdout=subprocess.PIPE)
+            info = subprocess.Popen(['man', '-E', 'UTF-8', 'X10SCHED', '2>/dev/null'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info         
 
         elif 'control_panel_@{schedule_config}@{status}' in data:
-            info = subprocess.Popen(heyu + " -c " + x10config + " -s " + x10sched + " upload status ", shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, '-s', x10sched, 'upload', 'status'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
@@ -275,7 +275,7 @@ def control_panel(data, x10config, x10sched, x10report,
             
             
         elif 'control_panel_@{x10_config}@{kill_all_hc}' in data:
-            info = subprocess.Popen(heyu + " -c " + x10config + " kill_all_hc ", shell=True, stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, 'kill_all_hc'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
@@ -283,13 +283,15 @@ def control_panel(data, x10config, x10sched, x10report,
         elif 'control_panel_@{x10_config}@{manpage' in data:
             out = data.replace("control_panel_@{x10_config}@{manpage=","")
             out = out[:-1]
-            info = subprocess.Popen("man -E UTF-8 " + out + "  2>/dev/null", shell=True, stdout=subprocess.PIPE)
+            info = subprocess.Popen(['man', '-E', 'UTF-8', out, '2>/dev/null'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
      
         elif 'control_panel_@{x10_config}@{heyu_restart}' in data:
-            info = subprocess.Popen(heyu + " -c " + x10config + " stop; sleep " + restart_sleep_interval + "; " + heyu + " -c " + x10config + " start", shell=True, stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, 'stop'], stdout=subprocess.PIPE)
+            info = subprocess.Popen(['sleep', restart_sleep_interval], stdout=subprocess.PIPE)
+            info = subprocess.Popen([heyu, '-c', x10config, 'start'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             info = info.replace("starting heyu_relay","",1)
@@ -297,16 +299,20 @@ def control_panel(data, x10config, x10sched, x10report,
             info = info.replace("starting","Restarted the")
             info = info.strip()
             print info
-         
+            
+        elif 'control_panel_@{x10_config}@{heyu_cmd=monitor' in decoded_data:
+            print "Monitor command disabled."         
 
         elif 'control_panel_@{x10_config}@{heyu_cmd=' in decoded_data:
             out = urllib2.unquote(data)
-            out = out.replace("+"," ")
+            out = out.replace("+",",")
             out = out.replace("monitor","")
             out = out.replace("control_panel_@{x10_config}@{heyu_cmd=","")                 
             out = out.replace("@{heyu_cmd=","")
             out = out.replace("}","")
-            info = subprocess.Popen(heyu + " -c " + x10config + " " + out, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+            out = 'heyu,-c,x10config,' + out
+            out = out.split(",")
+            info = subprocess.Popen(out, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
@@ -489,7 +495,7 @@ def main(data, x10config, x10sched, x10report, heyu, HC, auto_refresh, auto_refr
             
         
             # Call heyu and get on/off status and slice strings
-            process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
+            process = subprocess.Popen([heyu, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
             status = process.communicate()
             status = status[0]        
             on_icon = status.replace("1","<img src=\"imgs/on2.png\" class=icons>")
@@ -501,13 +507,13 @@ def main(data, x10config, x10sched, x10report, heyu, HC, auto_refresh, auto_refr
             status = status.replace("0","<font class=info_off_color>Off</font>")
         
             # Call heyu and get dimlevel.
-            dimlevel = subprocess.Popen(heyu + " -c " + x10config + " dimlevel " + addr, shell=True, stdout=subprocess.PIPE)
+            dimlevel = subprocess.Popen([heyu, '-c', x10config, 'dimlevel', addr], stdout=subprocess.PIPE)
             dimlevel = dimlevel.communicate()
             dimlevel = dimlevel[0]
             dimlevel = dimlevel.rstrip()
         
             # Call heyu and get time stamp and slice strings.
-            timestamp = subprocess.Popen(heyu + " -c " + x10config + " show tstamp " + addr, shell=True, stdout=subprocess.PIPE)
+            timestamp = subprocess.Popen([heyu, '-c', x10config , 'show', 'tstamp', addr], stdout=subprocess.PIPE)
             timestamp = timestamp.communicate()
             try:
                 timestamp = timestamp[0]
@@ -546,4 +552,4 @@ def main(data, x10config, x10sched, x10report, heyu, HC, auto_refresh, auto_refr
     </html>""")
     
 
-    
+
