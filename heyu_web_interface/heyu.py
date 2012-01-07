@@ -9,7 +9,7 @@ import heyu_py
 
 # For now we define some static variables.
 # In the future this should be controlled in the control panel
-# Restart_sleep_interval allow heyu to restart gracefully
+# Restart_sleep_interval allows heyu to restart gracefully
 # HC = housecode
 x10config = "./x10config"
 x10sched = "./x10.sched"
