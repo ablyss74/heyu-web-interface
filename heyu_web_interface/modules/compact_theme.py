@@ -67,7 +67,7 @@ def theme(x10config, x10sched, heyu, HC):
             
 
             # Call heyu and get on/off status and slice strings
-            process = subprocess.Popen(heyu + " -c " + x10config + " onstate " + addr, shell=True, stdout=subprocess.PIPE)
+            process = subprocess.Popen([heyu, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
             status = process.communicate()
             status = status[0]        
             xstatus = status.replace("1","off")
