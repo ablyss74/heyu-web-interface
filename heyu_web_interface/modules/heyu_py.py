@@ -188,7 +188,6 @@ def control_panel(data, x10config, x10sched, x10report,
             # Crontab
         if 'control_panel_@{crontab}' in decoded_data:
             try:                
-                from heyu_def import crontab
                 crontab(data)
             except:
                 print "<table><tr><td>Error loading crontab</table>"
