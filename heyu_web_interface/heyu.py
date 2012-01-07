@@ -107,6 +107,13 @@ except:
 
 heyu_py.html(Heyu_web_interface_version, auto_refresh_rate)
 
+# Cookies are assigned at session close.
+# Assign tmp variable to auto_refresh for first start up
+try:
+    if auto_refresh is None:
+        auto_refresh = "False"
+except:
+    auto_refresh = "False"
 
 def _main_():
     heyu_py.main(data, x10config, x10sched, x10report, heyu, HC, 
