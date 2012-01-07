@@ -102,7 +102,8 @@ try:
 except:
     data = urllib2.unquote(os.environ['QUERY_STRING'])
     cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
-    subprocess.call(cmd, shell=True,)
+    cmd = cmd.split()
+    subprocess.call(cmd)
     
 
 heyu_py.html(Heyu_web_interface_version, auto_refresh_rate)
