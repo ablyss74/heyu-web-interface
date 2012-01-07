@@ -54,7 +54,8 @@ try:
 
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
-            subprocess.call(cmd, shell=True,)
+            cmd = cmd.split()
+            subprocess.call(cmd)
             #For debugging 
             #print('Content-type:text/html')
             #print('')
