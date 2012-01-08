@@ -6,6 +6,11 @@
 import cgitb, sys, os, re, subprocess, urllib2
 cgitb.enable()
 
+#def cookies():
+#    info = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+#    info = info.communicate()
+#    info = info[0]
+#    print info
                 
 def engine(heyu, x10config):
     # Is the heyu engine running ?
@@ -45,6 +50,7 @@ def html(Heyu_web_interface_version, auto_refresh_rate):
         <!-- Begin Div -->
             <div id=content>""")
 
+
 def control_panel(data, x10config, x10sched, x10report,
                         heyu, HC, Heyu_web_interface_version, 
                         restart_sleep_interval):
@@ -79,8 +85,8 @@ def control_panel(data, x10config, x10sched, x10report,
     if 'control_panel' in data:
         print("""
             <!-- Begin Form Post For Control Panel -->
-            <form method=post>
-        
+            
+            
             <table class=control_panel align=center border=0 cellspacing=0 cellpadding=15>
             <tr><td class=control_panel valign=top align=center style=\"background:#CCC\">
             """)
@@ -197,8 +203,9 @@ def control_panel(data, x10config, x10sched, x10report,
             print("""<form method=POST>
                 <br><table class=control_panel><tr>
 			    <td>Enter Command:<input type=text value=\"webhook config_dump\" name=\"control_panel_@{x10_config}@{heyu_cmd\" onsubmit=\"Status(); show('')\">
-			    <td><input type=submit value=Enter>
-			    <td><button type=button onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=help}')\">Help</button>
+			    <td><button type=sumbit value=\"webhook config_dump\" >Enter</button>
+			    <!-- <input type=submit value=Enter> -->
+			    <td><button type=button onclick=\"Status(); show('control_panel_@{x10_config}@{heyu_cmd=help}')\">Help</button></form>
 		        </table></form>
             """)
             
@@ -207,8 +214,8 @@ def control_panel(data, x10config, x10sched, x10report,
             print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + Heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
         
         # We dont need textarea in updates or top         
-        if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data and 'control_panel_@{crontab}' not in data:
-            print("""
+        if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data and 'control_panel_@{crontab}' not in data:        
+            print("""<form method=post>
                     <textarea name=control_panel_save>""")
                     
                 
@@ -319,6 +326,7 @@ def control_panel(data, x10config, x10sched, x10report,
              
         
         elif 'control_panel_@{x10_config}' in data or 'control_panel_save' in data and '@{updates}' not in data:
+            
             file = open(x10config)
             for line in file:
                 line = line.strip()
