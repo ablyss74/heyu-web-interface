@@ -18,7 +18,6 @@ def engine(heyu, x10config):
     engine = engine.communicate()
     if 'starting heyu_relay\n0\n' in engine or '0\n' in engine:
         subprocess.call([heyu, '-c', x10config, 'engine'])
-
    
 def html(Heyu_web_interface_version, auto_refresh_rate):
     print('Content-type:text/html')
@@ -49,7 +48,7 @@ def html(Heyu_web_interface_version, auto_refresh_rate):
      <div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>
         <!-- Begin Div -->
             <div id=content>""")
-
+    
 
 def control_panel(data, x10config, x10sched, x10report,
                         heyu, HC, Heyu_web_interface_version, 
