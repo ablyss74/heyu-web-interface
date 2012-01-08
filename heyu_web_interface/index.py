@@ -17,7 +17,7 @@ x10report = "./report.txt"
 heyu_path = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
 restart_sleep_interval = "5"
-Heyu_web_interface_version = "11.56_beta"
+heyu_web_interface_version = "11.56_beta"
 file = open(x10config)
 for H in file:
     if re.match('HOUSECODE', H.upper()):
@@ -30,7 +30,7 @@ heyu.engine(heyu_path, x10config)
 
 expires = "expires=01-Jan-2036 12:00:00 GMT" 
 if 'HTTP_COOKIE' not in os.environ.keys():
-    print "Set-Cookie: Interface_version=", Heyu_web_interface_version, ";", expires
+    print "Set-Cookie: Interface_version=", heyu_web_interface_version, ";", expires
     print "Set-Cookie: auto_refresh=False;", expires
     print "Set-Cookie: heyu_show_all_modules=False;", expires
     print "Set-Cookie: heyu_theme=default;", expires
@@ -109,7 +109,7 @@ except:
         pass
     
 
-heyu.html(Heyu_web_interface_version, auto_refresh_rate)
+heyu.html(heyu_web_interface_version, auto_refresh_rate)
 
 
 # Cookies are assigned at session close.
@@ -126,7 +126,7 @@ def _main_():
 
 
 heyu.control_panel(data, x10config, x10sched, x10report, 
-                   heyu_path, HC, Heyu_web_interface_version, 
+                   heyu_path, HC, heyu_web_interface_version, 
                    restart_sleep_interval)
 try:
     if 'control_panel' not in data:

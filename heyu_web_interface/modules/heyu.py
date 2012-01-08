@@ -19,12 +19,12 @@ def engine(heyu_path, x10config):
     if 'starting heyu_relay\n0\n' in engine or '0\n' in engine:
         subprocess.call([heyu_path, '-c', x10config, 'engine'])
    
-def html(Heyu_web_interface_version, auto_refresh_rate):
+def html(heyu_web_interface_version, auto_refresh_rate):
     print('Content-type:text/html')
     print('')    
     # Start HTML, Javascript 
     print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
-    print("<html><head><title>Heyu Web Interface v." + Heyu_web_interface_version + "</title>")
+    print("<html><head><title>Heyu Web Interface v." + heyu_web_interface_version + "</title>")
     print( """
     <style type=text/css>
     @import url(heyu_style.css);
@@ -51,7 +51,7 @@ def html(Heyu_web_interface_version, auto_refresh_rate):
     
 
 def control_panel(data, x10config, x10sched, x10report,
-                        heyu_path, HC, Heyu_web_interface_version, 
+                        heyu_path, HC, heyu_web_interface_version, 
                         restart_sleep_interval):
     decoded_data = urllib2.unquote(data)
     # Debug data
@@ -210,7 +210,7 @@ def control_panel(data, x10config, x10sched, x10report,
             
         if 'control_panel_@{updates}' in data:
             print "</textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff >"
-            print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + Heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
+            print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
         
         # We dont need textarea in updates or top         
         if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data and 'control_panel_@{crontab}' not in data:        
