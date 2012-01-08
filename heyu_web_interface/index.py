@@ -5,7 +5,7 @@
 import cgitb, sys, os, re, subprocess, urllib2
 sys.path.append('./modules')
 cgitb.enable()
-import heyu_py
+import heyu
 
 # For now we define some static variables.
 # In the future this should be controlled in the control panel
@@ -14,7 +14,7 @@ import heyu_py
 x10config = "./x10config"
 x10sched = "./x10.sched"
 x10report = "./report.txt"
-heyu = "/usr/local/bin/heyu"
+heyu_path = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
 restart_sleep_interval = "5"
 Heyu_web_interface_version = "11.56_beta"
@@ -25,7 +25,7 @@ for H in file:
 file.closed 
 
 
-heyu_py.engine(heyu, x10config)
+heyu.engine(heyu_path, x10config)
 
 
 expires = "expires=01-Jan-2036 12:00:00 GMT" 
@@ -53,7 +53,7 @@ try:
     for data in sys.stdin:    
 
         if 'heyu_do_cmd' in data:
-            cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
+            cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
             cmd = cmd.split()
             subprocess.call(cmd)
             #For debugging 
@@ -101,7 +101,7 @@ try:
         pass
 except:
     data = urllib2.unquote(os.environ['QUERY_STRING'])
-    cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
+    cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
     cmd = cmd.split()
     try:
         subprocess.call(cmd)
@@ -109,7 +109,7 @@ except:
         pass
     
 
-heyu_py.html(Heyu_web_interface_version, auto_refresh_rate)
+heyu.html(Heyu_web_interface_version, auto_refresh_rate)
 
 
 # Cookies are assigned at session close.
@@ -121,19 +121,19 @@ except:
     auto_refresh = "False"
 
 def _main_():
-    heyu_py.main(data, x10config, x10sched, x10report, heyu, HC, 
+    heyu.main(data, x10config, x10sched, x10report, heyu_path, HC, 
     auto_refresh, auto_refresh_rate)
 
 
-heyu_py.control_panel(data, x10config, x10sched, x10report, 
-                   heyu, HC, Heyu_web_interface_version, 
+heyu.control_panel(data, x10config, x10sched, x10report, 
+                   heyu_path, HC, Heyu_web_interface_version, 
                    restart_sleep_interval)
 try:
     if 'control_panel' not in data:
         try:
             if heyu_theme == 'compact':
                 from compact_theme import theme
-                theme(x10config, x10sched, heyu, HC)
+                theme(x10config, x10sched, heyu_path, HC)
             else:
                 _main_()     
         except:
