@@ -103,10 +103,14 @@ except:
     data = urllib2.unquote(os.environ['QUERY_STRING'])
     cmd = data.replace("heyu_do_cmd",heyu + " -c " + x10config)
     cmd = cmd.split()
-    subprocess.call(cmd)
+    try:
+        subprocess.call(cmd)
+    except:
+        pass
     
 
 heyu_py.html(Heyu_web_interface_version, auto_refresh_rate)
+
 
 # Cookies are assigned at session close.
 # Assign tmp variable to auto_refresh for first start up
