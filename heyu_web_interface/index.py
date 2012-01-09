@@ -18,6 +18,7 @@ heyu_path = "/usr/local/bin/heyu"
 auto_refresh_rate = "10"
 restart_sleep_interval = "5"
 heyu_web_interface_version = "11.56_beta"
+expires = "expires=01-Jan-2036 12:00:00 GMT" 
 file = open(x10config)
 for H in file:
     if re.match('HOUSECODE', H.upper()):
@@ -27,8 +28,6 @@ file.closed
 
 heyu.engine(heyu_path, x10config)
 
-
-expires = "expires=01-Jan-2036 12:00:00 GMT" 
 if 'HTTP_COOKIE' not in os.environ.keys():
     print "Set-Cookie: Interface_version=", heyu_web_interface_version, ";", expires
     print "Set-Cookie: auto_refresh=False;", expires
@@ -110,6 +109,8 @@ except:
     
 
 heyu.html(heyu_web_interface_version, auto_refresh_rate)
+
+
 
 
 # Cookies are assigned at session close.

@@ -3,61 +3,61 @@
 # Use this tty if you have a computer that supports it otherwise use the ttyusb
 # TTY /dev/ttyS0
 
-TTY   /dev/ttyUSB0 
+TTY   /dev/ttyUSB0
 
 # Auto start the relay engine
 START_ENGINE AUTO
 
 HOUSECODE   A
 
-# Change the longitude and latitude coordinates to the location that runs heyu 
+# Change the longitude and latitude coordinates to the location that runs heyu
 LONGITUDE         W84:00       # [degrees:minutes East or West of Greenwich]
 LATITUDE          N33:94       # [degrees:minutes North or South of equator]
 
 # SCHEDULE_FILE directives do not apply with the heyu web interface.  Edit Interface Config instead.
- 
-ALIAS     Living_Room            A1      StdLM 
+
+ALIAS     Living_Room            A1      StdLM
 ALIAS     Fireplace              A2      StdLM
 ALIAS     Hall                   A3      StdLM
-ALIAS     Master_Lights          A4      StdLM 
+ALIAS     Master_Lights          A4      StdLM
 ALIAS     Basement_Lights        A6      StdLM
 ALIAS     Office_Heater          A16     StdAM
 
 # Hide buttons by commenting "Exclude" in any Alias or Scene.
 
-ALIAS     Polaris                B3      StdAM # 
+ALIAS     Polaris                B3      StdAM #
 ALIAS     Pool                   B5      StdAM #
-ALIAS     Mushroom_Lights        B8      StdAM # 
+ALIAS     Mushroom_Lights        B8      StdAM #
 ALIAS     Front_Sconces          B13     StdLM #
 alias        xmas_tree              a8       stdlm
 
-ALIAS     Grow_Lights            G1      StdAM # 
+ALIAS     Grow_Lights            G1      StdAM #
 
 ALIAS     Irrigation_Front       l1      StdAM #
-ALIAS     Irrigation_Back        l2      StdAM # 
-ALIAS     Water_Level            l3      StdAM # 
+ALIAS     Irrigation_Back        l2      StdAM #
+ALIAS     Water_Level            l3      StdAM #
 
 
-# This demonstrates how an alias can trigger multiple events 
+# This demonstrates how an alias can trigger multiple events
 # It is also case insensitive.
 alias Test1 E1,2,3 StdAM # This is a "Test" # Exclude
 
-ALIAS     Floods                 C5      StdAM # 
-ALIAS     Front_Recessed         D13     StdLM # 
+ALIAS     Floods                 C5      StdAM #
+ALIAS     Front_Recessed         D13     StdLM #
 
 USERSYN USERSYN off A6 # Exclude
 
 SCENE  Entertainment bright A1-3 22 ; dim A1-3 4
 SCENE  Subtle_Moods  bright A1-3 22 ; dim A1-3 7
 SCENE  All_Lights_Off alloff A
-SCENE  All_Lights_On lightson A 
+SCENE  All_Lights_On lightson A
 
 
 # The below sensors are experimental for testing heyu web interface
 # They are pseudo addresses copied from the man pages and can be deleted.
-#ALIAS     OregonT                  C6      ORE_T1    0x1F 
-#ALIAS     OregonTH                 C7      ORE_TH1   0x24 
-#ALIAS     OregonTHB                C8      ORE_THB1  0xF5 
+#ALIAS     OregonT                  C6      ORE_T1    0x1F
+#ALIAS     OregonTH                 C7      ORE_TH1   0x24
+#ALIAS     OregonTHB                C8      ORE_THB1  0xF5
 #ALIAS     DigiMax                  C9      DIGIMAX   EB83
 #ALIAS     RFXPower                 C10     RFXPOWER  08
 #ALIAS     RFXSensor                C11     RFXSENSOR 0x00 TH
@@ -67,7 +67,7 @@ SCENE  All_Lights_On lightson A
 # SCRIPT [ -l label ] <launch conditions> :: [options] <command line>
 # USERSYN normal_lights  on front_porch; on back_porch
 # USERSYN night_lights dimb front_porch $1; dimb back_porch $1
- 
+
 # LOG_DIR  NONE
 
 # MODE              COMPATIBLE   # COMPATIBLE  HEYU
@@ -87,4 +87,3 @@ SCENE  All_Lights_On lightson A
 # REPORT_PATH  ./                # [127 characters max.]
 # REPL_DELAYED_MACROS     YES    # YES  NO
 # WRITE_CHECK_FILES       NO     # YES  NO
-

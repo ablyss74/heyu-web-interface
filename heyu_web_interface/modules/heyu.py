@@ -5,12 +5,6 @@
 
 import cgitb, sys, os, re, subprocess, urllib2
 cgitb.enable()
-
-#def cookies():
-#    info = subprocess.Popen(['env'], stdout=subprocess.PIPE)
-#    info = info.communicate()
-#    info = info[0]
-#    print info
                 
 def engine(heyu_path, x10config):
     # Is the heyu engine running ?
