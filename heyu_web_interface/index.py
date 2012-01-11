@@ -44,13 +44,16 @@ if 'HTTP_COOKIE' in os.environ.keys():
             auto_refresh = "False"
         if re.search('(heyu_show_all_modules=True)', x) is not None:
             heyu_show_all_modules = "True"
+        if re.search('(heyu_show_all_modules=False)', x) is not None:
+            heyu_show_all_modules = "False"
         if re.search('(heyu_theme=compact)', x) is not None:
             heyu_theme = "compact"
+        if re.search('(heyu_theme=default)', x) is not None:
+            heyu_theme = "default"
     
    
 try:
-    for data in sys.stdin:    
-
+    for data in sys.stdin:            
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
             cmd = cmd.split()
@@ -59,6 +62,7 @@ try:
             #print('Content-type:text/html')
             #print('')
             #print cmd
+            
             
             
         else:
@@ -99,13 +103,16 @@ try:
     if data:
         pass
 except:
-    data = urllib2.unquote(os.environ['QUERY_STRING'])
-    cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
-    cmd = cmd.split()
-    try:
-        subprocess.call(cmd)
-    except:
-        pass
+    if heyu_theme == 'compact':
+        data = urllib2.unquote(os.environ['QUERY_STRING'])
+        cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
+        cmd = cmd.split()
+        try:
+            subprocess.call(cmd)
+        except:
+            pass
+    else:
+        data = ""
     
 
 heyu.html(heyu_web_interface_version, auto_refresh_rate)
