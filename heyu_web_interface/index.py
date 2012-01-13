@@ -2,7 +2,7 @@
 # Author: 	Kris Beazley
 # Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
-import cgitb, sys, os, re, subprocess, urllib2
+import cgitb, sys, os, re, subprocess, urllib2, hashlib
 sys.path.append('./modules')
 cgitb.enable()
 import heyu
@@ -31,8 +31,11 @@ heyu.engine(heyu_path, x10config)
 if 'HTTP_COOKIE' not in os.environ.keys():
     print "Set-Cookie: Interface_version=", heyu_web_interface_version, ";", expires
     print "Set-Cookie: auto_refresh=False;", expires
+    auto_refresh = "False"
     print "Set-Cookie: heyu_show_all_modules=False;", expires
+    heyu_show_all_modules = "False"
     print "Set-Cookie: heyu_theme=default;", expires
+    heyu_theme = "default"
    
    
 if 'HTTP_COOKIE' in os.environ.keys():
@@ -116,8 +119,6 @@ except:
     
 
 heyu.html(heyu_web_interface_version, auto_refresh_rate)
-
-
 
 
 # Cookies are assigned at session close.
