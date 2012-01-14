@@ -120,12 +120,9 @@ except:
 
 heyu.html(heyu_web_interface_version, auto_refresh_rate)
 
-
-# Cookies are assigned at session close.
-# Assign tmp variable to auto_refresh for first start up
 try:
-    if auto_refresh is None:
-        auto_refresh = "False"
+    if auto_refresh:
+        pass
 except:
     auto_refresh = "False"
 
