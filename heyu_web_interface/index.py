@@ -2,7 +2,7 @@
 # Author: 	Kris Beazley
 # Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
-import cgitb, sys, os, re, subprocess, urllib2, hashlib
+import cgitb, sys, os, re, subprocess, urllib2
 sys.path.append('./modules')
 cgitb.enable()
 import heyu
