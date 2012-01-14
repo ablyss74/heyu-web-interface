@@ -130,7 +130,7 @@ heyu.control_panel(data, x10config, x10sched, x10report,
                    heyu_path, HC, heyu_web_interface_version, 
                    restart_sleep_interval)
                    
-if 'control_panel_@' not in data:
+if 'control_panel_@' not in urllib2.unquote(data):
      if heyu_theme == 'compact':
          from compact_theme import theme1
          theme1(x10config, x10sched, heyu_path, HC)
