@@ -129,24 +129,14 @@ try:
 except:
     auto_refresh = "False"
 
-def _main_():
-    heyu.main(data, x10config, x10sched, x10report, heyu_path, HC, 
-    auto_refresh, auto_refresh_rate)
-
-
 heyu.control_panel(data, x10config, x10sched, x10report, 
                    heyu_path, HC, heyu_web_interface_version, 
                    restart_sleep_interval)
-try:
-    if 'control_panel' not in data:
-        try:
-            if heyu_theme == 'compact':
-                from compact_theme import theme
-                theme(x10config, x10sched, heyu_path, HC)
-            else:
-                _main_()     
-        except:
-            _main_()
-except:
-    _main_()
-
+                   
+if 'control_panel_@' not in data:
+     if heyu_theme == 'compact':
+         from compact_theme import theme1
+         theme1(x10config, x10sched, heyu_path, HC)
+     else:
+        heyu.aliases(data, x10config, x10sched, x10report, heyu_path, HC, 
+        auto_refresh, auto_refresh_rate)    

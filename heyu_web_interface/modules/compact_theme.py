@@ -6,7 +6,7 @@
 import cgitb, sys, os, re, subprocess, urllib2
 cgitb.enable()
 
-def theme(x10config, x10sched, heyu, HC):
+def theme1(x10config, x10sched, heyu, HC):
 
     print("""
             <form method=post><select name=states onChange=\"goPage(this.options[this.selectedIndex].value)\" size=1>

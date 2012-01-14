@@ -50,11 +50,11 @@ def control_panel(data, x10config, x10sched, x10report,
     decoded_data = urllib2.unquote(data)
     # Debug data
     # print decoded_data
-    if 'control_panel_save' in data:
+    if 'control_panel_@{save}' in decoded_data:
     
         out = urllib2.unquote(data)        
         out = out.replace("+"," ")
-        out = out.replace("control_panel_save=","")
+        out = out.replace("control_panel_@{save}=","")
         out = out.replace("control_panel_","")
         out = out.replace("@{config}","")  
         out = out.replace("@{x10_config}","")
@@ -75,7 +75,7 @@ def control_panel(data, x10config, x10sched, x10report,
         f.closed
         
         
-    if 'control_panel' in data:
+    if 'control_panel' in decoded_data:
         print("""
             <!-- Begin Form Post For Control Panel -->
             
@@ -83,7 +83,7 @@ def control_panel(data, x10config, x10sched, x10report,
             <table class=control_panel align=center border=0 cellspacing=0 cellpadding=15>
             <tr><td class=control_panel valign=top align=center style=\"background:#CCC\">
             """)
-        if 'manpage' in data:
+        if 'manpage' in decoded_data:
             print("""
            
             <button class=control_panel_buttons type=button onclick=\"Status();show('control_panel_@{x10_config}@{manpage=heyu}')\">
@@ -156,7 +156,7 @@ def control_panel(data, x10config, x10sched, x10report,
         """)
         print("""
                 <td class=control_panel valign=top align=center style=\"background:#CCC\">""")
-        if 'control_panel_@{schedule_' in data:
+        if 'control_panel_@{schedule_' in decoded_data:
             # Schedule View
             print("""
             <table><tr><td><table class=control_panel><tr>
@@ -168,7 +168,7 @@ def control_panel(data, x10config, x10sched, x10report,
 	        <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{schedule_config}@{erase}')\">Erase</button>
 		    </table>""")
 		    
-        elif 'control_panel_@{crontab}' in data:
+        elif 'control_panel_@{crontab}' in decoded_data:
             pass
             
         else:
@@ -202,40 +202,40 @@ def control_panel(data, x10config, x10sched, x10report,
 		        </table></form>
             """)
             
-        if 'control_panel_@{updates}' in data:
+        if 'control_panel_@{updates}' in decoded_data:
             print "</textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff >"
             print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
         
         # We dont need textarea in updates or top         
-        if 'control_panel_@{updates}' not in data and 'control_panel_@{top}' not in data and 'control_panel_@{crontab}' not in data:        
+        if 'control_panel_@{updates}' not in decoded_data and 'control_panel_@{top}' not in decoded_data and 'control_panel_@{crontab}' not in decoded_data:        
             print("""<form method=post>
-                    <textarea name=control_panel_save>""")
+                    <textarea name=control_panel_@{save}>""")
                     
                 
                 
         # Everything else belows gets put in textarea            
         
-        if 'control_panel_@{x10_config}@{info}' in data:
+        if 'control_panel_@{x10_config}@{info}' in decoded_data:
             info = subprocess.Popen([heyu_path, '-c', x10config, 'info'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
             
 
-        elif 'control_panel_@{schedule_config}@{erase}' in data:
+        elif 'control_panel_@{schedule_config}@{erase}' in decoded_data:
             info = subprocess.Popen([heyu_path, '-c', x10config, '-s', x10sched, 'erase'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
             
             
-        elif 'control_panel_@{schedule_config}@{upload}' in data:
+        elif 'control_panel_@{schedule_config}@{upload}' in decoded_data:
             info = subprocess.Popen([heyu_path, '-c', x10config, '-s', x10sched, 'upload'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
             
-        elif 'control_panel_@{schedule_config}@{report}' in data:
+        elif 'control_panel_@{schedule_config}@{report}' in decoded_data:
             try:
                 file = open(x10report)
                 for line in file:
@@ -245,19 +245,19 @@ def control_panel(data, x10config, x10sched, x10report,
             except:
                 print "Error reading x10report file. Are you sure you spelled it correctly?"
             
-        elif 'control_panel_@{schedule_config}@{examples}' in data:
+        elif 'control_panel_@{schedule_config}@{examples}' in decoded_data:
             info = subprocess.Popen(['man', '-E', 'UTF-8', 'X10SCHED', '2>/dev/null'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info         
 
-        elif 'control_panel_@{schedule_config}@{status}' in data:
+        elif 'control_panel_@{schedule_config}@{status}' in decoded_data:
             info = subprocess.Popen([heyu_path, '-c', x10config, '-s', x10sched, 'upload', 'status'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
             
-        elif 'control_panel_@{schedule_config}' in data:
+        elif 'control_panel_@{schedule_config}' in decoded_data:
             try:
                 file = open(x10sched)
                 for line in file:
@@ -268,27 +268,27 @@ def control_panel(data, x10config, x10sched, x10report,
                 print "Error reading x10sched file. Are you sure you spelled it correctly?"
 
            
-        elif 'control_panel_@{top}' in data:
+        elif 'control_panel_@{top}' in decoded_data:
             print("""
                     </textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff ><iframe align=center 
 		        	src=./CGI/top.cgi border=0 height=600 width=650 scrolling=yes></iframe></table>""")
             
             
-        elif 'control_panel_@{x10_config}@{kill_all_hc}' in data:
+        elif 'control_panel_@{x10_config}@{kill_all_hc}' in decoded_data:
             info = subprocess.Popen([heyu_path, '-c', x10config, 'kill_all_hc'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
 
-        elif 'control_panel_@{x10_config}@{manpage' in data:
-            out = data.replace("control_panel_@{x10_config}@{manpage=","")
+        elif 'control_panel_@{x10_config}@{manpage' in decoded_data:
+            out = decoded_data.replace("control_panel_@{x10_config}@{manpage=","")
             out = out[:-1]
             info = subprocess.Popen(['man', '-E', 'UTF-8', out, '2>/dev/null'], stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info
      
-        elif 'control_panel_@{x10_config}@{heyu_restart}' in data:
+        elif 'control_panel_@{x10_config}@{heyu_restart}' in decoded_data:
             info = subprocess.Popen([heyu_path, '-c', x10config, 'stop'], stdout=subprocess.PIPE)
             info = subprocess.Popen(['sleep', restart_sleep_interval], stdout=subprocess.PIPE)
             info = subprocess.Popen([heyu_path, '-c', x10config, 'start'], stdout=subprocess.PIPE)
@@ -318,7 +318,7 @@ def control_panel(data, x10config, x10sched, x10report,
             print info
              
         
-        elif 'control_panel_@{x10_config}' in data or 'control_panel_save' in data and '@{updates}' not in data:
+        elif 'control_panel_@{x10_config}' in decoded_data or 'control_panel_@{save}' in decoded_data and '@{updates}' not in decoded_data:
             
             file = open(x10config)
             for line in file:
@@ -328,7 +328,7 @@ def control_panel(data, x10config, x10sched, x10report,
         
             out = urllib2.unquote(data)
             out = out.replace("+"," ")
-            out = out.replace("control_panel_save=","")
+            out = out.replace("control_panel_@{save}=","")
             out = out.replace("control_panel_","")
             out = out.replace("@{config}","")  
             out = out.replace("@{x10_config}","")
@@ -374,7 +374,7 @@ def control_panel(data, x10config, x10sched, x10report,
         
 
 def crontab(data):
-    
+    decoded_data = urllib2.unquote(data)
     print("""
             <table><tr><td><table class=control_panel><tr>
 		    <tr>
@@ -385,17 +385,17 @@ def crontab(data):
 	        <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd5}')\">cmd 5</button>
 		    </table>
             """)
-    if 'cmd' in data:
-        print "This is", data, "outside the textarea"
+    if 'cmd' in decoded_data:
+        print "This is", decoded_data, "outside the textarea"
    
     print("""<table><tr><td><br>
-            <textarea name=control_panel_save>""")
-    if 'cmd' in data:
-        print "This is", data, "inside the textarea"
+            <textarea name=control_panel_@{save}>""")
+    if 'cmd' in decoded_data:
+        print "This is", decoded_data, "inside the textarea"
         
     print "</textarea></table></form>"
 
-def main(data, x10config, x10sched, x10report, heyu_path, HC, auto_refresh, auto_refresh_rate):
+def aliases(data, x10config, x10sched, x10report, heyu_path, HC, auto_refresh, auto_refresh_rate):
     print("""
 
     <table><tr><td>

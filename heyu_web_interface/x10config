@@ -1,5 +1,5 @@
 # Serial port to which the CM11a is connected. Default is /dev/ttyS0.
-#
+# 12
 # Use this tty if you have a computer that supports it otherwise use the ttyusb
 # TTY /dev/ttyS0
 
