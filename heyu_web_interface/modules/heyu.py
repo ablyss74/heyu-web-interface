@@ -49,7 +49,7 @@ def control_panel(data, x10config, x10sched, x10report,
                         restart_sleep_interval):
     decoded_data = urllib2.unquote(data)
     # Debug data
-    print decoded_data
+    # print decoded_data
     if 'control_panel_@{save}' in decoded_data:
     
         out = urllib2.unquote(data)        
