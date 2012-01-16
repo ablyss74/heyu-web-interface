@@ -179,7 +179,7 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
 
 
 
-def theme1(x10config, x10sched, heyu, HC):
+def compact_theme1(x10config, x10sched, heyu, HC):
 
     print("""
             <form method=post><select name=states onChange=\"goPage(this.options[this.selectedIndex].value)\" size=1>
