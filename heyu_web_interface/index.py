@@ -146,8 +146,9 @@ heyu.control_panel(data, x10config, x10sched, x10report,
                    
 if 'control_panel_@' not in urllib2.unquote(data):
      if heyu_theme == 'compact':
-         from compact_theme import theme1
+         from heyu_themes import theme1
          theme1(x10config, x10sched, heyu_path, HC)
      else:
-        heyu.aliases(data, x10config, x10sched, x10report, heyu_path, HC, 
+        from heyu_themes import theme_default
+        theme_default(data, x10config, x10sched, x10report, heyu_path, HC, 
         auto_refresh, auto_refresh_rate)    
