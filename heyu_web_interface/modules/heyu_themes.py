@@ -92,6 +92,7 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
             <br><h4 style=\"font-family:Tahoma\">ALIASES</h4>""")
 
     file = open(x10config)
+
     # Set z for formating HTML rows/columns
     z = 0
     for line in file:
@@ -117,9 +118,15 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
             unit = unit.replace("_"," ")
             addr = line[1]
             addr = addr.lstrip()
+            addr = addr.split()
+            addr = addr[0]
             
-        
+            # Test for multiple addresses
+            if ',' in addr:
+                addr = addr[:2]
+            
             # Call heyu and get on/off status and slice strings
+                       
             process = subprocess.Popen([heyu_path, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
             status = process.communicate()
             status = status[0]        

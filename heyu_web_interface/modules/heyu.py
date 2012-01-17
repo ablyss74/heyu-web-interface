@@ -259,7 +259,7 @@ def control_panel(data, x10config, x10sched, x10report,
                 print "Error reading x10report file. Are you sure you spelled it correctly?"
             
         elif 'control_panel_@{schedule_config}@{examples}' in decoded_data:
-            info = subprocess.Popen(['man', '-E', 'UTF-8', 'X10SCHED', '2>/dev/null'], stdout=subprocess.PIPE)
+            info = subprocess.Popen(['man', '-E', 'UTF-8', 'X10SCHED'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info         
@@ -296,7 +296,7 @@ def control_panel(data, x10config, x10sched, x10report,
         elif 'control_panel_@{x10_config}@{manpage' in decoded_data:
             out = decoded_data.replace("control_panel_@{x10_config}@{manpage=","")
             out = out[:-1]
-            info = subprocess.Popen(['man', '-E', 'UTF-8', out, '2>/dev/null'], stdout=subprocess.PIPE)
+            info = subprocess.Popen(['man', '-E', 'UTF-8', out], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
             print info

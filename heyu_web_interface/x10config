@@ -21,7 +21,6 @@ ALIAS     Fireplace              A2      StdLM
 ALIAS     Hall                   A3      StdLM
 ALIAS     Master_Lights          A4      StdLM
 ALIAS     Basement_Lights        A6      StdLM
-ALIAS     Office_Heater          A16     StdAM
 
 # Hide buttons by commenting "Exclude" in any Alias or Scene.
 
@@ -29,7 +28,7 @@ ALIAS     Polaris                B3      StdAM #
 ALIAS     Pool                   B5      StdAM #
 ALIAS     Mushroom_Lights        B8      StdAM #
 ALIAS     Front_Sconces          B13     StdLM #
-alias        xmas_tree              a8       stdlm
+alias     Office_Heater          A8      StdAM
 
 ALIAS     Grow_Lights            G1      StdAM #
 
@@ -40,7 +39,7 @@ ALIAS     Water_Level            l3      StdAM #
 
 # This demonstrates how an alias can trigger multiple events
 # It is also case insensitive.
-alias Test1 E1,2,3 StdAM # This is a "Test" # Exclude
+alias Test1 E1,2,3 StdAM #
 
 ALIAS     Floods                 C5      StdAM #
 ALIAS     Front_Recessed         D13     StdLM #
