@@ -20,24 +20,34 @@ import cgitb, sys, re, subprocess, urllib2
 cgitb.enable()
 
 def QUERY_STRING():
-    cookies = subprocess.Popen(['env'], stdout=subprocess.PIPE)
-    cookies = cookies.communicate()
-    cookies = cookies[0]
-    cookies = cookies.split('\n')
-    for c in cookies:
-        if 'QUERY_STRING' in c:
-            c = c.replace("QUERY_STRING=","")
-            return c
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = cookies.split('\n')
+    for x in i:
+        if 'QUERY_STRING' in x:
+            x = x.replace("QUERY_STRING=","")
+            return x
                 
 def cookies():
-    cookies = subprocess.Popen(['env'], stdout=subprocess.PIPE)
-    cookies = cookies.communicate()
-    cookies = cookies[0]
-    cookies = cookies.split('\n')
-    for c in cookies:
-        if 'HTTP_COOKIE' in c:
-            c = c.replace("HTTP_COOKIE=","")
-            return c
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'HTTP_COOKIE' in x:
+            x = x.replace("HTTP_COOKIE=","")
+            return x
+            
+def housecode(heyu_path, x10config):
+    i = subprocess.Popen([heyu_path, '-c', x10config, 'webhook', 'config_dump'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'housecode' in x:
+            x = x.replace("housecode ","")
+            return x
                            
 def engine(heyu_path, x10config):
     # Is the heyu engine running ?

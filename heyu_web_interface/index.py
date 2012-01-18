@@ -33,11 +33,8 @@ auto_refresh_rate = "10"
 restart_sleep_interval = "5"
 heyu_web_interface_version = "11.56_beta"
 expires = "expires=01-Jan-2036 12:00:00 GMT" 
-file = open(x10config)
-for H in file:
-    if re.match('HOUSECODE', H.upper()):
-        HC = H.replace("HOUSECODE ","")
-file.closed 
+HC = heyu.housecode(heyu_path, x10config)
+
 
 
 heyu.engine(heyu_path, x10config)
@@ -86,7 +83,7 @@ try:
             cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
             cmd = cmd.split()
             subprocess.call(cmd)
-            #For debugging 
+            ###  For debugging  ###
             #print('Content-type:text/html')
             #print('')
             #print cmd
@@ -144,7 +141,6 @@ except:
     
 
 heyu.html(heyu_web_interface_version, auto_refresh_rate)
-
 
 try:
     if auto_refresh:
