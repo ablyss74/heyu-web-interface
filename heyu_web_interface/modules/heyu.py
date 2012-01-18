@@ -16,9 +16,29 @@
 #   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 
-import cgitb, sys, os, re, subprocess, urllib2
+import cgitb, sys, re, subprocess, urllib2
 cgitb.enable()
+
+def QUERY_STRING():
+    cookies = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    cookies = cookies.communicate()
+    cookies = cookies[0]
+    cookies = cookies.split('\n')
+    for c in cookies:
+        if 'QUERY_STRING' in c:
+            c = c.replace("QUERY_STRING=","")
+            return c
                 
+def cookies():
+    cookies = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    cookies = cookies.communicate()
+    cookies = cookies[0]
+    cookies = cookies.split('\n')
+    for c in cookies:
+        if 'HTTP_COOKIE' in c:
+            c = c.replace("HTTP_COOKIE=","")
+            return c
+                           
 def engine(heyu_path, x10config):
     # Is the heyu engine running ?
     engine = subprocess.Popen([heyu_path, '-c', x10config, 'enginestate'], stdout=subprocess.PIPE)

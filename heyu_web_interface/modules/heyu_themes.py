@@ -16,7 +16,7 @@
 #   limitations under the License.
 #   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
-import cgitb, sys, os, re, subprocess, urllib2
+import cgitb, sys, re, subprocess, urllib2
 cgitb.enable()
 
 def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refresh, auto_refresh_rate):
