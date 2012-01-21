@@ -17,7 +17,9 @@
 
 
 import cgitb, sys, re, subprocess, urllib2
+sys.path.append('./modules')
 cgitb.enable()
+import heyu
 
 def QUERY_STRING():
     i = subprocess.Popen(['env'], stdout=subprocess.PIPE)

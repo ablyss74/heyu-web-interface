@@ -39,7 +39,7 @@ ALIAS     Water_Level            l3      StdAM #
 
 # This demonstrates how an alias can trigger multiple events
 # It is also case insensitive.
-alias Test1 E1,2,3 StdAM #
+alias Test1 E1,2,3 StdAM
 
 ALIAS     Floods                 C5      StdAM #
 ALIAS     Front_Recessed         D13     StdLM #
@@ -86,3 +86,4 @@ SCENE  All_Lights_On lightson A
 # REPORT_PATH  ./                # [127 characters max.]
 # REPL_DELAYED_MACROS     YES    # YES  NO
 # WRITE_CHECK_FILES       NO     # YES  NO
+
