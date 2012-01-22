@@ -53,11 +53,11 @@ if heyu.cookies() is not None:
     cookies = heyu.cookies()
     if 'auto_refresh=True' in cookies:
         auto_refresh = "True"
-    if 'auto_refresh=False' not in cookies:
+    if 'auto_refresh=False' in cookies:
         auto_refresh = "False"
     if 'heyu_show_all_modules=True' in cookies:
         heyu_show_all_modules = "True"
-    if 'heyu_show_all_modules=False' not in cookies:
+    if 'heyu_show_all_modules=False' in cookies:
         heyu_show_all_modules = "False"
     if 'heyu_theme=compact' in cookies:
         heyu_theme = "compact"
@@ -141,6 +141,7 @@ except:
     
 
 heyu.html(heyu_web_interface_version, auto_refresh_rate)
+
 
 try:
     if auto_refresh:
