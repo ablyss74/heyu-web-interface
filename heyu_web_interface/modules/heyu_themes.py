@@ -93,6 +93,10 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
             addr = x[2]
             addr = addr.replace("_"," ")
             
+            # Test for multiple addresses
+            if ',' in addr:		
+	                addr = addr[:2]           
+            
    
             # Set z for formating HTML rows/columns
             z = 0
@@ -199,6 +203,9 @@ def compact_theme1(x10config, x10sched, heyu_path, HC):
             addr = x[2]
             addr = addr.replace("_"," ")
             
+            # Test for multiple addresses
+            if ',' in addr:		
+	            addr = addr[:2] 
 
             # Call heyu and get on/off status and slice strings
             process = subprocess.Popen([heyu_path, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)

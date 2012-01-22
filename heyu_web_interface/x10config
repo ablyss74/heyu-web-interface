@@ -22,8 +22,6 @@ ALIAS     Hall                   A3      StdLM
 ALIAS     Master_Lights          A4      StdLM
 ALIAS     Basement_Lights        A6      StdLM
 
-# Hide buttons by commenting "Exclude" in any Alias or Scene.
-
 ALIAS     Polaris                B3      StdAM #
 ALIAS     Pool                   B5      StdAM #
 ALIAS     Mushroom_Lights        B8      StdAM #
@@ -44,7 +42,7 @@ alias Test1 E1,2,3 StdAM # Exclude
 ALIAS     Floods                 C5      StdAM #
 ALIAS     Front_Recessed         D13     StdLM #
 
-USERSYN USERSYN off A6 # Exclude
+USERSYN USERSYN off A8
 
 SCENE  Entertainment bright A1-3 22 ; dim A1-3 4
 SCENE  Subtle_Moods  bright A1-3 22 ; dim A1-3 7
