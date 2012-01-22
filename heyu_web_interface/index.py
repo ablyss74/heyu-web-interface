@@ -16,7 +16,7 @@
 #   limitations under the License.
 #   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
-import cgitb, sys, re, subprocess, urllib2
+import cgitb, sys, subprocess, urllib2
 sys.path.append('./modules')
 cgitb.enable()
 import heyu
@@ -64,7 +64,7 @@ if heyu.cookies() is not None:
     if 'heyu_theme=default' in cookies:
         heyu_theme = "default"
             
-    # Test is values are missing and declare values
+    # Test if values are missing and declare values
     if 'heyu_theme' not in cookies:
         print "Set-Cookie: heyu_theme=default;", expires
         heyu_theme = "default"

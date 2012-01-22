@@ -16,16 +16,15 @@
 #   Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 
-import cgitb, sys, re, subprocess, urllib2
+import cgitb, sys, subprocess, urllib2
 sys.path.append('./modules')
 cgitb.enable()
-import heyu
-
+        
 def QUERY_STRING():
     i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
     i = i.communicate()
     i = i[0]
-    i = cookies.split('\n')
+    i = i.split('\n')
     for x in i:
         if 'QUERY_STRING' in x:
             x = x.replace("QUERY_STRING=","")
