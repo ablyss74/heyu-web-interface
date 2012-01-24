@@ -75,21 +75,49 @@ if heyu.cookies() is not None:
         print "Set-Cookie: heyu_show_all_modules=False;", expires
         heyu_show_all_modules = "False"
             
-    
+   ### Read std.in ###
+   #  
    
 try:
     for data in sys.stdin:            
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
-            cmd = cmd.split()
-            subprocess.call(cmd)
-            ###  For debugging  ###
-            #print('Content-type:text/html')
-            #print('')
-            #print cmd
+            cmd = cmd.split()          
+
+            if 'rheo' not in cmd:
+                subprocess.call(cmd) 
+                
+                            
+            ### Dimming Controls ###
+            # First test of str rheo is in QUERY_STRING
+            # if so assign cx, cy to the values we want to dim
+            # if cx and cy are equal ignore it because we don't want it to try to dim
+            # test greater and lesser and set level to give us the right integer to dim
+            # replace cmd[5] with the right str(level) and lastly call the subprocess.            
             
+            if 'rheo' in cmd:
+                cx = int(cmd[5])
+                cy = int(cmd[6])
+                
+                # 
+                if cx == cy:                                     
+                    del cmd
+                  
+                if cx > cy:                                     
+                    for x in cmd:
+                        cmd[3] = 'bright'
+                        level = int(cmd[5]) - int(cmd[6])                                          
+                        
+                if cx < cy:                    
+                    for x in cmd:
+                        cmd[3] = 'dim'
+                        level = int(cmd[6]) - int(cmd[5])
             
-            
+            cmd[5] = str(level)         
+            cmd = cmd[:6]
+            subprocess.call(cmd)           
+
+ 
         else:
             if 'auto_refresh' in data or 'show_all_modules' in data or 'heyu_theme' in data:  
                 try:

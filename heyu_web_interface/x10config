@@ -42,7 +42,7 @@ alias Test1 E1,2,3 StdAM # Exclude
 ALIAS     Floods                 C5      StdAM #
 ALIAS     Front_Recessed         D13     StdLM #
 
-USERSYN USERSYN off A8
+#USERSYN USERSYN off A8
 
 SCENE  Entertainment bright A1-3 22 ; dim A1-3 4
 SCENE  Subtle_Moods  bright A1-3 22 ; dim A1-3 7
@@ -84,3 +84,4 @@ SCENE  All_Lights_On lightson A
 # REPORT_PATH  ./                # [127 characters max.]
 # REPL_DELAYED_MACROS     YES    # YES  NO
 # WRITE_CHECK_FILES       NO     # YES  NO
+

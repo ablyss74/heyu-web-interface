@@ -29,6 +29,16 @@ def QUERY_STRING():
         if 'QUERY_STRING' in x:
             x = x.replace("QUERY_STRING=","")
             return x
+            
+def user_agent():
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'HTTP_USER_AGENT' in x:
+            x = x.replace("HTTP_USER_AGENT=","")
+            return x            
                 
 def cookies():
     i = subprocess.Popen(['env'], stdout=subprocess.PIPE)

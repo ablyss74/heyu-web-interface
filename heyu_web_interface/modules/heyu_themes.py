@@ -78,8 +78,10 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
     ### Start Aliases
     print("""
             <br><h4 style=\"font-family:Tahoma\">ALIASES</h4>""")
-            
-
+    
+    # Set z for formating HTML rows/columns
+    z = 0
+    
     i = subprocess.Popen([heyu_path, '-c', x10config, 'webhook', 'config_dump'], stdout=subprocess.PIPE)
     i = i.communicate()
     i = i[0]
@@ -92,16 +94,15 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
             unit = unit.replace("_"," ")
             addr = x[2]
             addr = addr.replace("_"," ")
-            
+            modtype  = x[3]
+            modtype  = modtype.lower()
+          
+                       
             # Test for multiple addresses
             if ',' in addr:		
 	                addr = addr[:2]           
             
-   
-            # Set z for formating HTML rows/columns
-            z = 0
-
-            # Call heyu and get on/off status and slice strings
+               # Call heyu and get on/off status and slice strings
                        
             process = subprocess.Popen([heyu_path, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
             status = process.communicate()
@@ -132,16 +133,39 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                 mday = timestamp[6]
                 year = timestamp[7]
                 
+                if 'Firefox' not in heyu.user_agent():
+                    print "<table lass=button align=left><tr><td class=button>"
+                    
                 print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + xstatus, addr + "')\">"
                 print "<table class=button><tr><td class=button>" + on_icon + unit
         
                 # Info part of the button
                 print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
-        
+                
+                
+                if modtype == 'stdlm' and 'Firefox' not in heyu.user_agent():
+                    rawlevel = subprocess.Popen([heyu_path, '-c', x10config , 'rawlevel', addr], stdout=subprocess.PIPE) 
+                    rawlevel = rawlevel.communicate()
+                    rawlevel = rawlevel[0]
+                    rawlevel = rawlevel.strip()
+                    rawlevel = rawlevel[:-1]
+                    
+                    print "<tr><td class=buton><input type=range min=0 max=21 class=sliderfx value=\"" + rawlevel  + "\" step=1 onclick=\"Status(); show('heyu_do_cmd rheo", addr, "' + value + '", rawlevel + "')\"></table>"
+                else:    
+                    print "<tr><td class=button></table>"
+                
                 # For html formatting rows/columns
                 z = z+1
+                
                 if z == 3:
-                    print "<tr>"
+                    print "&nbsp;"
+                    z = 0
+                
+
+                                                                                                                                  
+
+                    
+
             except:
                 z = "error"
     if 'error' == z:
@@ -150,10 +174,11 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
         print("<form method=POST><input type=submit value=Retry>")
         del z
          
-   
+    
     print("""
                 <!-- Close Form and Div -->
                 </form>
+                    </table>
                 </table>
             </div>
         </body>
