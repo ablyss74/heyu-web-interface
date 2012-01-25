@@ -82,8 +82,8 @@ try:
     for data in sys.stdin:            
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
-            cmd = cmd.split()          
-
+            cmd = cmd.split()        
+            
             if 'rheo' not in cmd:
                 subprocess.call(cmd) 
                 
@@ -97,9 +97,8 @@ try:
             
             if 'rheo' in cmd:
                 cx = int(cmd[5])
-                cy = int(cmd[6])
-                
-                # 
+                cy = int(cmd[6])                
+                 
                 if cx == cy:                                     
                     del cmd
                   

@@ -19,6 +19,9 @@
 import cgitb, sys, subprocess, urllib2
 sys.path.append('./modules')
 cgitb.enable()
+
+       
+      
         
 def QUERY_STRING():
     i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
@@ -82,6 +85,14 @@ def html(heyu_web_interface_version, auto_refresh_rate):
     	height: 650px;
     }
     </style>""")
+    print("""
+        <script type=text/javascript>
+        var testrange=document.createElement("input")
+        testrange.setAttribute("type", "range")
+        if (testrange.type=="range"){ 
+        document.cookie = "html5_range=True"; }
+         </script>
+         """)
     print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", auto_refresh_rate + "000);</script>"
     print("""<script type=text/javascript src=javascript/ajax.js></script>
     <script type=text/javascript src=javascript/phone.js></script>

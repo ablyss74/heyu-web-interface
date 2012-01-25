@@ -133,9 +133,10 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                 mday = timestamp[6]
                 year = timestamp[7]
                 
-                if 'Firefox' not in heyu.user_agent():
+                if 'html5_range=True' in heyu.cookies():
                     print "<table lass=button align=left><tr><td class=button>"
                     
+                
                 print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + xstatus, addr + "')\">"
                 print "<table class=button><tr><td class=button>" + on_icon + unit
         
@@ -143,15 +144,19 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                 print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
                 
                 
-                if modtype == 'stdlm' and 'Firefox' not in heyu.user_agent():
+                if modtype == 'stdlm':
                     rawlevel = subprocess.Popen([heyu_path, '-c', x10config , 'rawlevel', addr], stdout=subprocess.PIPE) 
                     rawlevel = rawlevel.communicate()
                     rawlevel = rawlevel[0]
                     rawlevel = rawlevel.strip()
-                    rawlevel = rawlevel[:-1]
+                    # removing the last integer is the same as dividing by 10
+                    rawlevel = rawlevel[:-1]                    
                     
-                    print "<tr><td class=buton><input type=range min=0 max=21 class=sliderfx value=\"" + rawlevel  + "\" step=1 onclick=\"Status(); show('heyu_do_cmd rheo", addr, "' + value + '", rawlevel + "')\"></table>"
-                else:    
+                    if 'html5_range=True' in heyu.cookies():
+                        print "<tr><td class=buton><input type=range min=0 max=21 class=sliderfx value=\"" + rawlevel  + "\" step=1 onclick=\"Status(); show('heyu_do_cmd rheo", addr, "' + value + '", rawlevel + "')\"></table>" 
+            
+                else:
+                        
                     print "<tr><td class=button></table>"
                 
                 # For html formatting rows/columns
@@ -191,7 +196,7 @@ def compact_theme1(x10config, x10sched, heyu_path, HC):
 
     print("""
             <form method=post><select name=states onChange=\"goPage(this.options[this.selectedIndex].value)\" size=1>
-            <option>Heyu
+            <option value=#>Heyu
             <optgroup label=SCENES>""")
 
     print("""
