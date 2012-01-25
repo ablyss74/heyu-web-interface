@@ -21,7 +21,9 @@ sys.path.append('./modules')
 cgitb.enable()
 
        
-      
+def debug():
+    print('Content-type:text/html')
+    print('')         
         
 def QUERY_STRING():
     i = subprocess.Popen(['env'], stdout=subprocess.PIPE)

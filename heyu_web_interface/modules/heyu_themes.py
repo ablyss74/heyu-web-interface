@@ -133,8 +133,7 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                 mday = timestamp[6]
                 year = timestamp[7]
                 
-                if 'html5_range=True' in heyu.cookies():
-                    print "<table lass=button align=left><tr><td class=button>"
+                print "<table lass=button align=left><tr><td class=button>"
                     
                 
                 print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + xstatus, addr + "')\">"
@@ -151,9 +150,14 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                     rawlevel = rawlevel.strip()
                     # removing the last integer is the same as dividing by 10
                     rawlevel = rawlevel[:-1]                    
-                    
+                    if rawlevel == "":
+                            rawlevel = '0'
                     if 'html5_range=True' in heyu.cookies():
                         print "<tr><td class=buton><input type=range min=0 max=21 class=sliderfx value=\"" + rawlevel  + "\" step=1 onclick=\"Status(); show('heyu_do_cmd rheo", addr, "' + value + '", rawlevel + "')\"></table>" 
+                    else:
+                        r1 = int(rawlevel) - 3
+                        r2 = int(rawlevel) + 3
+                        print "<tr><td class=buton></progress><img src=./imgs/down.png width=25 height=25 onclick=\"Status(); show('heyu_do_cmd rheo", addr, r1, rawlevel + "')\"><progress value=\"" + rawlevel  + "\" max=21></progress><img src=./imgs/up.png width=25 height=25 onclick=\"Status(); show('heyu_do_cmd rheo", addr, r2, rawlevel + "')\"></table>"
             
                 else:
                         

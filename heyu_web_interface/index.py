@@ -82,7 +82,11 @@ try:
     for data in sys.stdin:            
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
-            cmd = cmd.split()        
+            cmd = cmd.split()
+            
+            ### For debugging uncomment out the two lines                    
+            #heyu.debug()
+            #print cmd
             
             if 'rheo' not in cmd:
                 subprocess.call(cmd) 
