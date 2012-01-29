@@ -75,7 +75,7 @@ if heyu.cookies() is not None:
         print "Set-Cookie: heyu_show_all_modules=False;", expires
         heyu_show_all_modules = "False"
             
-   ### Read std.in ###
+   ### Read stdin ###
    #  
    
 try:

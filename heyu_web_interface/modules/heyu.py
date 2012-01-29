@@ -55,6 +55,14 @@ def cookies():
             x = x.replace("HTTP_COOKIE=","")
             return x
             
+def env():
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        print "<pre>" + x + "<pre>"
+            
 def housecode(heyu_path, x10config):
     i = subprocess.Popen([heyu_path, '-c', x10config, 'webhook', 'config_dump'], stdout=subprocess.PIPE)
     i = i.communicate()
@@ -64,6 +72,47 @@ def housecode(heyu_path, x10config):
         if 'housecode' in x:
             x = x.replace("housecode ","")
             return x
+            
+def tty(heyu_path, x10config):
+    i = subprocess.Popen([heyu_path, '-c', x10config, 'webhook', 'config_dump'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'tty' in x:
+            x = x.replace("tty ","")
+            return x
+            
+def spooldir(heyu_path, x10config):
+    i = subprocess.Popen([heyu_path, '-c', x10config, 'list'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'SPOOLDIR' in x:
+            x = x.replace("SPOOLDIR=","")
+            return x
+            
+def lockdir(heyu_path, x10config):
+    i = subprocess.Popen([heyu_path, '-c', x10config, 'list'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'LOCKDIR' in x:
+            x = x.replace("LOCKDIR=","")
+            return x
+            
+def sysbasedir(heyu_path, x10config):
+    i = subprocess.Popen([heyu_path, '-c', x10config, 'list'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'SYSBASEDIR' in x:
+            x = x.replace("SYSBASEDIR=","")
+            return x
+   
                            
 def engine(heyu_path, x10config):
     # Is the heyu engine running ?
@@ -92,7 +141,7 @@ def html(heyu_web_interface_version, auto_refresh_rate):
         var testrange=document.createElement("input")
         testrange.setAttribute("type", "range")
         if (testrange.type=="range"){ 
-        document.cookie = "html5_range=True"; }
+        document.cookie = "html_range=True; expires=01-Jan-2036 12:00:00 GMT";}
          </script>
          """)
     print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", auto_refresh_rate + "000);</script>"

@@ -71,12 +71,25 @@ height: 400px;
 	
 	
 }
+
+
+.pbi {
+    width:25px;
+	height:25px;
+	vertical-align:text-bottom;
+}
+
+
+.pb {
+    width:250px;
+	height:10px;
+	vertical-align:text-top;
+}
+
 .sliderfx {
 
 	width:300px;
 	height:30px;
-	
-
 }
 
 

@@ -84,4 +84,3 @@ SCENE  All_Lights_On lightson A
 # REPORT_PATH  ./                # [127 characters max.]
 # REPL_DELAYED_MACROS     YES    # YES  NO
 # WRITE_CHECK_FILES       NO     # YES  NO
-

@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 
 from gi.repository import Gtk
-import subprocess
+import subprocess, glib
 
 class ToggleButtonWindow(Gtk.Window):
-        
+            
     def __init__(self):
         Gtk.Window.__init__(self, title="Heyu")
         self.set_border_width(10)
@@ -32,23 +32,22 @@ class ToggleButtonWindow(Gtk.Window):
                 # Test for multiple addresses
                 if ',' in addr:		
 	                addr = addr[:2] 
-                       
+                button = Gtk.ToggleButton(unit)                
+                
+                   
+                
                 process = subprocess.Popen([heyu_path, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
                 status = process.communicate()
-                status = status[0]
-                
-                button = Gtk.ToggleButton(unit)    
-                            
+                status = status[0]          
                 if '1' in status:                    
-                    button.set_active(True)       
-                                                
-                button.connect("toggled", self.on_button_toggled, unit, status, heyu_path, x10config, addr)
-                vbox.pack_start(button, 1, 1, 1)
+                   button.set_active(True) 
                 
-            
-        
+                button.connect("toggled", self.on_button_toggled, unit,  heyu_path, x10config, addr)
+                vbox.pack_start(button, 1, 1, 1) 
+                
+                
 
-    def on_button_toggled(self, button, unit, status, heyu_path, x10config, addr):
+    def on_button_toggled(self, button, unit,  heyu_path, x10config, addr):
         if button.get_active():
             state = "on"
         else:
@@ -58,7 +57,10 @@ class ToggleButtonWindow(Gtk.Window):
 
         
 
+
+
 win = ToggleButtonWindow()
 win.connect("delete-event", Gtk.main_quit)
 win.show_all()
 Gtk.main()
+
