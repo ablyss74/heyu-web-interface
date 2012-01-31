@@ -55,6 +55,91 @@ def cookies():
             x = x.replace("HTTP_COOKIE=","")
             return x
             
+def getsub_b_0():
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'HTTP_COOKIE' in x:
+            x = x.replace("HTTP_COOKIE=","")
+            x = x.split()
+            for y in x:
+                if 'sub0b_0cookie' in y:
+                    y = y.replace("sub0b_0cookie=","")
+                    y = y.replace(";","")
+                    y = y.split(" ")
+                    return y                  
+def getsub_b_1():
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'HTTP_COOKIE' in x:
+            x = x.replace("HTTP_COOKIE=","")
+            x = x.split()
+            for y in x:
+                if 'sub1b_1cookie' in y:
+                    y = y.replace("sub1b_1cookie=","")
+                    y = y.replace(";","")
+                    y = y.split(" ")
+                    return y                      
+def getsub_3():
+    i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
+    i = i.communicate()
+    i = i[0]
+    i = i.split('\n')
+    for x in i:
+        if 'HTTP_COOKIE' in x:
+            x = x.replace("HTTP_COOKIE=","")
+            x = x.split()
+            for y in x:
+                if 'sub_3cookie' in y:
+                    y = y.replace("sub_3cookie=","")
+                    y = y.replace(";","")
+                    y = y.split(" ")
+                    return y                      
+def scrheigth():
+    for x in getsub_3():
+        x = x.replace("@"," ")
+        x = x.split()
+        for y in x:
+            if 'sub_heigth' in y:
+                y = y.replace("="," ")
+                y = y.split()
+                return y[1]                 
+            
+def scrwidth():
+    for x in getsub_3():
+        x = x.replace("@"," ")
+        x = x.split()
+        for y in x:
+            if 'sub_width' in y:
+                y = y.replace("="," ")
+                y = y.split()
+                return y[1]  
+                         
+def sub_css():
+    for x in getsub_3():
+        x = x.replace("@"," ")
+        x = x.split()
+        for y in x:
+            if 'sub_css' in y:
+                y = y.replace("="," ")
+                y = y.split()
+                return y[1]    
+                       
+def sub_refresh():
+    for x in getsub_3():
+        x = x.replace("@"," ")
+        x = x.split()
+        for y in x:
+            if 'sub_refresh' in y:
+                y = y.replace("="," ")
+                y = y.split()
+                return y[1]   
+                                      
 def env():
     i = subprocess.Popen(['env'], stdout=subprocess.PIPE)
     i = i.communicate()
@@ -121,21 +206,54 @@ def engine(heyu_path, x10config):
     if 'starting heyu_relay\n0\n' in engine or '0\n' in engine:
         subprocess.call([heyu_path, '-c', x10config, 'engine'])
    
-def html(heyu_web_interface_version, auto_refresh_rate):
+def html(heyu_web_interface_version):
+
+    def _scrheigth_():
+        try:
+            if scrheigth():
+                return scrheigth()
+        except:
+            return "500"
+            
+    def _scrwidth_():
+        try:
+            if scrwidth():
+                return scrwidth()
+        except:
+            return "650"
+            
+    def _css_():
+        try:
+            if sub_css():
+                return sub_css()
+        except:
+            return "heyu_style.css"
+            
+    def _refresh_():
+        try:
+            if sub_refresh():
+                return sub_refresh()
+        except:
+            return "10"
+                    
     print('Content-type:text/html')
     print('')    
     # Start HTML, Javascript 
     print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">")
     print("<html><head><title>Heyu Web Interface v." + heyu_web_interface_version + "</title>")
-    print( """
-    <style type=text/css>
-    @import url(heyu_style.css);
-    @import url(tinyboxstyle.css);
-    textarea {
-    	width: 660px;
-    	height: 650px;
-    }
-    </style>""")
+    print"<style type=text/css>"
+    print "@import url(" + _css_() + ");"
+    print "@import url(tinyboxstyle.css);"
+    
+    
+    print "textarea {"
+    print "width:", _scrwidth_() + ";"
+    print "height:", _scrheigth_() +";"
+    print "}"
+    
+
+    
+    print "</style>"    
     print("""
         <script type=text/javascript>
         var testrange=document.createElement("input")
@@ -144,7 +262,8 @@ def html(heyu_web_interface_version, auto_refresh_rate):
         document.cookie = "html_range=True; expires=01-Jan-2036 12:00:00 GMT";}
          </script>
          """)
-    print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", auto_refresh_rate + "000);</script>"
+
+    print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", _refresh_() + "000);</script>"
     print("""<script type=text/javascript src=javascript/ajax.js></script>
     <script type=text/javascript src=javascript/phone.js></script>
     <script type=text/javascript src=javascript/progressbar.js></script>
@@ -162,7 +281,7 @@ def html(heyu_web_interface_version, auto_refresh_rate):
 
 def control_panel(data, x10config, x10sched, x10report,
                         heyu_path, HC, heyu_web_interface_version, 
-                        restart_sleep_interval):
+                        restart_sleep_interval, subcmd0, subcmd1):
     decoded_data = urllib2.unquote(data)
     # Debug data
     # print decoded_data
@@ -268,7 +387,11 @@ def control_panel(data, x10config, x10sched, x10report,
 		
 		    <button class=control_panel_buttons type=button onclick=\"Status(); show('heyu_theme')\">
 		    <table><tr><td width=20><img src=./imgs/compact3.png width=25 height=25> 
-		    <td><span class=control_panel>Theme Compact</table></button><br>		
+		    <td><span class=control_panel>Theme Compact</table></button><br>
+		    
+		    <button class=control_panel_buttons type=button onclick=\"Status(); show('#')\">
+		    <table><tr><td width=20><img src=./imgs/alloff.png width=25 height=25> 
+		    <td><span class=control_panel>Exit</table></button><br>		
         """)
         print("""
                 <td class=control_panel valign=top align=center style=\"background:#CCC\">""")
@@ -285,6 +408,8 @@ def control_panel(data, x10config, x10sched, x10report,
 		    </table>""")
 		    
         elif 'control_panel_@{crontab}' in decoded_data:
+            pass
+        elif 'control_panel_@{config}' in decoded_data:
             pass
             
         else:
@@ -303,9 +428,16 @@ def control_panel(data, x10config, x10sched, x10report,
             # Crontab
         if 'control_panel_@{crontab}' in decoded_data:
             try:                
-                crontab(data)
+                crontab(data, subcmd0)
             except:
                 print "<table><tr><td>Error loading crontab</table>"
+                
+            # Config    
+        if 'control_panel_@{config}' in decoded_data:
+            try:                
+                config(data, subcmd1)
+            except:
+                print "<table><tr><td>Error loading Config</table>"
  
  
         if 'control_panel_@{x10_config}@{heyu_cmd=' in decoded_data:
@@ -322,8 +454,8 @@ def control_panel(data, x10config, x10sched, x10report,
             print "</textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff >"
             print "<iframe align=center src=http://heyu.epluribusunix.net/?heyu_web_interface_version=" + heyu_web_interface_version + " border=0 height=600 width=650 scrolling=yes></iframe></table>"
         
-        # We dont need textarea in updates or top         
-        if 'control_panel_@{updates}' not in decoded_data and 'control_panel_@{top}' not in decoded_data and 'control_panel_@{crontab}' not in decoded_data:        
+        # We dont want textarea in updates, top, crontab or config        
+        if 'control_panel_@{updates}' not in decoded_data and 'control_panel_@{top}' not in decoded_data and 'control_panel_@{crontab}' not in decoded_data and 'control_panel_@{config}' not in decoded_data:        
             print("""<form method=post>
                     <textarea name=control_panel_@{save}>""")
                     
@@ -478,7 +610,7 @@ def control_panel(data, x10config, x10sched, x10report,
         except:
             pass      
         print("""
-                    <button class=userconfigbutton type=button onclick=\"Status(); show('#')\"> Exit</button>
+                    
                                         </td>
                                    </tr>
                            </table>
@@ -487,28 +619,218 @@ def control_panel(data, x10config, x10sched, x10report,
         </div>
     </body>
 </html>""")
-        
 
-def crontab(data):
+# Begin Crontab 
+def crontab(data, subcmd0):
+    def c0subs1(data, subcmd0):
+        s = 'cmd1'
+        for x in getsub_b_0():
+            if subcmd0 == s and subcmd0 in x:
+                return "Off"
+            if subcmd0 == s and subcmd0 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+        
+    def c0subs2(data, subcmd0):
+        s = 'cmd2'
+        for x in getsub_b_0():
+            if subcmd0 == s and subcmd0 in x:
+                return "Off"
+            if subcmd0 == s and subcmd0 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+
+    def c0subs3(data, subcmd0):
+        s = 'cmd3'
+        for x in getsub_b_0():
+            if subcmd0 == s and subcmd0 in x:
+                return "Off"
+            if subcmd0 == s and subcmd0 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+
+    def c0subs4(data, subcmd0):
+        s = 'cmd4'
+        for x in getsub_b_0():
+            if subcmd0 == s and subcmd0 in x:
+                return "Off"
+            if subcmd0 == s and subcmd0 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+        
+    def c0subs5(data, subcmd0):
+        s = 'cmd5'
+        for x in getsub_b_0():
+            if subcmd0 == s and subcmd0 in x:
+                return "Off"
+            if subcmd0 == s and subcmd0 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+    
     decoded_data = urllib2.unquote(data)
-    print("""
-            <table><tr><td><table class=control_panel><tr>
-		    <tr>
-		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd1}')\">cmd 1</button>
-		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd2}')\">cmd 2</button>
-		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd3}')\">cmd 3</button>
-		    <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd4}')\">cmd 4</button>
-	        <td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd5}')\">cmd 5</button>
-		    </table>
-            """)
-    if 'cmd' in decoded_data:
-        print "This is", decoded_data, "outside the textarea"
+    
+    print "<table><tr><td><table class=control_panel><tr><tr>"
+    print "<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd1}')\">Cmd 1", c0subs1(data, subcmd0), "</button>"
+    print "<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd2}')\">Cmd 2", c0subs2(data, subcmd0), "</button>"
+    print "<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd3}')\">Cmd 3", c0subs3(data, subcmd0), "</button>"
+    print "<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd4}')\">Cmd 4", c0subs4(data, subcmd0), "</button>"
+    print "<td><button type=button class=userconfigbutton onclick=\"Status(); show('control_panel_@{crontab}@{cmd5}')\">Cmd 5", c0subs5(data, subcmd0), "</button>"
+    print "</table>"
+    
    
     print("""<table><tr><td><br>
-            <textarea name=control_panel_@{save}>""")
-    if 'cmd' in decoded_data:
-        print "This is", decoded_data, "inside the textarea"
-        
+            <textarea style=\"height: 400px;\" name=control_panel_@{save}>""")
+    if len(subcmd0) < 1:
+        print "Select a command from above."
+    if len(subcmd0) > 1:
+        if 'cmd1' in subcmd0:
+            print "You choose", subcmd0 + ".", "Status is", c0subs1(data, subcmd0)
+        if 'cmd2' in subcmd0:
+            print "You choose", subcmd0 + ".", "Status is", c0subs2(data, subcmd0)
+        if 'cmd3' in subcmd0:
+            print "You choose", subcmd0 + ".", "Status is", c0subs3(data, subcmd0)
+        if 'cmd4' in subcmd0:
+            print "You choose", subcmd0 + ".", "Status is", c0subs4(data, subcmd0)                         
+        if 'cmd5' in subcmd0:
+            print "You choose", subcmd0 + ".", "Status is", c0subs5(data, subcmd0) 
+                                  
     print "</textarea></table></form>"
+    
 
+# Begine Config 
+def config(data, subcmd1):
+    def c1subs1(data, subcmd1):
+        s = 'cmd1'
+        for x in getsub_b_1():
+            if subcmd1 == s and subcmd1 in x:
+                return "Off"
+            if subcmd1 == s and subcmd1 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+        
+    def c1subs2(data, subcmd1):
+        s = 'cmd2'
+        for x in getsub_b_1():
+            if subcmd1 == s and subcmd1 in x:
+                return "Off"
+            if subcmd1 == s and subcmd1 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+
+    def c1subs3(data, subcmd1):
+        s = 'cmd3'
+        for x in getsub_b_1():
+            if subcmd1 == s and subcmd1 in x:
+                return "Off"
+            if subcmd1 == s and subcmd1 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+
+    def c1subs4(data, subcmd1):
+        s = 'cmd4'
+        for x in getsub_b_1():
+            if subcmd1 == s and subcmd1 in x:
+                return "Off"
+            if subcmd1 == s and subcmd1 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+        
+    def c1subs5(data, subcmd1):
+        s = 'cmd5'
+        for x in getsub_b_1():
+            if subcmd1 == s and subcmd1 in x:
+                return "Off"
+            if subcmd1 == s and subcmd1 not in x:
+                return "On"
+            if s in x:
+                return  "On"
+            else:
+                return "Off"
+               
+            
+            
+    data = urllib2.unquote(data)
+    
+    def _scrheigth_():
+        if '@{config}@{sub_heigth' in data:
+            s = data
+            s = s.replace("control_panel_@{config}@{sub_heigth}=","")
+            return s
+        else:
+            return scrheigth() 
+            
+    def _scrwidth_():
+        if '@{config}@{sub_width' in data:
+            s = data
+            s = s.replace("control_panel_@{config}@{sub_width}=","")
+            return s
+        else:
+            return scrwidth()
+            
+    def _css_():
+        if '@{config}@{sub_css' in data:
+            s = data
+            s = s.replace("control_panel_@{config}@{sub_css}=","")
+            return s
+        else:
+            return sub_css() 
+            
+    def _refresh_():
+        if '@{config}@{sub_refresh' in data:
+            s = data
+            s = s.replace("control_panel_@{config}@{sub_refresh}=","")
+            return s
+        else:
+            return sub_refresh() 
+        
+        
+    print "<table class=userconfig2 width=" + _scrwidth_() + "><tr>"
+    
+    print "<table class=userconfig2 name=config>"
+    
+    print "<tr><td class=userconfig2>Screen Width:<td class=userconfig2><form method=post><input class=userconfig2 value=" + _scrwidth_() + " size=6 type=text name=\"control_panel_@{config}@{sub_width}\"><input class=configb1 value=OK type=submit></form>"
+    
+    print "<tr><td class=userconfig2>Screen Height:<td class=userconfig2><form method=post><input class=userconfig2 value=" + _scrheigth_() + " size=6 type=text name=\"control_panel_@{config}@{sub_heigth}\"><input class=configb1 value=OK type=submit></form>" 
+    
+    print "<tr><td class=userconfig2>CSS Location:<td class=userconfig2><form method=post><input class=userconfig2 value=" + _css_() + " size=16 type=text name=\"control_panel_@{config}@{sub_css}\"><input class=configb1 value=OK type=submit></form>"
+    
+    print "<tr><td class=userconfig2>Auto Refresh Rate:<td class=userconfig2><form method=post><input class=userconfig2 value=" + _refresh_() + " size=16 type=text name=\"control_panel_@{config}@{sub_refresh}\"><input class=configb1 value=OK type=submit></form>" 
+    
+    print "<tr><td>Option 1:<button type=button class=userconfigbutton2 onclick=\"Status(); show('control_panel_@{config}@{cmd1}')\">", c1subs1(data, subcmd1), "</button>"
+    print "<tr><td>Option 2:<button type=button class=userconfigbutton2 onclick=\"Status(); show('control_panel_@{config}@{cmd2}')\">", c1subs2(data, subcmd1), "</button>"
+    print "<tr><td>Option 3:<button type=button class=userconfigbutton2 onclick=\"Status(); show('control_panel_@{config}@{cmd3}')\">", c1subs3(data, subcmd1), "</button>"
+    print "<tr><td>Option 4:<button type=button class=userconfigbutton2 onclick=\"Status(); show('control_panel_@{config}@{cmd4}')\">", c1subs4(data, subcmd1), "</button>"
+    print "<tr><td>Option 5:<button type=button class=userconfigbutton2 onclick=\"Status(); show('control_panel_@{config}@{cmd5}')\">", c1subs5(data, subcmd1), "</button>"
+    print "</table>"
+    #print "<br>"
+ 
+
+    print "</textarea></table></form>"
 

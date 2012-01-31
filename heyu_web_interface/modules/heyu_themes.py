@@ -21,7 +21,7 @@ cgitb.enable()
 sys.path.append('./modules')
 import heyu
 
-def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refresh, auto_refresh_rate):
+def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refresh):
     print("""
 
     <table><tr><td>
@@ -45,8 +45,16 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
     <img src=\"imgs/reload.png\" alt=none class=icons>
     Auto Refresh
     """)
+    
+    def _refresh_():
+        try:
+            if heyu.sub_refresh():
+                return heyu.sub_refresh()
+        except:
+            return "10"
+            
     auto_refresh = auto_refresh.replace("False","")
-    auto_refresh = auto_refresh.replace("True", auto_refresh_rate + "s")
+    auto_refresh = auto_refresh.replace("True", _refresh_() + "s")
     print auto_refresh
     print("""
             </table></button>

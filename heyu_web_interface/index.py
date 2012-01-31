@@ -29,7 +29,7 @@ x10config = "./x10config"
 x10sched = "./x10.sched"
 x10report = "./report.txt"
 heyu_path = "/usr/local/bin/heyu"
-auto_refresh_rate = "10"
+
 restart_sleep_interval = "5"
 heyu_web_interface_version = "11.56_beta"
 expires = "expires=01-Jan-2036 12:00:00 GMT" 
@@ -47,7 +47,11 @@ if heyu.cookies() is None:
     heyu_show_all_modules = "False"
     print "Set-Cookie: heyu_theme=default;", expires
     heyu_theme = "default"
-   
+    print "Set-Cookie: sub0b_0cookie="";", expires
+    print "Set-Cookie: sub1b_1cookie="";", expires
+    print "Set-Cookie: sub_3cookie=@{sub_heigth}=600@{sub_width}=650@{sub_css}=heyu_style.css@{sub_refresh}=10;", expires
+    
+       
    
 if heyu.cookies() is not None:
     cookies = heyu.cookies()
@@ -63,7 +67,10 @@ if heyu.cookies() is not None:
         heyu_theme = "compact"
     if 'heyu_theme=default' in cookies:
         heyu_theme = "default"
-            
+        
+    
+    
+    # Double redundancy         
     # Test if values are missing and declare values
     if 'heyu_theme' not in cookies:
         print "Set-Cookie: heyu_theme=default;", expires
@@ -74,19 +81,99 @@ if heyu.cookies() is not None:
     if 'heyu_show_all_modules' not in cookies:
         print "Set-Cookie: heyu_show_all_modules=False;", expires
         heyu_show_all_modules = "False"
-            
-   ### Read stdin ###
-   #  
+    if 'sub' not in cookies:    
+        print "Set-Cookie: sub0b_0cookie="";", expires
+        print "Set-Cookie: sub1b_1cookie="";", expires
+        print "Set-Cookie: sub_3cookie=@{sub_heigth}=600@{sub_width}=650@{sub_css}=heyu_style.css@{sub_refresh}=10;", expires
+        
+  
+### Read stdin ### 
    
 try:
-    for data in sys.stdin:            
+    for data in sys.stdin:
+        data = urllib2.unquote(data)    
+        #Sub 0                        
+        if '@{crontab}@{cmd' in data:
+            data = urllib2.unquote(data)
+            q = data
+            q = q.replace("control_panel_@","")
+            q = q.replace("@","|")
+             
+            if '@{crontab}@{cmd' in data:
+                c = q.replace("{crontab}|{","")
+                c = c.replace("}","")                
+                subcmd0 = c  
+            if heyu.getsub_b_0() is None:
+                print "Set-Cookie: sub0b_0cookie=" + q + ";", expires
+            for x in heyu.getsub_b_0():
+                if q not in x:
+                    print "Set-Cookie: sub0b_0cookie=" + q + x + ";", expires
+                elif q in x:
+                    x = x.replace(q,"")
+                    print "Set-Cookie: sub0b_0cookie=" + x + ";", expires
+        # Sub 1
+
+        if '@{config}@' in data:
+            #heyu.debug()
+            data = urllib2.unquote(data)
+            q = data
+            q = q.replace("control_panel_@","")
+
+            if '@{config}@{sub_' in data:               
+               
+                q = q.replace("{config}","")
+                   
+                if heyu.getsub_3() is None:
+                    print "Set-Cookie: sub_3cookie=" + q + ";", expires
+                for x in heyu.getsub_3():
+                    for c in heyu.getsub_3():
+                        c = c
+                    h = "@{sub_heigth}=" + heyu.scrheigth()
+                    w = "@{sub_width}=" + heyu.scrwidth()
+                    css = "@{sub_css}=" + heyu.sub_css()
+                    refresh = "@{sub_refresh}=" + heyu.sub_refresh()
+                    
+                    if '@{sub_heigth}' in q:   
+                        c = c.replace(c,w)
+                        print "Set-Cookie: sub_3cookie=" + c + ";", expires                                        
+                        print "Set-Cookie: sub_3cookie=" + q + w + css + refresh + ";", expires
+                        scrheigth = q
+                    if '@{sub_width}' in q:   
+                        c = c.replace(c,h)
+                        print "Set-Cookie: sub_3cookie=" + c + ";", expires                                        
+                        print "Set-Cookie: sub_3cookie=" + q + h + css + refresh + ";", expires
+                    if '@{sub_css}' in q:   
+                        c = c.replace(c,css)
+                        print "Set-Cookie: sub_3cookie=" + c + ";", expires                                        
+                        print "Set-Cookie: sub_3cookie=" + q + h + w + refresh + ";", expires
+                    if '@{sub_refresh}' in q:   
+                        c = c.replace(c,refresh)
+                        print "Set-Cookie: sub_3cookie=" + c + ";", expires                                        
+                        print "Set-Cookie: sub_3cookie=" + q + h + w + css + ";", expires
+                
+            if '@{config}@{cmd' in data:
+                q = q.replace("@","|")
+                c = q.replace("{config}|{","")
+                c = c.replace("}","")                
+                subcmd1 = c            
+                if heyu.getsub_b_1() is None:
+                    print "Set-Cookie: sub1b_1cookie=" + q + ";", expires
+                for x in heyu.getsub_b_1():
+                    if q not in x:
+                        print "Set-Cookie: sub1b_1cookie=" + q + x + ";", expires
+                    elif q in x:
+                        x = x.replace(q,"")
+                        print "Set-Cookie: sub1b_1cookie=" + x + ";", expires
+            
+             
+                    
+     
         if 'heyu_do_cmd' in data:
             cmd = data.replace("heyu_do_cmd",heyu_path + " -c " + x10config)
-            cmd = cmd.split()
-            
-            ### For debugging uncomment out the two lines                    
+            cmd = cmd.split()           
+            ## For debugging uncomment out the two lines                    
             #heyu.debug()
-            #print cmd
+            #print cmd 
             
             if 'rheo' not in cmd:
                 subprocess.call(cmd) 
@@ -153,6 +240,9 @@ try:
 
 except:
     pass
+    
+    
+     
 
 # If data is empty assign it to query_string for compact theme
 try:
@@ -171,9 +261,18 @@ except:
         data = ""
     
 
-heyu.html(heyu_web_interface_version, auto_refresh_rate)
+heyu.html(heyu_web_interface_version)
 
-
+try:
+    if subcmd0:
+        pass
+except:
+    subcmd0 = ""   
+try:
+    if subcmd1:
+        pass
+except:
+    subcmd1 = ""     
 try:
     if auto_refresh:
         pass
@@ -182,7 +281,7 @@ except:
 
 heyu.control_panel(data, x10config, x10sched, x10report, 
                    heyu_path, HC, heyu_web_interface_version, 
-                   restart_sleep_interval)
+                   restart_sleep_interval, subcmd0, subcmd1)
                    
 if 'control_panel_@' not in urllib2.unquote(data):
      if heyu_theme == 'compact':
@@ -191,4 +290,4 @@ if 'control_panel_@' not in urllib2.unquote(data):
      else:
         from heyu_themes import theme_default
         theme_default(data, x10config, x10sched, x10report, heyu_path, HC, 
-        auto_refresh, auto_refresh_rate)    
+        auto_refresh)    
