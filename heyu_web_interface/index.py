@@ -91,7 +91,9 @@ if heyu.cookies() is not None:
    
 try:
     for data in sys.stdin:
-        data = urllib2.unquote(data)    
+        data = urllib2.unquote(data) 
+        
+          
         #Sub 0                        
         if '@{crontab}@{cmd' in data:
             data = urllib2.unquote(data)
@@ -207,7 +209,7 @@ try:
             cmd = cmd[:6]
             subprocess.call(cmd)           
 
- 
+         
         else:
             if 'auto_refresh' in data or 'show_all_modules' in data or 'heyu_theme' in data:  
                 try:
@@ -217,23 +219,27 @@ try:
                             if 'auto_refresh' in data and 'auto_refresh=True' not in cookies:
                                 print "Set-Cookie: auto_refresh=True;", expires
                                 auto_refresh = "True"
+                                del x                                
                             if 'auto_refresh' in data and 'auto_refresh=False' not in cookies:
                                 print "Set-Cookie: auto_refresh=False;", expires
                                 auto_refresh = "False"
-                                
+                                del x                                
                             if  'show_all_modules' in data and 'heyu_show_all_modules=True' not in cookies:
                                 print "Set-Cookie: heyu_show_all_modules=True;", expires
                                 heyu_show_all_modules = "True"
+                                del x
                             if  'show_all_modules' in data and 'heyu_show_all_modules=False' not in cookies:
                                 print "Set-Cookie: heyu_show_all_modules=False;", expires
                                 heyu_show_all_modules = "False"  
-                                                     
+                                del x                     
                             if 'heyu_theme' in data and 'heyu_theme=default' not in cookies:
                                 print "Set-Cookie: heyu_theme=default;", expires
                                 heyu_theme = "default"
+                                del x
                             if 'heyu_theme' in data and 'heyu_theme=compact' not in cookies:
                                 print "Set-Cookie: heyu_theme=compact;", expires
                                 heyu_theme = "compact"
+                                del x
                 except:
                     pass
 
