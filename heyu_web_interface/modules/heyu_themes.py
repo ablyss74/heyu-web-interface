@@ -83,7 +83,12 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
             print "<table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>"
             print name, "<br></table></button>"
  
-    ### Start Aliases
+    ### Aliases
+    ### Use _addr_ for multiple units / alias
+    ### Try modtype object because it is not an obsolute.
+    ### Test if ',' is in object because it would mean a multiple unit object and should be sliced to show info like dimelevel and timestamps
+    
+
     print("""
             <br><h4 style=\"font-family:Tahoma\">ALIASES</h4>""")
     
@@ -101,16 +106,22 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
             unit = x[1]
             unit = unit.replace("_"," ")
             addr = x[2]
-            addr = addr.replace("_"," ")
-            modtype  = x[3]
-            modtype  = modtype.lower()
-          
-                       
-            # Test for multiple addresses
-            if ',' in addr:		
-	                addr = addr[:2]           
+            _addr_ = x[2]
             
-               # Call heyu and get on/off status and slice strings
+            addr = addr.replace("_"," ")            
+
+            try:
+                modtype  = x[3]
+                modtype  = modtype.lower()
+            except:
+                modtype = ""  
+            
+
+            if ',' in addr:
+                addr = addr[:3]              
+
+     
+            ### Call heyu and get on/off status and slice strings
                        
             process = subprocess.Popen([heyu_path, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
             status = process.communicate()
@@ -144,11 +155,11 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                 print "<table class=button align=left><tr><td class=button>"
                     
                 
-                print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + xstatus, addr + "')\">"
+                print "<button type=button class=scene_button onclick=\"Status(); show('heyu_do_cmd " + xstatus, _addr_ + "')\">"
                 print "<table class=button><tr><td class=button>" + on_icon + unit
         
                 # Info part of the button
-                print "<td class=info>", addr, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
+                print "<td class=info>", _addr_, status, dimlevel + "&#37; Power", "<br>", month, mday + ",", time, "<br></table></button>"
                 
                 try: 
                     if modtype == 'stdlm':
@@ -161,14 +172,14 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                         if rawlevel == "":
                                 rawlevel = '0'
                         if 'html_range=True' in heyu.cookies():
-                            print "<tr><td class=buton><input type=range min=0 max=21 class=sliderfx value=\"" + rawlevel  + "\" step=1 onclick=\"Status(); show('heyu_do_cmd rheo", addr, "' + value + '", rawlevel + "')\"></table>" 
+                            print "<tr><td class=button><input type=range min=0 max=21 class=sliderfx value=\"" + rawlevel  + "\" step=1 onclick=\"Status(); show('heyu_do_cmd rheo", addr, "' + value + '", rawlevel + "')\"></table>" 
                         else:
                             r1 = int(rawlevel) - 3
                             r2 = int(rawlevel) + 3
                             print "<tr><td class=button><img src=./imgs/down.png class=pbi onclick=\"Status(); show('heyu_do_cmd rheo", addr, r1, rawlevel + "')\"><progress class=pb value=\"" + rawlevel  + "\" max=21></progress><img src=./imgs/up.png class=pbi onclick=\"Status(); show('heyu_do_cmd rheo", addr, r2, rawlevel + "')\"></table>"
             
                     else:
-                        
+                        z = z+1
                         print "<tr><td class=button></table>"
                 except:
                     print "<tr><td class=button></table>"
@@ -176,7 +187,7 @@ def theme_default(data, x10config, x10sched, x10report, heyu_path, HC, auto_refr
                 z = z+1
                 
                 if z == 3:
-                    print "&nbsp;"
+                    print "&nbsp; "
                     z = 0
                 
 
@@ -244,11 +255,12 @@ def compact_theme1(x10config, x10sched, heyu_path, HC):
             unit = x[1]
             unit = unit.replace("_"," ")
             addr = x[2]
+            _addr_ = x[2]
             addr = addr.replace("_"," ")
             
             # Test for multiple addresses
             if ',' in addr:		
-	            addr = addr[:2] 
+	            addr = addr[:3] 
 
             # Call heyu and get on/off status and slice strings
             process = subprocess.Popen([heyu_path, '-c', x10config, 'onstate', addr], stdout=subprocess.PIPE)
@@ -259,7 +271,7 @@ def compact_theme1(x10config, x10sched, heyu_path, HC):
             xstatus = xstatus.rstrip() 
             status = status.replace("1","- On")
             status = status.replace("0","- Off")
-            print "<option value=\"?heyu_do_cmd " + xstatus, addr + "\">" + unit, status
+            print "<option value=\"?heyu_do_cmd " + xstatus, _addr_ + "\">" + unit, status
 
    
     

@@ -16,11 +16,11 @@ LATITUDE          N33:94       # [degrees:minutes North or South of equator]
 
 # SCHEDULE_FILE directives do not apply with the heyu web interface.  Edit Interface Config instead.
 
-ALIAS     Living_Room            A1      StdLM
-ALIAS     Fireplace              A2      StdLM
-ALIAS     Hall                   A3      StdLM
-ALIAS     Master_Lights          A4      StdLM
-ALIAS     Basement_Lights        A6      StdLM
+ALIAS     Living_Room            A1      StdLM #
+ALIAS     Fireplace              A2      StdLM #
+ALIAS     Hall                   A3      StdLM #
+ALIAS     Master_Lights          A4      StdLM #
+ALIAS     Basement_Lights        A6      StdLM #
 
 ALIAS     Polaris                B3      StdAM #
 ALIAS     Pool                   B5      StdAM #
@@ -29,6 +29,7 @@ ALIAS     Front_Sconces          B13     StdLM #
 alias     Office_Heater          A8      StdAM
 
 ALIAS     Grow_Lights            G1      StdAM #
+ALIAS     Water_Plants           G2      StdAM #
 
 ALIAS     Irrigation_Front       l1      StdAM #
 ALIAS     Irrigation_Back        l2      StdAM #
@@ -37,7 +38,7 @@ ALIAS     Water_Level            l3      StdAM #
 
 # This demonstrates how an alias can trigger multiple events
 # It is also case insensitive.
-alias Test1 E1,2,3 StdAM # Exclude
+alias    Test1                   E1,2,3
 
 ALIAS     Floods                 C5      StdAM #
 ALIAS     Front_Recessed         D13     StdLM #
