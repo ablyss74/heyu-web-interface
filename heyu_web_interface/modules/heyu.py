@@ -19,7 +19,7 @@
 import cgitb, sys, subprocess, urllib2
 sys.path.append('./modules')
 cgitb.enable()
-
+	
        
 def debug():
     print('Content-type:text/html')
@@ -285,7 +285,7 @@ def control_panel(data, x10config, x10sched, x10report,
     decoded_data = urllib2.unquote(data)
     # Debug data
     # print decoded_data
-    if 'control_panel_@{save}' in decoded_data:
+    if 'control_panel_@{save}' in decoded_data and 'heyu_cmd' not in decoded_data:
     
         out = urllib2.unquote(data)        
         out = out.replace("+"," ")
@@ -559,7 +559,7 @@ def control_panel(data, x10config, x10sched, x10report,
             out = out.replace("@{heyu_cmd=","")
             out = out.replace("}","")
             out = heyu_path + ',-c,' + x10config + ',' + out
-            out = out.split(",")
+            out = out.split(",")            
             info = subprocess.Popen(out, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
             info = info.communicate()
             info = info[0]
