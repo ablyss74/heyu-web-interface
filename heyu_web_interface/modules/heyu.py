@@ -65,8 +65,8 @@ def getsub_b_0():
             x = x.replace("HTTP_COOKIE=","")
             x = x.split()
             for y in x:
-                if 'sub0b_0cookie' in y:
-                    y = y.replace("sub0b_0cookie=","")
+                if 'sub_0cookie' in y:
+                    y = y.replace("sub_0cookie=","")
                     y = y.replace(";","")
                     y = y.split(" ")
                     return y                  
@@ -80,8 +80,8 @@ def getsub_b_1():
             x = x.replace("HTTP_COOKIE=","")
             x = x.split()
             for y in x:
-                if 'sub1b_1cookie' in y:
-                    y = y.replace("sub1b_1cookie=","")
+                if 'sub_1cookie' in y:
+                    y = y.replace("sub_1cookie=","")
                     y = y.replace(";","")
                     y = y.split(" ")
                     return y                      

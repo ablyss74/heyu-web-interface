@@ -47,8 +47,8 @@ if heyu.cookies() is None:
     heyu_show_all_modules = "False"
     print "Set-Cookie: heyu_theme=default;", expires
     heyu_theme = "default"
-    print "Set-Cookie: sub0b_0cookie="";", expires
-    print "Set-Cookie: sub1b_1cookie="";", expires
+    print "Set-Cookie: sub_0cookie="";", expires
+    print "Set-Cookie: sub_1cookie="";", expires
     print "Set-Cookie: sub_3cookie=@{sub_heigth}=600@{sub_width}=650@{sub_css}=heyu_style.css@{sub_refresh}=10;", expires
     
        
@@ -81,9 +81,9 @@ if heyu.cookies() is not None:
     if 'heyu_show_all_modules' not in cookies:
         print "Set-Cookie: heyu_show_all_modules=False;", expires
         heyu_show_all_modules = "False"
-    if 'sub' not in cookies:    
-        print "Set-Cookie: sub0b_0cookie="";", expires
-        print "Set-Cookie: sub1b_1cookie="";", expires
+    if 'sub_' not in cookies:    
+        print "Set-Cookie: sub_0cookie="";", expires
+        print "Set-Cookie: sub_1cookie="";", expires
         print "Set-Cookie: sub_3cookie=@{sub_heigth}=600@{sub_width}=650@{sub_css}=heyu_style.css@{sub_refresh}=10;", expires
         
   
@@ -106,17 +106,15 @@ try:
                 c = c.replace("}","")                
                 subcmd0 = c  
             if heyu.getsub_b_0() is None:
-                print "Set-Cookie: sub0b_0cookie=" + q + ";", expires
+                print "Set-Cookie: sub_0cookie=" + q + ";", expires
             for x in heyu.getsub_b_0():
                 if q not in x:
-                    print "Set-Cookie: sub0b_0cookie=" + q + x + ";", expires
+                    print "Set-Cookie: sub_0cookie=" + q + x + ";", expires
                 elif q in x:
                     x = x.replace(q,"")
-                    print "Set-Cookie: sub0b_0cookie=" + x + ";", expires
+                    print "Set-Cookie: sub_0cookie=" + x + ";", expires
         # Sub 1
-
         if '@{config}@' in data:
-            #heyu.debug()
             data = urllib2.unquote(data)
             q = data
             q = q.replace("control_panel_@","")
@@ -159,13 +157,13 @@ try:
                 c = c.replace("}","")                
                 subcmd1 = c            
                 if heyu.getsub_b_1() is None:
-                    print "Set-Cookie: sub1b_1cookie=" + q + ";", expires
+                    print "Set-Cookie: sub_1cookie=" + q + ";", expires
                 for x in heyu.getsub_b_1():
                     if q not in x:
-                        print "Set-Cookie: sub1b_1cookie=" + q + x + ";", expires
+                        print "Set-Cookie: sub_1cookie=" + q + x + ";", expires
                     elif q in x:
                         x = x.replace(q,"")
-                        print "Set-Cookie: sub1b_1cookie=" + x + ";", expires
+                        print "Set-Cookie: sub_1cookie=" + x + ";", expires
             
              
                     
