@@ -37,8 +37,8 @@ ALIAS     Water_Level            l3      StdAM #
 
 
 # This demonstrates how an alias can trigger multiple events
-# It is also case insensitive.
-alias    Test1                   E1,2,3
+
+ALIAS    Test1                   E1,2,3
 
 ALIAS     Floods                 C5      StdAM #
 ALIAS     Front_Recessed         D13     StdLM #
