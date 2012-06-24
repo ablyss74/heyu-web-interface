@@ -20,6 +20,7 @@ ALIAS     Living_Room            A1      StdLM #
 ALIAS     Fireplace              A2      StdLM #
 ALIAS     Hall                   A3      StdLM #
 ALIAS     Master_Lights          A4      StdLM #
+ALIAS     Master_Bathroom        A5      StdLM #
 ALIAS     Basement_Lights        A6      StdLM #
 
 ALIAS     Polaris                B3      StdAM #
