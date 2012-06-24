@@ -31,7 +31,7 @@ x10report = "./report.txt"
 heyu_path = "/usr/local/bin/heyu"
 
 restart_sleep_interval = "5"
-heyu_web_interface_version = "11.57_python_beta"
+heyu_web_interface_version = "11.58_python_beta"
 expires = "expires=01-Jan-2036 12:00:00 GMT" 
 HC = heyu.housecode(heyu_path, x10config)
 
