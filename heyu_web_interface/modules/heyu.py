@@ -265,10 +265,10 @@ def html(heyu_web_interface_version):
 
     print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", _refresh_() + "000);</script>"
     print("""<script type=text/javascript src=javascript/ajax.js></script>
-    <script type=text/javascript src=javascript/phone.js></script>
-    <script type=text/javascript src=javascript/progressbar.js></script>
-    <script type=text/javascript src=javascript/compact_theme.js></script>
-    <script type=text/javascript src=javascript/packed.js></script>
+    <script type=text/javascript src=heyu_javascripts/phone.js></script>
+    <script type=text/javascript src=heyu_javascripts/progressbar.js></script>
+    <script type=text/javascript src=heyu_javascripts/compact_theme.js></script>
+    <script type=text/javascript src=heyu_javascripts/packed.js></script>
     <meta name=\"viewport\" content=\"width=device-width\">
     <META HTTP-EQUIV=\"Content-Type\" content=\"text/html;charset=utf-8\">
     <META HTTP-EQUIV=\"CACHE-CONTROL\" CONTENT=\"NO-CACHE\">
