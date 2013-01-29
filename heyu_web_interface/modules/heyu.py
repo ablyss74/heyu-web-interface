@@ -264,7 +264,7 @@ def html(heyu_web_interface_version):
          """)
 
     print "<script type=text/javascript>refreshInterval=setInterval('ajax_update()',", _refresh_() + "000);</script>"
-    print("""<script type=text/javascript src=javascript/ajax.js></script>
+    print("""<script type=text/javascript src=heyu_javascripts/ajax.js></script>
     <script type=text/javascript src=heyu_javascripts/phone.js></script>
     <script type=text/javascript src=heyu_javascripts/progressbar.js></script>
     <script type=text/javascript src=heyu_javascripts/compact_theme.js></script>
