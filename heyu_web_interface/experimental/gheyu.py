@@ -14,7 +14,7 @@ class ToggleButtonWindow(Gtk.Window):
        
 
         
-        x10config = "/var/www/heyu-web-interface/heyu_web_interface/x10config"
+        x10config = "/var/www/heyu-web-interface/x10config"
         heyu_path = "/usr/local/bin/heyu"
 
         i = subprocess.Popen([heyu_path, '-c', x10config, 'webhook', 'config_dump'], stdout=subprocess.PIPE)

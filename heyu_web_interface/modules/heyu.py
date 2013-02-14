@@ -712,7 +712,7 @@ def crontab(data, subcmd0):
     print "</textarea></table></form>"
     
 
-# Begine Config 
+# Begin Config 
 def config(data, subcmd1):
     def c1subs1(data, subcmd1):
         s = 'cmd1'
