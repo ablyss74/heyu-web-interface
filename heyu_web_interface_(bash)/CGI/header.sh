@@ -58,7 +58,7 @@ set -f
 	decode="${decode//%2A/*}"
 	decode="${decode//%28/(}"
 	decode=${decode//%B4/\'}
-	#' Some wysiwg editors go nuts with quotes
+	decode=${decode//%27/\'}
 	decode="${decode//%29/)}"
 	decode="${decode//%2D/-}"
 	decode="${decode//%2B/+}"
@@ -71,8 +71,7 @@ set -f
 	decode="${decode//%3F/?}"
 	decode="${decode//%2C/,}"
 	decode="${decode//%0A/}"
-	decode=${decode//%27/\'}
-	#' Some wysiwg editors go nuts with quotes
+	
 	decode="${decode//%22/\"}"
 	decode="${decode//%3D/=}"
 	decode="${decode//%0D/\n}"
