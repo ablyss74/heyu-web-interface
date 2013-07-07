@@ -51,12 +51,12 @@ ismpg123=($(mpg123 --version))
 [[ -z ${ismpg123[0]} ]] && echo "mpg123 not installed.  Please install it to play music.<br><br>"
 
 )
-$( 
-for p in $(ps -A)
- do
- [[ $p == *mpg123* ]] && echo "<a href=?heyu_music=mpgstop>Stop Player</a><br><br>"
- done
-)
+
+
+
+<a href=?heyu_music=mpgstop>Stop Player</a><br><br>
+
+
 
 
 <a href=?heyu_music=amixer_set_0%>Volume 0%</a> | <a href=?heyu_music=amixer_set_45%>Volume 45%</a> | <a href=?heyu_music=amixer_set_55%>Volume 55%</a> |<br> 
