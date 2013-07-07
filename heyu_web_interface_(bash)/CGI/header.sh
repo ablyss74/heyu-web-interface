@@ -72,6 +72,7 @@ set -f
 	decode="${decode//%2C/,}"
 	decode="${decode//%0A/}"
 	decode=${decode//%27/\'}
+	#' Some wysiwg editors go nuts with quotes
 	decode="${decode//%22/\"}"
 	decode="${decode//%3D/=}"
 	decode="${decode//%0D/\n}"
