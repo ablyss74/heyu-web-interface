@@ -173,8 +173,13 @@ fi
 	  show() {
 		
 			 # Private info 
+			 file=/home/jb/Documents/Personal/Computer\ Related\ Stuff/camera.txtx
+			 if [[ ! -e $file ]];then
+			 echo "</textarea><table valign=top><tr><td valign=top align=center>
+			 The file <font color=red>$file </font> does not exit."
+			 else
 			 echo "$(< /home/jb/Documents/Personal/Computer\ Related\ Stuff/camera.txt)"		
-		
+			 fi
 		 }
 
 	fi
