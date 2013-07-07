@@ -192,6 +192,18 @@ fi
 		 }
 
 	fi 
+   
+   if [[ $QUERY_STRING == *heyu_music* ]];then
+	  
+          var=heyu_music
+	  show() {
+		
+			 echo "</textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff ><iframe align=center 
+		        	src=./CGI/music.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
+		
+		 }
+
+	fi 
 
 
 	if [[ $QUERY_STRING == *heyu_reload* ]];then
