@@ -150,12 +150,12 @@ fi
 		 [[   $QUERY_STRING == *Action=Config*   	    || 	$QUERY_STRING == *submit=Save*     		         || 
 		 ${QUERY_STRING,,} == *heyu_camera* 		    ||   ${QUERY_STRING^^} == *X10CONFIG* 		         ||	
 		 ${QUERY_STRING^^} == *X10SCHED*       		    || 	$QUERY_STRING == *heyu_help* 			         || 	
-         $QUERY_STRING == *heyu_top* 			        || 	$QUERY_STRING == *cp_options*   		         ||  
-         $QUERY_STRING == *heyu_restart* 		        || 	$QUERY_STRING == *Interface_=Info            	 ||
-		 $QUERY_STRING == *heyu*cmd*           	        ||   ${QUERY_STRING,,} == *basicuserconfig*          || 
-	     -z $HTTP_COOKIE 				                || 	$QUERY_STRING == *heyu_reload*  		         ||      
-	     $QUERY_STRING == *manpage*	                    ||   $QUERY_STRING == *heyu_music*                   ||     
-	     $QUERY_STRING == *heyu_web_interface_version*             
+		 $QUERY_STRING == *heyu_top* 			    || 	$QUERY_STRING == *cp_options*   		         ||  
+		 $QUERY_STRING == *heyu_restart* 		    || 	$QUERY_STRING == *Interface_=Info            	  	 ||
+		 $QUERY_STRING == *heyu*cmd*           	            ||   ${QUERY_STRING,,} == *basicuserconfig*          	 || 
+		 -z $HTTP_COOKIE 				    || 	$QUERY_STRING == *heyu_reload*  	 		 ||      
+	         $QUERY_STRING == *manpage*	                    ||   $QUERY_STRING == *heyu_music*                  	 ||     
+	         $QUERY_STRING == *heyu_web_interface_version*             
  	  ]]
 		then			
 			[[ -e ./CGI/control_panel.sh ]] && source ./CGI/control_panel.sh
