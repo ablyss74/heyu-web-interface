@@ -842,6 +842,10 @@ fi
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_top')\">
 		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
 		<td><span class=control_panel>Top</table></button><br>
+    
+     <button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_music')\">
+		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
+		<td><span class=control_panel>Music</table></button><br>
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_camera1')\">
 		<table><tr><td width=20><img src=./imgs/scenes.png width=25 height=25> 
