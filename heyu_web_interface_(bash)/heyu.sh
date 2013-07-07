@@ -153,7 +153,7 @@ fi
      $QUERY_STRING == *heyu_restart* 		      || 	$QUERY_STRING == *Interface_=Info            	 ||
 		 $QUERY_STRING == *heyu*cmd*           	   ||   ${QUERY_STRING,,} == *basicuserconfig*          || 
 	   -z $HTTP_COOKIE 				                  || 	$QUERY_STRING == *heyu_reload*  		            ||      
-	   $QUERY_STRING == *manpage*	              ||   QUERY_STRING == *heyu_music*                    ||     
+	   $QUERY_STRING == *manpage*	              ||   $QUERY_STRING == *heyu_music*                    ||     
 	   $QUERY_STRING == *heyu_web_interface_version*             
  	  ]]
 		then			
