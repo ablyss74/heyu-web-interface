@@ -27,7 +27,7 @@ echo "
      
       <B><center>Heyu Web Interface Internet Radio Player (Beta)</B><br>
        </center>
-$(
+"
 
 for line in $(</etc/group); 
 do 
@@ -50,10 +50,10 @@ done
 ismpg123=($(mpg123 --version))
 [[ -z ${ismpg123[0]} ]] && echo "mpg123 not installed.  Please install it to play music.<br><br>"
 
-)
 
 
 
+echo"
 <a href=?heyu_music=mpgstop>Stop Player</a><br><br>
 
 
