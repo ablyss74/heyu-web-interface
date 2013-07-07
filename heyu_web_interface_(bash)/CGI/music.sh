@@ -11,7 +11,7 @@ echo
 QUERY_STRING=${QUERY_STRING/heyu_music=/}
 
 
-[[ $QUERY_STRING == mpgstop ]] && killall -9 mpg123
+[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && killall -9 mpg123
 [[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING
 [[ $QUERY_STRING == *amixer_set* ]] && amixer -q set Master ${QUERY_STRING/amixer_set_}
 
