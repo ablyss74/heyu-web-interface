@@ -24,7 +24,10 @@ echo "
    </head>
    <body bgcolor=#E5E5E5>
       <div id=content>
-      <center>MP3123 Internet Radio Player</center>
+      <center>Heyu Web Interface Internet Radio Player (Beta)<br>
+	     
+      
+      </center>
 $(
 
 for line in $(</etc/group); 
