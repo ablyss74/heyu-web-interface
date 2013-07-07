@@ -12,7 +12,7 @@ QUERY_STRING=${QUERY_STRING/heyu_music=/}
 
 
 [[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && killall -9 mpg123
-[[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING 
+[[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING
 [[ $QUERY_STRING == *amixer_set* ]] && amixer -q set Master ${QUERY_STRING/amixer_set_}
 
 
@@ -22,8 +22,9 @@ echo "
   <head>
 
    </head>
-   <body bgcolor=#E5E5E5>
-      <div id=content>
+    <body bgcolor=#E5E5E5 >
+       
+     
       <B><center>Heyu Web Interface Internet Radio Player (Beta)</B><br>
        </center>
 $(
@@ -47,10 +48,17 @@ do
 done
 
 ismpg123=($(mpg123 --version))
-[[ -z ${ismpg123[0]} ]] && echo "mpg123 not installed.  Please install it to play use music.<br><br>"
+[[ -z ${ismpg123[0]} ]] && echo "mpg123 not installed.  Please install it to play music.<br><br>"
 
 )
-<a href=?heyu_music=mpgstop>Stop Player</a><br><br>
+$( 
+for p in $(ps -A)
+ do
+ [[ $p == *mpg123* ]] && echo "<a href=?heyu_music=mpgstop>Stop Player</a><br><br>"
+ done
+)
+
+
 <a href=?heyu_music=amixer_set_0%>Volume 0%</a> | <a href=?heyu_music=amixer_set_45%>Volume 45%</a> | <a href=?heyu_music=amixer_set_55%>Volume 55%</a> |<br> 
 <a href=?heyu_music=amixer_set_65%>Volume 65%</a> | <a href=?heyu_music=amixer_set_75%>Volume 75%</a> | <a href=?heyu_music=amixer_set_85%>Volume 85%</a> | 
 <a href=?heyu_music=amixer_set_100%>Volume 100%</a>
