@@ -12,6 +12,7 @@ source ./CGI/header.sh
 echo Content-type:text/html
 echo
 
+
 source ./CGI/alerts.sh
 
 #### HTML / CSS / Javascript

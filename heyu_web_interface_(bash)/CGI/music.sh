@@ -24,8 +24,32 @@ echo "
    </head>
    <body bgcolor=#E5E5E5>
       <div id=content>
+      <center>MP3123 Internet Radio Player</center>
+$(
 
-<a href=?heyu_music=mpgstop>Stop</a><br><br>
+for line in $(</etc/group); 
+do 
+
+  [[ "$line" == *:$UID:* ]] && USER=${line/:x:$UID:};
+
+
+done
+
+for line in $(</etc/group); 
+do 
+
+  if [[ "$line" == *audio* ]] && [[ "$line" != *$USER* ]];then
+    echo "User \"$USER\" must be added to group Audio. <br> In terminal type command \"sudo usermod -G audio $USER\" to add $USER to group audio.<BR>
+    Then restart apache to have the new user settings updated.<br><br>";
+  fi
+
+done
+
+ismpg123=($(mpg123 --version))
+[[ -z ${ismpg123[0]} ]] && echo "mpg123 not installed.  Please install it to play use music.<br><br>"
+
+)
+<a href=?heyu_music=mpgstop>Stop Player</a><br><br>
 <a href=?heyu_music=amixer_set_0%>Volume 0%</a> | <a href=?heyu_music=amixer_set_45%>Volume 45%</a> | <a href=?heyu_music=amixer_set_55%>Volume 55%</a> |<br> 
 <a href=?heyu_music=amixer_set_65%>Volume 65%</a> | <a href=?heyu_music=amixer_set_75%>Volume 75%</a> | <a href=?heyu_music=amixer_set_85%>Volume 85%</a> | 
 <a href=?heyu_music=amixer_set_100%>Volume 100%</a>
