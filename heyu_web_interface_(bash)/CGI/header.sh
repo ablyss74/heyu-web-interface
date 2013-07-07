@@ -59,6 +59,8 @@ set -f
 	decode="${decode//%28/(}"
 	decode=${decode//%B4/\'}
 	decode=${decode//%27/\'}
+	#' Leave this commit for some wysiwg quote quarks 
+
 	decode="${decode//%29/)}"
 	decode="${decode//%2D/-}"
 	decode="${decode//%2B/+}"
