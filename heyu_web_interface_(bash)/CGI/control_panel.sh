@@ -187,7 +187,7 @@ fi
 	  show() {
 		
 			 echo "</textarea><table valign=top><tr><td valign=top align=center bgcolor=#ffffff ><iframe align=center 
-		        	src=./CGI/top.cgi border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
+		        	src=./CGI/top.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
 		
 		 }
 
@@ -820,7 +820,7 @@ fi
 
 	
 		
-		if [[ -e ./CGI/cron_frontend.cgi ]];then
+		if [[ -e ./CGI/cron_frontend.sh ]];then
 		echo "<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('Macro=Refresh')\">
 		<table><tr><td width=20><img src=./imgs/cron.png width=25 height=25> 
 		<td><span class=control_panel>Crontab</table></button><br>"
@@ -918,7 +918,7 @@ xinfo()
 	
                 # Sensors
                 
-                source ./CGI/sensors.cgi
+                source ./CGI/sensors.sh
 
                 # Standard Button layout
 	            echo " $_addr_ "

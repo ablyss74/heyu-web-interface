@@ -7,12 +7,12 @@ set -f
 
 
 
-source ./CGI/header.cgi
+source ./CGI/header.sh
 
 echo Content-type:text/html
 echo
 
-source ./CGI/alerts.cgi
+source ./CGI/alerts.sh
 
 #### HTML / CSS / Javascript
 
@@ -142,7 +142,7 @@ if [[ $QUERY_STRING != *Macro* ]];then
 fi
 
 
-	 # Test for QUERY_STRING parameters that match Control Panel and source the control_panel.cgi if true
+	 # Test for QUERY_STRING parameters that match Control Panel and source the control_panel.sh if true
 	
      
      	if  [[ $QUERY_STRING != *Macro* ]] && 
@@ -159,16 +159,16 @@ fi
  	  ]]
 		then
 			
-			[[ -e ./CGI/control_panel.cgi ]] && source ./CGI/control_panel.cgi
+			[[ -e ./CGI/control_panel.sh ]] && source ./CGI/control_panel.sh
 		return
 	fi
 	
 	macro() 
 { 
-	if [[ -e ./CGI/cron_frontend.cgi ]];then
-		source ./CGI/cron_frontend.cgi	
+	if [[ -e ./CGI/cron_frontend.sh ]];then
+		source ./CGI/cron_frontend.sh	
 	else
-		echo "Error: cron_frontend.cgi not found.<br><a href=/>Exit</a>"
+		echo "Error: cron_frontend.sh not found.<br><a href=/>Exit</a>"
 	
 	fi
 	exit
@@ -242,7 +242,7 @@ xinfo()
 	
                 # Sensors
                 
-                source ./CGI/sensors.cgi
+                source ./CGI/sensors.sh
 
                 # Standard Button layout
 	            echo " $_addr_ "
@@ -612,7 +612,7 @@ echo "	<form method=post>
 			</form>"
 	    echo "<form method=post><button class=userconfigbutton type=button onclick=\"Status(); show('change_theme')\"> Change Theme</button></form>"
 		
-elif [[ $QUERY_STRING == *Macro* && -e ./CGI/cron_frontend.cgi ]];then
+elif [[ $QUERY_STRING == *Macro* && -e ./CGI/cron_frontend.sh ]];then
 echo "<form method=post>
 <table border=0 align=center cellspacing=0 cellpadding=5>
 <th><span>Heyu Web Interface Crontab Frontend</span></th>
@@ -631,7 +631,7 @@ echo "<form method=post>
                  fi
                  done <<< "$("$heyu" -c "${x10config}" webhook config_dump)"
 
-    if [[ $QUERY_STRING == *Macro* && -e ./CGI/cron_frontend.cgi ]];then echo "</option></table>" && return ;fi
+    if [[ $QUERY_STRING == *Macro* && -e ./CGI/cron_frontend.sh ]];then echo "</option></table>" && return ;fi
 
 else
 
@@ -766,7 +766,7 @@ fi
 }
 ############ End show all modules and Aliases
 
-if [[ $QUERY_STRING == *Macro* && -e ./CGI/cron_frontend.cgi ]];then 
+if [[ $QUERY_STRING == *Macro* && -e ./CGI/cron_frontend.sh ]];then 
 	function_show_aliases
 	macro	
 fi        

@@ -2,7 +2,7 @@
 ### Setting up heyu web interface with Apache2
 ### Modified on August 24th 2011
 
-### 1. Apache Config: Use the included .htaccess file which has the directive "AddHandler cgi-script .cgi". If not make sure the apache2.conf file has the line AddHandler cgi-script .cgi
+### 1. Apache Config: Use the included .htaccess file which has the directive "AddHandler cgi-script .cgi .sh .py". If not make sure the apache2.conf file has the line AddHandler cgi-script .cgi .sh .py
 
 ### 2. Apache Config: Create a virtual host file called "heyu_web_interface" and copy the directives below in it and save the file in "sites-enabled" folder in apache.
 

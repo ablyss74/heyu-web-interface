@@ -421,7 +421,7 @@ if [[ $QUERY_STRING == *Reset_Cookies* ]];then
 		unset arr
 	fi
 
-source ./CGI/User_Agent_Overrides.cgi
+source ./CGI/User_Agent_Overrides.sh
 
 # Modify the HTTP_COOKIE header this way because we need keep the values separated.
 export HTTP_COOKIE=${HTTP_COOKIE//;/; }
