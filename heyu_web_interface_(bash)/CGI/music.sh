@@ -53,7 +53,7 @@ ismpg123=($(mpg123 --version))
 
 
 
-echo"
+echo "
 <a href=?heyu_music=mpgstop>Stop Player</a><br><br>
 
 
