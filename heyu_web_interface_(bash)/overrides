@@ -1,0 +1,32 @@
+# Cookie overrides. 
+# Used for older browsers where cookies are not an option.
+
+#path_to_heyu                    /usr/local/bin/heyu
+#path_to_x10config               ./x10config
+#path_to_x10sched                ./x10.sched
+#path_to_report.txt              ./report.txt
+#heyu_refresh_rate               11
+#Disable_HTML5                   False
+#Debug_Script                    True
+#Hide_Scenes                     False
+#Show_All_Modules_Width          70px
+#Show_All_Modules_Height         70px
+#Show_Power_Percentage           True
+#Show_On_Off_Status              True
+#Show_Time_Stamp                 True
+#Show_Module_Type                False    
+#heyu_css                        heyu_style.css
+#heyu_show_all_modules           False
+#heyu_theme                      default
+#auto_refresh                    False
+#Screen_Height                   400px
+#Screen_Width                    650px
+#All_Modules_Auto_Refresh        False
+
+# USER AGENT Overrides
+# Used for older browsers where cookie overrides are not an option.
+# Define a string from the HTTP_USER_AGENT that is unique to the browser.
+# Edit CGI/User_Agent_Overrides.cgi to customize.
+
+#user_agent_override              samsung_example
+
