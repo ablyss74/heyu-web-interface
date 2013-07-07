@@ -1,0 +1,93 @@
+# Serial port to which the CM11a is connected. Default is /dev/ttyS0.
+
+# Use this tty if you have a computer that supports it otherwise use the ttyusb
+# TTY /dev/ttyS0
+
+TTY   /dev/ttyUSB0
+
+# Auto start the relay engine
+START_ENGINE AUTO
+
+HOUSECODE   A
+
+# Change the longitude and latitude coordinates to the location that runs heyu
+LONGITUDE         W84:00       # [degrees:minutes East or West of Greenwich]
+LATITUDE          N33:94       # [degrees:minutes North or South of equator]
+
+### IMPORTANT ###  The SCHEDULE_FILE directive does not apply to heyu web interface.  Edit Interface Config instead if you wish to use a alternate schedule file.
+
+### IMPORTANT ### The Group directive applies to Heyu Web Interface only.
+
+ALIAS     Living_Room            A1      StdLM # Group=Living_Room
+ALIAS     Fireplace              A2      StdLM # Group=Living_Room
+ALIAS     Hall                   A3      StdLM # Group=Living_Room
+ALIAS     Master_Lights          A4      StdLM # Group=Master
+ALIAS     Master_Bathroom        A5      StdLM # Group=Master
+ALIAS     Basement_Lights        A6      StdLM # Group=Basement
+ALIAS     Office_Lamp            A7      StdLM # Group=Office
+ALIAS     Office_Heater          A8      StdAM # Group=Office
+
+ALIAS     Polaris                B3      StdAM # Group=Pool
+ALIAS     Pool                   B5      StdAM # Group=Pool
+ALIAS     Mushroom_Lights        B8      StdAM # Group=Landscape
+ALIAS     Front_Sconces          B13     StdLM # Group=Landscape
+
+
+ALIAS     Grow_Lights            G1      StdAM # Group=Garage
+ALIAS     Water_Plants           G2      StdAM # Group=Garage
+
+ALIAS     Irrigation_Front       l1      StdAM # Group=Irrigation
+ALIAS     Irrigation_Back        l2      StdAM # Group=Irrigation
+ALIAS     Water_Level            l3      StdAM # Group=Pool
+
+
+# This demonstrates how an alias can trigger multiple events
+
+ALIAS    Test1                   E1,2,3 # Group=Test1
+
+ALIAS     Floods                 C5      StdAM # Group=Flood_Lights
+ALIAS     Front_Recessed         D13     StdLM # Group=Landscape
+
+#USERSYN   USERSYN off            A8            # Group=USERSYN_USERSYN
+
+SCENE  Entertainment bright A1-3 22 ; dim A1-3 4 # Group=Scene_Entertainment
+SCENE  Subtle_Moods  bright A1-3 22 ; dim A1-3 7 # Group=Scene_Subtle_Moods
+SCENE  All_Lights_Off alloff A                   # Group=Scene_All_Lights_Off
+SCENE  All_Lights_On lightson A                  # Group=Scene_All_Lights_On
+
+
+# The below sensors are experimental for testing heyu web interface
+# They are pseudo addresses copied from the man pages and can be deleted.
+#ALIAS     OregonT                  C6      ORE_T1    0x1F     # Group=Sensors
+#ALIAS     OregonTH                 C7      ORE_TH1   0x24     # Group=Sensors
+#ALIAS     OregonTHB                C8      ORE_THB1  0xF5     # Group=Sensors
+#ALIAS     DigiMax                  C9      DIGIMAX   EB83     # Group=Sensors
+#ALIAS     RFXPower                 C10     RFXPOWER  08       # Group=Sensors
+#ALIAS     RFXSensor                C11     RFXSENSOR 0x00 TH  # Group=Sensors
+#ALIAS     RFXGas                   C12     RFXGAS    09       # Group=Sensors
+
+
+# SCRIPT [ -l label ] <launch conditions> :: [options] <command line>
+# USERSYN normal_lights  on front_porch; on back_porch
+# USERSYN night_lights dimb front_porch $1; dimb back_porch $1
+
+# LOG_DIR  NONE
+
+# MODE              COMPATIBLE   # COMPATIBLE  HEYU
+# PROGRAM_DAYS      366          # [number of days 1 to 366]
+# COMBINE_EVENTS    YES          # YES  NO
+# COMPRESS_MACROS   NO           # YES  NO
+
+
+# DAWN_OPTION       FIRST        # FIRST  EARLIEST  LATEST  AVERAGE  MEDIAN
+# DUSK_OPTION       FIRST        # FIRST  EARLIEST  LATEST  AVERAGE  MEDIAN
+
+# MIN_DAWN         OFF           # OFF or [hours:minutes 00:00-23:59]
+# MAX_DAWN         OFF           # OFF or [hours:minutes 00:00-23:59]
+# MIN_DUSK         OFF           # OFF or [hours:minutes 00:00-23:59]
+# MAX_DUSK         OFF           # OFF or [hours:minutes 00:00-23:59]
+
+# REPORT_PATH  ./                # [127 characters max.]
+# REPL_DELAYED_MACROS     YES    # YES  NO
+# WRITE_CHECK_FILES       NO     # YES  NO
+

@@ -1,0 +1,30 @@
+Welcome to the heyu web interface.
+
+This document will get you acquainted with what heyu web interface is and how to get it started.
+
+### Welcome
+
+First, if you've downloaded this and happened to be wondering what it does let me just say thanks for downloading.  
+This is a CGI script.  The script runs on a web server from your local computer.  It is intended to be ran on a Linux-type OS.
+This is because the script uses the native shell interpreter called bash to run.  Any language such as PHP, Perl, Python, Ruby, C/C++ will do but
+I tend to favor bash because it's pretty easy and less prone to breakage if done right.  
+
+### Basic stuff
+
+Now as for getting this script up and running you could save some time on the matter by learning what a CGI is, what a server sided script is, what a client sided script is,
+why the differences and what security threats my happen if you run a CGI publicly from your machine.  It would also be helpful if you learned what a web server does and 
+how it handles CGI scripts. Personally I use Apache as it dose the job.  Included in the help folder is an apache configuration example for hosting the CGI.  
+If you're already proficient in web servers and also knowledgeable about CGI then pretty much your questions may be more towards how the script works.
+
+### The Script
+
+The script works by talking to heyu.  It reads the configuration file that is included and returns a pretty web interface from where you can control your units.
+It also gives you access to simple yet powerful tools.  To just name a few, the heyu manual pages, a cron frontend, upload schedules to the cm11a.
+
+
+### Finally
+
+If you run in to issues which is probably reasonably in question with open source stuff just email me.  I'm pretty quick to answer most questions but there are times I
+just forget so don't take it personally.  Just email me again.
+
+Kris

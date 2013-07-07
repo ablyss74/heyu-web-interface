@@ -1,0 +1,46 @@
+
+### Setting up heyu web interface with Apache2
+### Modified on August 24th 2011
+
+### 1. Apache Config: Use the included .htaccess file which has the directive "AddHandler cgi-script .cgi". If not make sure the apache2.conf file has the line AddHandler cgi-script .cgi
+
+### 2. Apache Config: Create a virtual host file called "heyu_web_interface" and copy the directives below in it and save the file in "sites-enabled" folder in apache.
+
+### 3. Make heyu web interface Directory: Open a terminal and become root or sudo and type: mkdir /var/www/heyu_web_interface 
+
+### 4. Copy Necessary Files: Open a terminal to the heyu_web_interface directory that contains the heyu.cgi become root or sudo and type: cp -r * /var/www/heyu_web_interface/ && cp -r .htaccess /var/www/heyu_web_interface/
+
+### 5. Change Ownership of files: Open the terminal and become root or sudo and type: chown -Rv www-data /var/www/heyu_web_interface
+
+### 6. Restart Apache	
+
+### 7. Change Modes: chmod o+rw /dev/ttyS0 to give Apache access to heyu and add to /etc/rc.local 
+
+### 8. Access control is provided but commited out.  You will need to create a password file to use it.
+
+### 9. This virtual host uses http://localhost
+
+### 10. .htaccess is provided also in the heyu interface root directory
+
+# heyu_web_interface virtual host directives
+NameVirtualHost localhost
+<VirtualHost localhost>
+        ServerAdmin webmaster@localhost
+	DirectoryIndex heyu.cgi 
+        DocumentRoot /var/www/heyu_web_interface/
+        <Directory "/var/www/heyu_web_interface/">
+               AllowOverride All
+               Allow from all
+
+	  	#AuthName "RESTRICTED ACCESS"
+		#AuthType Basic
+		#AuthUserFile /var/www/.htpasswd
+		#AuthGroupFile /dev/null
+		#require valid-user
+        </Directory>
+
+        ErrorLog /var/log/apache2/heyu_web_interface_error.log
+        LogLevel warn
+        CustomLog /var/log/apache2/heyu_web_interface.log combined
+        ServerSignature On
+</VirtualHost>

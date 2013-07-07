@@ -1,0 +1,7 @@
+AddHandler cgi-script .cgi .py
+DirectoryIndex heyu.cgi index.py
+Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+
+
+
+

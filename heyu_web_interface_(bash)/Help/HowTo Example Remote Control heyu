@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# If you have heyu on another computer you can use this script to launch scenes
+# Set up launchers on your desktop or configure lirc to remote it.
+
+# Requisites
+#1. Wget 
+#2. heyu web interface
+#3. heyu
+#4. Apache or similar web server w/ htpasswd enabled ( to bypass the htpasswd just edit the wget options )
+#5. A working Scene in x10config
+#6. Change the username, password, remote_machine and "Living_Room_bright" scene to your parameters.<br>
+
+# Optional: lirc, lirc compatiable remote, lirc compatible "IR" inferred transmitter
+
+
+/usr/bin/wget --spider --http-user=username --http-password=password --post-data="do_scene=Living_Room_bright" http://remote_machine
