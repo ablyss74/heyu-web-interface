@@ -24,7 +24,7 @@ echo "
    </head>
    <body bgcolor=#E5E5E5>
       <div id=content>
-      <center>Heyu Web Interface Internet Radio Player (Beta)<br>
+      <B><center>Heyu Web Interface Internet Radio Player (Beta)</B><br>
 	     
       
       </center>
@@ -58,7 +58,7 @@ ismpg123=($(mpg123 --version))
 <a href=?heyu_music=amixer_set_100%>Volume 100%</a>
 
 <br><br>
-
+<B>SomaFM Stations</B><br><ul>
 <a href=?heyu_music=http://somafm.com/groovesalad.pls>Groove Salad</a> | <a href=?heyu_music=http://somafm.com/lush.pls>Lush</a> | <a href=?heyu_music=http://somafm.com/folkfwd.pls>Folk Forward</a>
 <br><br>
 
@@ -74,14 +74,16 @@ ismpg123=($(mpg123 --version))
 <a href=?heyu_music=http://somafm.com/illstreet.pls>Illinois Street Lounge</a> | <a href=?heyu_music=http://somafm.com/dubstep.pls>Dub Step</a> | <a href=?heyu_music=http://somafm.com/bootliquor.pls>Boot Liquor</a>
 <br><br>
 
-<a href=?heyu_music=http://somafm.com/sxfm.pls>South of Soma</a> | 
+<a href=?heyu_music=http://somafm.com/sxfm.pls>South of Soma</a>
+</ul>
+<B>Favorites</B><UL>
 <a href=?heyu_music=http://radioboxhd.com/streampanel/tunein.php/jsorrent/playlist.pls>Z100 #1 Pop Music</a> | 
 <a href=?heyu_music=http://149.255.33.74:8104>Mega Shuffle.com</a>
 
 <br><br>
 
 <a href=?heyu_music=http://blackbeats.fm/listen.m3u>Black Beats.fm</a> | <a href=?heyu_music=http://www.radioparadise.com/m3u/mp3-128.m3u>Radio Paradise.com</a> | 
-
+</UL>
 </body></html>"
 
 
