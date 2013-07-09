@@ -172,14 +172,16 @@ fi
           var=heyu_camera1
 	  show() {
 		
-			 # Private info 
-			 file=/home/jb/Documents/Personal/Computer\ Related\ Stuff/camera.txtx
-			 if [[ ! -e $file ]];then
-			 echo "</textarea><table valign=top><tr><td valign=top align=center>
-			 The file <font color=red>$file </font> does not exit."
-			 else
-			 echo "$(< /home/jb/Documents/Personal/Computer\ Related\ Stuff/camera.txt)"		
-			 fi
+			echo "</textarea>
+			      <table valign=top><tr><td valign=top align=center bgcolor=#ffffff >
+			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
+			      <td valign=top align=center bgcolor=#ffffff >
+			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
+			      <tr><td valign=top align=center bgcolor=#ffffff >
+			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
+			      <td valign=top align=center bgcolor=#ffffff >
+			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
+			      </table>"
 		 }
 
 	fi
