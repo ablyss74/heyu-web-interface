@@ -34,6 +34,7 @@ while [[ x -lt ${#data[*]} ]]
     done  
    
 echo "${p}"
+echo "
 
 echo "</body></html>"
 

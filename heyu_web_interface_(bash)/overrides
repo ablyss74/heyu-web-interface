@@ -23,6 +23,7 @@
 #Screen_Width                    650px
 #All_Modules_Auto_Refresh        False
 
+
 # USER AGENT Overrides
 # Used for older browsers where cookie overrides are not an option.
 # Define a string from the HTTP_USER_AGENT that is unique to the browser.

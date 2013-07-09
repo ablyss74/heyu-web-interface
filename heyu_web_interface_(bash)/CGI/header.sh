@@ -302,10 +302,9 @@ while read -r config
 	[[ $config == path_to_x10sched*		]] && x10sched=(${config/path_to_x10sched /})
 	[[ $config == path_to_report.txt* 	]] && sched_report=(${config/path_to_report.txt /})
 	[[ $config == heyu_refresh_rate* 	]] && hrr=(${config/heyu_refresh_rate /})
-
 	[[ $config == Hide_Scenes* 		]] && Hide_Scenes=(${config/Hide_Scenes /})
 	[[ $config == Debug_SCRIPT* 		]] && Debug_SCRIPT=(${config/Debug_SCRIPT /})
-    [[ $config == Disable_HTML5* 		]] && Disable_HTML5=(${config/Disable_HTML5 /})
+        [[ $config == Disable_HTML5* 		]] && Disable_HTML5=(${config/Disable_HTML5 /})
 	[[ $config == Show_All_Modules_Width* 	]] && Show_All_Modules_Width=(${config/Show_All_Modules_Width /})
 	[[ $config == Show_All_Modules_Height* 	]] && Show_All_Modules_Height=(${config/Show_All_Modules_Height /})
 	[[ $config == Show_Power_Percentage*	]] && Show_Power_Percentage=(${config/Show_Power_Percentage /})
@@ -327,7 +326,7 @@ done <./overrides
 
 # On initial startup cookies are null which may cause certain problems so we assign them temporary values
 [[ -z $Debug_SCRIPT		]] && Debug_SCRIPT=True
-[[ -z $Disable_HTML5    ]] && Disable_HTML5=False
+[[ -z $Disable_HTML5   	  	]] && Disable_HTML5=False
 [[ -z $Show_Power_Percentage 	]] && Show_Power_Percentage=True
 [[ -z $Show_On_Off_Status   	]] && Show_On_Off_Status=True
 [[ -z $Show_Time_Stamp 	  	]] && Show_Time_Stamp=True
@@ -338,7 +337,7 @@ done <./overrides
 [[ -z $sched_report		]] && sched_report=./report.txt
 [[ -z $hrr			]] && hrr=10
 
-   
+
 
     ### Check if TTY's are owned by us.
     while read -r config
