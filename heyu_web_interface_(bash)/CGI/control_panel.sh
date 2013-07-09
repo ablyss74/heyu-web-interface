@@ -204,7 +204,7 @@ fi
 	  show() {
 		
 			 echo "</textarea><table valign=top width=$ctaw ><tr><td valign=top align=center bgcolor=#ffffff><iframe align=center 
-# 		        	src=./CGI/current_song.sh border=0 height=90 width=$ctaw scrolling=yes></iframe><iframe align=center 
+# 		        	src=./CGI/current_song.sh border=0 height=100 width=$ctaw scrolling=yes></iframe><iframe align=center 
 		        	src=./CGI/music.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
 		
 		 }

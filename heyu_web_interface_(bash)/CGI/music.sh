@@ -15,7 +15,7 @@ echo "
 
    </head>
    
-    
+    <body>
      
 "
 
@@ -30,10 +30,7 @@ QUERY_STRING=${QUERY_STRING/heyu_music=/}
 
 for line in $(</etc/group); 
 do 
-
   [[ "$line" == *:$UID:* ]] && USER=${line/:x:$UID:};
-
-
 done
 
 for line in $(</etc/group); 
@@ -51,12 +48,8 @@ ismpg123=($(mpg123 --version))
 
 
 
-
 echo "
 <a href=?heyu_music=mpgstop>Stop Player</a><br><br>
-
-
-
 
 <a href=?heyu_music=amixer_set_0%>Volume 0%</a> | <a href=?heyu_music=amixer_set_45%>Volume 45%</a> | <a href=?heyu_music=amixer_set_55%>Volume 55%</a> |<br> 
 <a href=?heyu_music=amixer_set_65%>Volume 65%</a> | <a href=?heyu_music=amixer_set_75%>Volume 75%</a> | <a href=?heyu_music=amixer_set_85%>Volume 85%</a> | 

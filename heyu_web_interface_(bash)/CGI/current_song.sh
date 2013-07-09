@@ -22,22 +22,19 @@ mapfile data <currently_playing
 while [[ x -lt ${#data[*]} ]]
 	do
 	if [[ ${data[$x]} == *StreamTitle* ]];then
+	  ((c++))
 	  p=${data[$x]}
 	  p=${p//ICY-META: StreamTitle=\'}
 	  p=${p//\';StreamUrl=\'/ }
 	  p=${p//\';/}
-	  echo "$p<br>"
-	  #export current_song=$p
-	  #[[ -z $c ]] && exit
-	  #[[ $c -gt 1 ]] && echo $p > textfile && exit
-	  #((c++))
-	fi
-	#[[ ${data[$x]} == *StreamTitle* ]] && echo "${data[$x]}<br>"
-	((x++))
-	
-done
+	  p=${p//http/<br>http}
 
-#echo "<pre>${title}"
+	  fi	
+	((x++))
+    done  
+   
+echo "${p}"
+
 echo "</body></html>"
 
 
