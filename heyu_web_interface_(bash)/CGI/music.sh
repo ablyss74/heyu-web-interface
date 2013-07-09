@@ -12,7 +12,6 @@ echo
 echo "
 <html>
   <head>
-
    </head>
    
     <body>
