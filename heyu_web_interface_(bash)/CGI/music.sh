@@ -8,26 +8,25 @@ set -f
 echo Content-Type:Text/Html
 echo
 
-QUERY_STRING=${QUERY_STRING/heyu_music=/}
-
-
-[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && killall -9 mpg123
-[[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING
-[[ $QUERY_STRING == *amixer_set* ]] && amixer -q set Master ${QUERY_STRING/amixer_set_}
-
-
 
 echo "
 <html>
   <head>
 
    </head>
-    <body bgcolor=#E5E5E5 >
-       
+   
+    
      
-      <B><center>Heyu Web Interface Internet Radio Player (Beta)</B><br>
-       </center>
 "
+
+
+QUERY_STRING=${QUERY_STRING/heyu_music=/}
+#[[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING
+
+[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && killall -9 mpg123
+[[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING >&textfile
+[[ $QUERY_STRING == *amixer_set* ]] && amixer -q set Master ${QUERY_STRING/amixer_set_}
+
 
 for line in $(</etc/group); 
 do 
