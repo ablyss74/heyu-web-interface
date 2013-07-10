@@ -19,18 +19,6 @@ echo "
   
 mapfile data <currently_playing
 
-#while [[ x -lt ${#data[*]} ]]
-#	do
-#	if [[ ${data[$x]} == *StreamTitle* ]];then
-#	  p=${data[$x]}
-#	  p=${p//ICY-META: StreamTitle=\'}
-#	  p=${p//\';StreamUrl=\'/ }
-#	  p=${p//\';/}
-#	  p=${p//http/<br>http}
-#	  fi	
-#	((x++))
- #   done  
-    
     while [[ x -lt ${#data[*]} ]]
 	do
 	if [[ ${data[$x]} == *ICY-META* ]];then
@@ -52,9 +40,14 @@ mapfile data <currently_playing
 	  fi	
 	((x++))
     done  
-[[ $title ]] && echo "<br>Now Playing...<br>"   
-echo "${title} <a href='https://play.google.com/store/search?q=${title}&c=music' target=_BLANK>Search </a><br><a href=$url target=_BLANK>$url</a>"
-
+    
+if [[ $title ]];then 
+echo "<br><br>
+${title} - <a href='https://play.google.com/store/search?q=${title}&c=music' target=_BLANK>Search </a><br><a href=$url target=_BLANK>$url</a>
+"
+else
+echo "<br> Please wait a second, loading music details."
+fi
 
 echo "</body></html>"
 
