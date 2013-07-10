@@ -4,10 +4,14 @@ High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	free software (LGPL/GPL) without any warranty but with best wishes
 
 Directory: http://
-Playing MPEG stream 1 of 3: sfstream1.somafm.com:7400 ...
-ICY-NAME: Future Folk: Indie Folk, Neobilly, Steampunk, Gaslight and the occasional folk classics. [SomaFM]
+Playing MPEG stream 1 of 2: sfstream1.somafm.com:8500 ...
+ICY-NAME: Ill Street Lounge: Classic bachelor pad, playful exotica and vintage music of tomorrow. [SomaFM]
 ICY-URL: http://somafm.com
 
 MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
 
-ICY-META: StreamTitle='Des Ark - My Saddle Is Waitin' (C'mon Jump On It)';StreamUrl='http://SomaFM.com/folkfwd/';
+ICY-META: StreamTitle='Don Costa - The Misfits';StreamUrl='http://SomaFM.com/illstreet/';
+
+ICY-META: StreamTitle='Arthur Lyman - Waikiki Serenade';StreamUrl='http://SomaFM.com/illstreet/';
+
+ICY-META: StreamTitle='Ferrante & Teicher - Chopstick Cha Cha';StreamUrl='http://SomaFM.com/illstreet/';

@@ -32,6 +32,7 @@ ALIAS     Pool                   B5      StdAM # Group=Pool
 ALIAS     Mushroom_Lights        B8      StdAM # Group=Landscape
 ALIAS     Front_Sconces          B13     StdLM # Group=Landscape
 
+ALIAS     Raspberry_Pi           C1      StdAM # Group=Office
 
 ALIAS     Grow_Lights            G1      StdAM # Group=Garage
 ALIAS     Water_Plants           G2      StdAM # Group=Garage
