@@ -54,11 +54,13 @@ do
   l=${l/]_/ }
   l=($l)
   s="${l[5]}"
-  [[ ${#s} != 2 ]] && s="${l[6]}"
+  
+  [[ ${#s} -gt 3 ]] && s="${l[6]}"
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
-  echo "Volume:<a href=?heyu_music=amixer_set_$dec_sound%>-</a><progress class=pb value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%>+</a>" 
+  echo "Volume:<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
+  <progress class=pb value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a> ${s}" 
 
 done
 }    
