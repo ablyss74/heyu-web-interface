@@ -56,8 +56,6 @@ echo "
 
 
 echo "</head>"   
-	#echo "<pre>$HTTP_COOKIE"
-	#exit
 	page_refresh
 
 if [[ ${Mobile_User_Active^^} == TRUE ]]; then 
