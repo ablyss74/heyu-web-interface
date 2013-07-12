@@ -35,10 +35,7 @@ function ajax_update()
 				top_xmlhttp.send ("?auto_refresh"); 
 					top_xmlhttp.onreadystatechange = function () {
 						if (top_xmlhttp.readyState == 4) {
-						     	  if (top_xmlhttp.status != 200) {
-							      document.write('<h2>Heyu Web Interface Error:<br><br>Network Connection Interrupted !<br><br>Check Network Connectivity And Retry.<br><br></h1>');
-							      }
-							  if (top_xmlhttp.status == 200) {   
+						     	if (top_xmlhttp.status == 200) {   
 							      document.getElementById("content").innerHTML=top_xmlhttp.responseText;
 							      }
 					
