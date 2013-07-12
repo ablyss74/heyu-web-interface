@@ -16,10 +16,17 @@ echo
 echo "
 <html>
   <head>
+  <style type=text/css>
+@import url(../heyu_style.css);
+</style>
    </head>
    <script type=text/javascript src=/heyu_javascripts/update.js></script>
      <body onload=ajax_update()>
-      <div id=content><hr><B><center>Heyu Web Interface Internet Radio Player (Beta)</B>"
+      <div id=content>
+	<button class=mainplayerbutton><table class=control_panel_music><tr>
+        <td><B><center>Heyu Web Interface Internet Radio Player (Beta)</B>
+        <tr>
+        <td><button class=currentlyplaying>"
 
 mapfile data <currently_playing
 
@@ -59,23 +66,35 @@ do
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
-  echo "Volume:<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
-  <progress class=pb value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a> ${s}" 
+  echo " <button class=volbutton>Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
+  <progress value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a></button>" 
 
 done
 }    
-
+echo $QUERY_STRING
 if [[ $title ]];then 
-echo "<br>
-${title} - <a href=$url target=_BLANK>$url</a>"
+echo "
+<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
+<br> <a href=$url target=_BLANK>$url</a><br><br><br>
+"
 else
 echo "<br><br><br>"
 fi
-echo "</center><br><a href=\"https://play.google.com/store/search?q=${title}&c=music\" target=_BLANK>Search </a> | 
- <a href=?heyu_music=mpgstop>Stop</a>
- <br>$(vol)
+echo "
 
-<br><hr>"
+  <table class=control_panel_music2 width=500><tr>
+        <td >
+        $(vol) 
+        </td><form method=post action=?heyu_music=mpgstop>
+	<td>
+	  
+	    <button class=stop_button type=submit>Stop</button>
+	  </form>
+	 </td>
+	 </tr>
+
+</table>
+</button>"
 
 
 
@@ -122,16 +141,16 @@ if [[ -z ${isplayer_installed[0]} ]];then
   echo "${player% -@} not installed.  Please install it to play music.<br><br>"
 fi
 
-
+echo "  <table class=control_panel_playlist><tr><td align=center><b>Playlist</b><tr><td><button class=playlistbutton>"
 while read -r playlist
  do
      p=${playlist//#/ }
      p=($p)
      echo "<a href=?heyu_music=$playlist>${p[*]:1:9}</a><br>"
 done <./playlist
+echo "</button></table>"
 
-
-echo "</div></body></html>"
+echo "</button></table></button></div></body></html>"
 
 
 

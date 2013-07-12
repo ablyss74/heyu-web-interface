@@ -205,7 +205,7 @@ fi
           var=heyu_music
 	  show() {
 		
-			 echo "</textarea><table valign=top width=$ctaw ><tr><td valign=top align=center bgcolor=#ffffff><iframe align=center 
+			 echo "</textarea><table valign=top width=$ctaw class=control_panel><tr><td valign=top align=center><iframe align=center 
 		        	src=./CGI/music.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
 		
 		 }
