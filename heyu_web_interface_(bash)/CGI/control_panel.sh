@@ -652,8 +652,8 @@ fi
 
 			
 			if [[ $QUERY_STRING == *sub2cookie* ]];then
-		echo "<table class=userconfig><tr><td width=145>Delete Cookies: <td><form method=post><input type=submit size=28 name='Reset_Cookies' value=OK></form>
-		<i>Clicking \"OK\" will delete cookies for domain: $SERVER_NAME.</i></table>"
+		echo "<table class=userconfig><tr><td width=145>Delete Cookies: <td><form method=post><input type=checkbox size=28 name='Reset_Cookies' value=OK></form>
+		<i>Check the box to delete cookies for domain: $SERVER_NAME.</i></table>"
 			fi
 			
 			if [[ $QUERY_STRING == *sub3cookie* ]];then
