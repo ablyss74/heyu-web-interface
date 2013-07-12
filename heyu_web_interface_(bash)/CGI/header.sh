@@ -176,7 +176,7 @@ set -f
 			[[ $QUERY_STRING == change_theme && ${heyu_theme,,} == default ]] && 
           		echo "Set-Cookie: heyu_theme=compact; $expires" && heyu_theme=compact && unset QUERY_STRING
        			[[ $QUERY_STRING == change_theme && ${heyu_theme,,} == compact ]] && 
-           		echo "Set-Cookie: heyu_theme=default; $expires" && heyu_theme=default && heyu_redirect=1 && unset QUERY_STRING
+           		echo "Set-Cookie: heyu_theme=default; $expires" && heyu_theme=default && heyu_redirect="#" && unset QUERY_STRING
 
 			
 			# Reassign textarea cookies with new shorter value names
@@ -389,7 +389,7 @@ html_footer() { echo "
 
 </html>";}
 
-page_refresh() { [[ $heyu_redirect ]] && echo '<meta http-equiv="refresh" content="0;url=/"' ; }
+page_refresh() { [[ $heyu_redirect ]] && echo "<meta http-equiv=\"refresh\" content=\"0;url=/?$heyu_redirect\"" ; }
 
 # Hide the popup status
 fstatus() { [[ ${Mobile_User_Active^^} == TRUE && ${Hide_Status_Popup^^} == TRUE ]] && echo || echo 'Status()' ; }

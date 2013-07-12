@@ -46,7 +46,7 @@ echo "<br><br>
 ${title} - <a href=\"https://play.google.com/store/search?q=${title}&c=music\" target=_BLANK>Search </a><br><a href=$url target=_BLANK>$url</a>
 "
 else
-echo "<br><br> Please wait a second, loading music details."
+echo "<br><br>"
 fi
 
 echo "</body></html>"

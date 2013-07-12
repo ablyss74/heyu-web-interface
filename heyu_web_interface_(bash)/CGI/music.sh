@@ -13,16 +13,69 @@ echo "
 <html>
   <head>
    </head>
-   
-    <body>
-     
+   <script type=text/javascript src=../heyu_javascripts/update.js></script>
+     <body onload=ajax_update()>
+      <div id=content> <B><center>Heyu Web Interface Internet Radio Player (Beta)</B><br>
+      
+  <a href=?heyu_music=mpgstop>Stop Player</a><br>
+  
 "
+echo $QUERY_STRING
+mapfile data <currently_playing
+
+    while [[ x -lt ${#data[*]} ]]
+	do
+	if [[ ${data[$x]} == *ICY-META* ]];then
+	  p=${data[$x]}
+	  p=${p//ICY-META: }
+	  p=${p/StreamTitle/}
+	  p=${p/StreamUrl/}
+	  p=${p//=\'/}
+	  p=${p// /_}
+	  p=${p//\';/ }
+	  m=($p)
+	  title=${m[0]}
+	  title=${title//_/ }
+	  url=${m[1]}
+	  url=${url//_/ }
+	  #p=${p//\';StreamUrl=\'/ }
+	  #p=${p//\';/}
+	  #p=${p//http/<br>http}
+	  fi	
+	((x++))
+    done  
+    
+if [[ $title ]];then 
+echo "<br>
+${title} - <a href=\"https://play.google.com/store/search?q=${title}&c=music\" target=_BLANK>Search </a><br><a href=$url target=_BLANK>$url</a>
+"
+else
+echo "<br><br><br>"
+fi
+echo "</center><br>
+
+Volume: <a href=?heyu_music=amixer_set_0%>0%</a> |<a href=?heyu_music=amixer_set_25%>25%</a> |<a href=?heyu_music=amixer_set_35%>35%</a> |<a href=?heyu_music=amixer_set_45%>45%</a> |<a href=?heyu_music=amixer_set_55%>55%</a> |<a href=?heyu_music=amixer_set_65%>65%</a> |
+<a href=?heyu_music=amixer_set_75%>75%</a> |<a href=?heyu_music=amixer_set_85%>85%</a> |<a href=?heyu_music=amixer_set_100%>100%</a>
+<br><br>"
+player="mpg123 -@"
+#player="mplayer"
 
 
 QUERY_STRING=${QUERY_STRING/heyu_music=/}
-[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && killall -9 mpg123 && sleep 3s
-[[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && mpg123 -@ $QUERY_STRING >&currently_playing
+
+(
+[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing && killall -9 ${player% -@}
+) & 
+wait
+
+if [[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]];then
+([[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && $player $QUERY_STRING)>&currently_playing &
+
+
+fi
+
 [[ $QUERY_STRING == *amixer_set* ]] && amixer -q set Master ${QUERY_STRING/amixer_set_}
+
 
 
 for line in $(</etc/group); 
@@ -40,46 +93,20 @@ do
 
 done
 
-ismpg123=($(mpg123 --version))
-[[ -z ${ismpg123[0]} ]] && echo "mpg123 not installed.  Please install it to play music.<br><br>"
+ismpg123=($(${player% -@} --version))
+[[ -z ${ismpg123[0]} ]] && echo "${player% -@} not installed.  Please install it to play music.<br><br>"
 
 
+while read -r playlist
+  do
+    p=${playlist//#/ }
+    p=($p)
+    
+    echo "<a href=?heyu_music=$playlist>${p[*]:1:9}</a><br>"
+  done <./playlist
 
-echo "
-<a href=?heyu_music=mpgstop>Stop Player</a><br><br>
 
-<a href=?heyu_music=amixer_set_0%>Volume 0%</a> | <a href=?heyu_music=amixer_set_45%>Volume 45%</a> | <a href=?heyu_music=amixer_set_55%>Volume 55%</a> |<br> 
-<a href=?heyu_music=amixer_set_65%>Volume 65%</a> | <a href=?heyu_music=amixer_set_75%>Volume 75%</a> | <a href=?heyu_music=amixer_set_85%>Volume 85%</a> | 
-<a href=?heyu_music=amixer_set_100%>Volume 100%</a>
-
-<br><br>
-<B><a href=http://somafm.com>SomaFM Stations</a></B><br><ul>
-<a href=?heyu_music=http://somafm.com/groovesalad.pls>Groove Salad</a> | <a href=?heyu_music=http://somafm.com/lush.pls>Lush</a> | <a href=?heyu_music=http://somafm.com/folkfwd.pls>Folk Forward</a>
-<br><br>
-
-<a href=?heyu_music=http://somafm.com/bagel.pls>BAGeL Radio</a> | <a href=?heyu_music=http://somafm.com/digitalis.pls>Digitalis</a> | <a href=?heyu_music=http://somafm.com/indiepop.pls>Indi Pop Rocks!</a>
-<br><br>
-
-<a href=?heyu_music=http://somafm.com/poptron.pls>PopTron</a> | <a href=?heyu_music=http://somafm.com/u80s.pls>Underground 80s</a> | <a href=?heyu_music=http://somafm.com/covers.pls>Covers</a>
-<br><br>
-
-<a href=?heyu_music=http://somafm.com/secretagent.pls>Secret Agent</a> | <a href=?heyu_music=http://somafm.com/suburbsofgoa.pls>Suburbs of Goa</a> | <a href=?heyu_music=http://somafm.com/beatblender.pls>Beat Blender</a>
-<br><br>
-
-<a href=?heyu_music=http://somafm.com/illstreet.pls>Illinois Street Lounge</a> | <a href=?heyu_music=http://somafm.com/dubstep.pls>Dub Step</a> | <a href=?heyu_music=http://somafm.com/bootliquor.pls>Boot Liquor</a>
-<br><br>
-
-<a href=?heyu_music=http://somafm.com/sxfm.pls>South of Soma</a>
-</ul>
-<B>Favorites</B><UL>
-<a href=?heyu_music=http://radioboxhd.com/streampanel/tunein.php/jsorrent/playlist.pls>Z100 #1 Pop Music</a> | 
-<a href=?heyu_music=http://149.255.33.74:8104>Mega Shuffle.com</a>
-
-<br><br>
-
-<a href=?heyu_music=http://blackbeats.fm/listen.m3u>Black Beats.fm</a> | <a href=?heyu_music=http://www.radioparadise.com/m3u/mp3-128.m3u>Radio Paradise.com</a>
-</UL>
-</body></html>"
+echo "</div></body></html>"
 
 
 

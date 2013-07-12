@@ -4,10 +4,10 @@ High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	free software (LGPL/GPL) without any warranty but with best wishes
 
 Directory: http://
-Playing MPEG stream 1 of 3: mp3.somafm.com:443 ...
-ICY-NAME: Secret Agent: The soundtrack for your stylish, mysterious, dangerous life. For Spys and P.I.'s too! [SomaFM]
-ICY-URL: http://www.somafm.com
+Playing MPEG stream 1 of 3: sfstream1.somafm.com:8090 ...
+ICY-NAME: SomaFM presents: Indie Pop Rocks! [SomaFM]
+ICY-URL: http://somafm.com/recent?indie
 
 MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
 
-ICY-META: StreamTitle='Thievery Corporation - The Forgotten People';StreamUrl='http://SomaFM.com/secretagent/';
+ICY-META: StreamTitle='O+S - Haunts';StreamUrl='http://SomaFM.com/indiepop/';
