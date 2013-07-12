@@ -54,6 +54,7 @@ do
   l=${l/]_/ }
   l=($l)
   s="${l[5]}"
+  [[ ${#s} != 2 ]] && s="${l[6]}"
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
@@ -82,7 +83,8 @@ QUERY_STRING=${QUERY_STRING/heyu_music=/}
 
 
 
-([[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing && killall -9 ${player% -@}
+(
+[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing && killall -9 ${player% -@} && sleep 2s
 ) & 
 wait
 
