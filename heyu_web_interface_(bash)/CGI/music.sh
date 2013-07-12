@@ -55,8 +55,8 @@ do
   l=($l)
   s="${l[5]}"
   soundlevel=${s//%/}
-  inc_sound=$(($soundlevel + 10))
-  dec_sound=$(($soundlevel - 10))
+  inc_sound=$(($soundlevel + 5))
+  dec_sound=$(($soundlevel - 5))
   echo "Volume:<a href=?heyu_music=amixer_set_$dec_sound%>-</a><progress class=pb value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%>+</a>" 
 
 done
