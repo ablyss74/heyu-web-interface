@@ -243,6 +243,7 @@ table.scene_button td {
 	border-width: 2px;	
 	border-style: groove;
 	border-color: #ccc;
+	width:522px;
 	text-align:left;
 
 	
@@ -259,7 +260,7 @@ table.scene_button td {
 	border-style: groove;
 	border-color: #ccc;
 	text-align:left;
-	width:600px;
+	width:450px;
 	height:100px;
 
 	
@@ -313,7 +314,7 @@ table.control_panel {
 }
 
 table.control_panel_music {
-	width:600px;
+	width:500px;
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;
@@ -324,7 +325,7 @@ table.control_panel_music {
 
 }
 table.control_panel_music2 {
-	width:600px;
+	width:300px;
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;
@@ -335,7 +336,7 @@ table.control_panel_music2 {
 
 }
 table.control_panel_playlist {
-	width:100px;
+	width:250px;
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;

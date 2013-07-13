@@ -71,7 +71,7 @@ do
 
 done
 }    
-echo $QUERY_STRING
+
 if [[ $title ]];then 
 echo "
 <a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
@@ -82,7 +82,7 @@ echo "<br><br><br>"
 fi
 echo "
 
-  <table class=control_panel_music2 width=500><tr>
+  <table class=control_panel_music2><tr>
         <td >
         $(vol) 
         </td><form method=post action=?heyu_music=mpgstop>
@@ -146,7 +146,7 @@ while read -r playlist
  do
      p=${playlist//#/ }
      p=($p)
-     echo "<a href=?heyu_music=$playlist>${p[*]:1:9}</a><br>"
+     echo "<a href=\"?heyu_music=$playlist\">${p[*]:1:9}</a><br>"
 done <./playlist
 echo "</button></table>"
 

@@ -2,22 +2,13 @@ Home directory /var/www not ours.
 High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	version 20120622000000; written and copyright by Michael Hipp and others
 	free software (LGPL/GPL) without any warranty but with best wishes
+Note: MIME type indicates that this is no playlist but an mpeg audio file... reopening as such.
 
 Directory: http://
-Playing MPEG stream 1 of 4: mp3.somafm.com:80 ...
-ICY-NAME: Groove Salad: a nicely chilled plate of ambient beats and grooves. [SomaFM]
-ICY-URL: http://somafm.com
+Playing MPEG stream 1 of 1: 149.255.33.74:8104 ...
+ICY-NAME: All Hit Remixes @MEGASHUFFLE.com
+ICY-URL: http://www.MEGASHUFFLE.com
 
 MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
 
-ICY-META: StreamTitle='Jon Hopkins - Lost In Thought';StreamUrl='http://SomaFM.com/groovesalad/';
-
-ICY-META: StreamTitle='Sine - Our Secret Garden';StreamUrl='http://SomaFM.com/groovesalad/';
-
-ICY-META: StreamTitle='Substructure - Firewire';StreamUrl='http://SomaFM.com/groovesalad/';
-
-ICY-META: StreamTitle='Nitin Sawhney - Acquired Dreams';StreamUrl='http://SomaFM.com/groovesalad/';
-
-ICY-META: StreamTitle='Jens Buchert - Bamboo Sun';StreamUrl='http://SomaFM.com/groovesalad/';
-
-ICY-META: StreamTitle='Great Lover - Erwin Van Moll';StreamUrl='http://SomaFM.com/groovesalad/';
+ICY-META: StreamTitle='Maroon 5 - If I Ever See Your Face ( Paul Oakenfold Remix)';StreamUrl='www.MEGASHUFFLE.com - facebook.com/ALLHITREMIXES - twitter.com/ALLHITREMIXES';
