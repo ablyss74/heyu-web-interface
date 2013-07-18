@@ -2,17 +2,12 @@ Home directory /var/www not ours.
 High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	version 20120622000000; written and copyright by Michael Hipp and others
 	free software (LGPL/GPL) without any warranty but with best wishes
-Note: MIME type indicates that this is no playlist but an mpeg audio file... reopening as such.
 
 Directory: http://
-Playing MPEG stream 1 of 1: 149.255.33.74:8104 ...
-ICY-NAME: All Hit Remixes @MEGASHUFFLE.com
-ICY-URL: http://www.MEGASHUFFLE.com
+Playing MPEG stream 1 of 3: sfstream1.somafm.com:8384 ...
+ICY-NAME: Beat Blender: A late night blend of deep-house & downtempo chill. [SomaFM]
+ICY-URL: http://somafm.net/recent/?beatblender
 
 MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
 
-ICY-META: StreamTitle='Calvin Harris Feat. Example - We Ll Be Coming Back (Killsonik Remix) "2012"';StreamUrl='www.MEGASHUFFLE.com - facebook.com/ALLHITREMIXES - twitter.com/ALLHITREMIXES';
-
-ICY-META: StreamTitle='All Hit Remixes @ MEGASHUFFLE.com - All Hit Remixes @ MEGASHUFFLE.com TOH03 Not Boring (Sweep)';StreamUrl='www.MEGASHUFFLE.com - facebook.com/ALLHITREMIXES - twitter.com/ALLHITREMIXES';
-
-ICY-META: StreamTitle='Rihanna - Where Have You Been (Hardwell Radio Edit)';StreamUrl='www.MEGASHUFFLE.com - facebook.com/ALLHITREMIXES - twitter.com/ALLHITREMIXES';
+ICY-META: StreamTitle='Dusted - Deeper River';StreamUrl='http://SomaFM.com/beatblender/';

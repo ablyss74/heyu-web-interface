@@ -63,7 +63,21 @@ mapfile data <currently_playing
 	    url=${m[1]}
 	    url=${url//_/ }
 	  fi
-	 fi	
+	 fi
+	 if [[ ${data[$x]} == *error:* ]];then
+	  p=${data[$x]}
+	  p=${p// /_}
+	  m=($p)
+	  error=${m[0]}
+	  error=${error//_/ }
+	fi
+	if [[ ${data[$x]} == *warning:* ]];then
+	  p=${data[$x]}
+	  p=${p// /_}
+	  m=($p)
+	  warning=${m[0]}
+	  warning=${warning//_/ }
+	fi
 	((x++))
     done  
     
@@ -86,7 +100,12 @@ do
 
 done
 }    
-
+if [[ $error ]];then
+  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and trying another station.<br>"
+fi
+if [[ $warning ]];then
+  echo ""
+fi
 if [[ $title ]];then 
 echo "<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
 <br><br>$name - <a href=$url target=_BLANK>$url</a><br><br>
@@ -94,6 +113,7 @@ echo "<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=
 else
 echo "<br><br><br>"
 fi
+
 echo "
 
   <table class=control_panel_music2><tr>
@@ -168,6 +188,7 @@ echo "</button></table>"
 
 #Debug stream info
 #echo "<pre>${data[*]}"
+
 echo "<br>"
 
 echo "</button></div></body></html>"
