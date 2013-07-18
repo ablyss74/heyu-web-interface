@@ -32,6 +32,22 @@ mapfile data <currently_playing
 
     while [[ x -lt ${#data[*]} ]]
 	do
+	if [[ ${data[$x]} == *ICY-URL* ]];then
+	  p=${data[$x]}
+	  p=${p//ICY-URL: }
+	  m=($p)
+	  url=${m[0]}	  	  
+	fi
+	if [[ ${data[$x]} == *ICY-NAME* ]];then
+	  p=${data[$x]}
+	  p=${p//ICY-NAME: }
+	  p=${p//=\'/}
+	  p=${p// /_}
+	  p=${p//\';/ }
+	  m=($p)
+	  name=${m[0]}
+	  name=${name//_/ }
+	fi
 	if [[ ${data[$x]} == *ICY-META* ]];then
 	  p=${data[$x]}
 	  p=${p//ICY-META: }
@@ -41,14 +57,13 @@ mapfile data <currently_playing
 	  p=${p// /_}
 	  p=${p//\';/ }
 	  m=($p)
-	  title=${m[0]}
+          title=${m[0]}
 	  title=${title//_/ }
-	  url=${m[1]}
-	  url=${url//_/ }
-	  #p=${p//\';StreamUrl=\'/ }
-	  #p=${p//\';/}
-	  #p=${p//http/<br>http}
-	  fi	
+	  if [[ -z $url ]];then
+	    url=${m[1]}
+	    url=${url//_/ }
+	  fi
+	 fi	
 	((x++))
     done  
     
@@ -73,9 +88,8 @@ done
 }    
 
 if [[ $title ]];then 
-echo "
-<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
-<br> <a href=$url target=_BLANK>$url</a><br><br><br>
+echo "<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
+<br><br>$name - <a href=$url target=_BLANK>$url</a><br><br>
 "
 else
 echo "<br><br><br>"
@@ -150,7 +164,13 @@ while read -r playlist
 done <./playlist
 echo "</button></table>"
 
-echo "</button></table></button></div></body></html>"
+echo "</button></table>"
+
+#Debug stream info
+#echo "<pre>${data[*]}"
+echo "<br>"
+
+echo "</button></div></body></html>"
 
 
 
