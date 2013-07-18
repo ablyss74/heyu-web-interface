@@ -3,11 +3,11 @@ High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	version 20120622000000; written and copyright by Michael Hipp and others
 	free software (LGPL/GPL) without any warranty but with best wishes
 
-Directory: http://
-Playing MPEG stream 1 of 3: sfstream1.somafm.com:8384 ...
-ICY-NAME: Beat Blender: A late night blend of deep-house & downtempo chill. [SomaFM]
-ICY-URL: http://somafm.net/recent/?beatblender
+Directory: http://scfire-n15.websys.aol.com:80/
+Playing MPEG stream 1 of 10: radio_paradise_mp3_128kbps ...
+ICY-NAME: Radio Paradise - DJ-mixed modern & classic rock, world, electronica & more - info: radioparadise.com
+ICY-URL: http://www.radioparadise.com
 
-MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
+MPEG 1.0 layer III, 128 kbit/s, 44100 Hz joint-stereo
 
-ICY-META: StreamTitle='Dusted - Deeper River';StreamUrl='http://SomaFM.com/beatblender/';
+ICY-META: StreamTitle='Calexico - Deep Down';StreamUrl='http://www.radioparadise.com/graphics/covers/m/B000EOTUY4.jpg';

@@ -101,7 +101,7 @@ do
 done
 }    
 if [[ $error ]];then
-  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and trying another station.<br>"
+  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and try the station again.<br>"
 fi
 if [[ $warning ]];then
   echo ""
