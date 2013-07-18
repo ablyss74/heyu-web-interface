@@ -71,13 +71,6 @@ mapfile data <currently_playing
 	  error=${m[0]}
 	  error=${error//_/ }
 	fi
-	if [[ ${data[$x]} == *warning:* ]];then
-	  p=${data[$x]}
-	  p=${p// /_}
-	  m=($p)
-	  warning=${m[0]}
-	  warning=${warning//_/ }
-	fi
 	((x++))
     done  
     
@@ -101,11 +94,9 @@ do
 done
 }    
 if [[ $error ]];then
-  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and try the station again.<br>"
+  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and try the station again."
 fi
-if [[ $warning ]];then
-  echo ""
-fi
+
 if [[ $title ]];then 
 echo "<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
 <br><br>$name - <a href=$url target=_BLANK>$url</a><br><br>
