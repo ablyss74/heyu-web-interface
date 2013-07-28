@@ -4,7 +4,7 @@
 ### Before you begin
     1. Apache or similar http server is required with CGI enabled. See the (readme_apache) in the Help folder on how to setup apache.
     2. Permissions to read/write heyu are required. For example, chmod o+rw /dev/ttyS0 or chmod 777 /dev/ttyUSB0.
-    3. Your httpd web server user needs to read/write to heyu x10state file.  chmod -Rv 777 /my_httpd_web_folder/
+    3. Your httpd web server user needs to read/write to the heyu web interface folder and its files. 
     
     FYI: I tend to update the bash version moreso than the python. 
 
