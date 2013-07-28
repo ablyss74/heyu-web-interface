@@ -174,13 +174,13 @@ fi
 		
 			echo "</textarea>
 			      <table valign=top><tr><td valign=top align=center bgcolor=#ffffff >
-			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
-			      <td valign=top align=center bgcolor=#ffffff >
-			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
+			      <iframe align=center src=$camera1_location border=0 height=240 width=320 scrolling=yes></iframe>
+			      <td valign=top align=center bgcolor=#ffffff>
+			      <iframe align=center src=$camera2_location border=0 height=240 width=320 scrolling=yes></iframe>
 			      <tr><td valign=top align=center bgcolor=#ffffff >
-			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
-			      <td valign=top align=center bgcolor=#ffffff >
-			      <iframe align=center src=http://localhost/ border=0 height=288 width=352 scrolling=yes></iframe>
+			      <iframe align=center src=$camera3_location border=0 height=240 width=320 scrolling=yes></iframe>
+			      <td valign=top align=center bgcolor=#ffffff>
+			      <iframe align=center src=$camera4_location border=0 height=240 width=320 scrolling=yes></iframe>
 			      </table>"
 		 }
 
@@ -540,6 +540,22 @@ fi
 	[[ $name == hrr ]]			&& 
 	echo "<tr><td>Auto Refresh Rate: <td><input type=text size=28 name='sub0cookie_$name' value='${value}'>
 	<br> <i>Refresh rate intervals in seconds.</i>"
+	
+	[[ $name == camera1_location ]]		&& 
+	echo "<tr><td>Camera 1 Location: <td><input type=text size=28 name='sub0cookie_$name' value='${value}'>
+	<br> <i>Camera 1 URL.</i>"
+	
+	[[ $name == camera2_location ]]		&& 
+	echo "<tr><td>Camera 2 Location: <td><input type=text size=28 name='sub0cookie_$name' value='${value}'>
+	<br> <i>Camera 2 URL.</i>"
+	
+	[[ $name == camera3_location ]]		&& 
+	echo "<tr><td>Camera 3 Location: <td><input type=text size=28 name='sub0cookie_$name' value='${value}'>
+	<br> <i>Camera 3 URL.</i>"
+	
+	[[ $name == camera4_location ]]		&& 
+	echo "<tr><td>Camera 4 Location: <td><input type=text size=28 name='sub0cookie_$name' value='${value}'>
+	<br> <i>Camera 4 URL.</i>"
 
 	}
 	if [[ $name == sub0cookie* ]];then

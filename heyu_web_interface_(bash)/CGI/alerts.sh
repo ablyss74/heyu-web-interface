@@ -37,7 +37,9 @@ debug() { exec 2>&1 ; }
 
 # Alert user to delete old cookies
 [[ -n $alert_user ]] && echo "<h1>Alert!</h1><hr> This version [ $Heyu_web_interface_version ] may not be compatible with your version [ $Interface_version ] of Heyu Web Interface.
-<br> Please reset cookies for domain: <a href=#>$SERVER_NAME</a> <form method=post><input type=submit value='Reset Cookies' name=Reset_Cookies=True><br><br><i>Tip:</i> Deleting cookies this way may not work on all browsers.  If such is true for you then manually delete cookies.<br><i>Tip:</i> If you think you are viewing this page in error you may need to <form method=post><input type=submit value='Refresh'> this page." && unset alert_user && exit
+<br> Please reset cookies for domain: <a href=#>$SERVER_NAME</a> to avoid any potential conflicts. <form method=post><input type=submit value='Reset Cookies' name=Reset_Cookies=True><br><br><i>
+Tip 1:</i> For some web browsers cookies have to be cleared manually through the web browsers builtin cookie manager.
+<br><i>Tip 2:</i> If you think you are viewing this page in error you can try <form method=post><input type=submit value='refreshing'> the page." && unset alert_user && exit
 
 ### We rely on the heyu engine daemon and therefore must start it automatically even if is not done so in the x10config
 [[ $("$heyu" -c "${x10config}" enginestate) != 1 ]] && "$heyu" -c "${x10config}" engine

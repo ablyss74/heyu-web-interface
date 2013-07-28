@@ -16,7 +16,7 @@ set -f
     fi
 
     ### Current Version ###
-    Heyu_web_interface_version="11.59.7_beta"
+    Heyu_web_interface_version="11.59.8_beta"
 
     ### Simple URL decoder
     ### Normally QUERY_STRING only uses GET data
@@ -112,13 +112,13 @@ set -f
    [[ $HTTP_COOKIE != *Control_Panel_Text_Area_Width* 	]] && echo "Set-Cookie: Control_Panel_Text_Area_Width=650px; $expires"
 
 
-   [[ $HTTP_COOKIE != *sub0cookie* ]] && echo "Set-Cookie: sub0cookie=heyu|/usr/local/bin/heyu^x10config|./x10config^x10sched|./x10.sched^sched_report|./report.txt^hrr|10^; $expires"
+   [[ $HTTP_COOKIE != *sub0cookie* ]] && echo "Set-Cookie: sub0cookie=heyu|/usr/local/bin/heyu^x10config|./x10config^x10sched|./x10.sched^sched_report|./report.txt^hrr|10^camera1_location|http://localhost^camera2_location|http://localhost^camera3_location|http://localhost^camera4_location|http://localhost^; $expires"
 	
    [[ $HTTP_COOKIE != *sub1cookie* ]] && echo "Set-Cookie: sub1cookie=Show_All_Modules_Width|70px^Show_All_Modules_Height|70px^Show_Power_Percentage|True^Show_On_Off_Status|True^Show_Time_Stamp|True^Show_Module_Type|False^; $expires"
 
    [[ $HTTP_COOKIE != *sub2cookie* ]] && echo "Set-Cookie: sub2cookie=All_Modules_Auto_Refresh|False^Hide_Scenes|False^Debug_SCRIPT|True^Disable_HTML5|False^; $expires"
 
-   [[ $HTTP_COOKIE != *sub3cookie* ]] && echo "Set-Cookie: sub3cookie=GroupStatus|Off^Group1|Master^Group2|Living_Room^Group3|Landscape^Group4|Garage^Group5|Irrigation^Group6|Pool^Group7|Basement^Group8|Null^Group9|Null^Group0|Null^; $expires"
+   [[ $HTTP_COOKIE != *sub3cookie* ]] && echo "Set-Cookie: sub3cookie=GroupStatus|Off^Group1|Master^Group2|Living_Room^Group3|Landscape^Group4|Garage^Group5|Irrigation^Group6|Pool^Group7|Basement^Group8|Office^Group9|Null^Group0|Null^; $expires"
 
 		      arr=($HTTP_COOKIE)
 				while [[ $i -lt ${#arr[*]} ]]
