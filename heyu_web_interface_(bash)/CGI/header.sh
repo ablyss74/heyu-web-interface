@@ -2,8 +2,10 @@
 set -f
 
 # Author: 	Kris Beazley
+# Copyright     2013 
 # Online: 	http://heyu.epluribusunix.net/
 # Online email: http://heyu.epluribusunix.net/?contactus
+# Licensed under the Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 
     ### Before we do anything check if bash is version 4* or greater

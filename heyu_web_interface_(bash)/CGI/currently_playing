@@ -4,12 +4,16 @@ High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	free software (LGPL/GPL) without any warranty but with best wishes
 
 Directory: http://
-Playing MPEG stream 1 of 4: sfstream1.somafm.com:7000 ...
-ICY-NAME: Boot Liquor: Americana roots music for Cowhands, Cowpokes and Cowtippers. [SomaFM]
-ICY-URL: http://www.somafm.com
+Playing MPEG stream 1 of 2: sfstream1.somafm.com:8880 ...
+ICY-NAME: Underground Eighties: UK Synthop and a bit of New Wave. [SomaFM]
+ICY-URL: http://somafm.com
 
 MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
 
-ICY-META: StreamTitle='Scott Miller - Wild Things';StreamUrl='http://SomaFM.com/bootliquor/';
+ICY-META: StreamTitle='Tin Tin - Kiss Me';StreamUrl='http://SomaFM.com/u80s/';
 
-ICY-META: StreamTitle='Deano Waco - Workin For The Devil';StreamUrl='http://SomaFM.com/bootliquor/';
+ICY-META: StreamTitle='Heaven 17 - Honeymoon In New York';StreamUrl='http://SomaFM.com/u80s/';
+
+ICY-META: StreamTitle='Propaganda - P.machinery [Beta Mix]';StreamUrl='http://SomaFM.com/u80s/';
+
+ICY-META: StreamTitle='Cure - In Between Days';StreamUrl='http://SomaFM.com/u80s/';

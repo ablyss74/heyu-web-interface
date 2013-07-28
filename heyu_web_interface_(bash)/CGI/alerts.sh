@@ -2,8 +2,10 @@
 set -f
 
 # Author: 	Kris Beazley
+# Copyright     2013 
 # Online: 	http://heyu.epluribusunix.net/
 # Online email: http://heyu.epluribusunix.net/?contactus
+# Licensed under the Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 # Redirect Stderr to stdout. Thanks to Brandt for this snippet. 
 debug() { exec 2>&1 ; }

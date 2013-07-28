@@ -2,7 +2,7 @@
 /* Modified for heyu web internface
 
    Author: 	Kris Beazley
-   Copyright  2012 Kris Beazley
+   Copyright  2013 Kris Beazley
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
