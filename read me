@@ -1,0 +1,26 @@
+ 
+07/28/2013
+
+### Before you begin
+    1. Apache or similar http server is required with CGI enabled. See the (readme_apache) in the Help folder on how to setup apache.
+    2. Permissions to read/write heyu are required. For eample, chmod o+rw /dev/ttyS0 or chmod 777 /dev/ttyUSB0.
+    3. Your httpd web server user needs to read/write to heyu x10state file.  chmod -Rv 777 /my_httpd_web_folder/
+    
+    FYI: I tend to update the bash version moreso than the python. 
+
+#### heyu_web_interface_(bash)
+    1. Once you setup heyu do not start it from terminal.  Instead let the web browser user start it.
+    2. Point your web browser to http://localhost/heyu.sh to start the bash script
+    3. If your not sure everything is working right check the web server error logs and the system logs.
+
+
+
+### heyu_web_interface_(python)
+Some information before you begin.
+
+    1. Point your web browser to http://127.0.0.1/index.py to start the python cgi
+    2. Configuration settings are still be added but you can change some minor features like how fast 
+        heyu refreshes in by editing index.py
+    3. Experimental GTK front end is included 'gheyu.py'.
+    4. Crontab frontend is not finished. 
+    5. .htaccess file is included to help configure apache
