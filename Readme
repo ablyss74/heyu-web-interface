@@ -9,7 +9,7 @@
     
     FYI: I tend to update the bash version moreso than the python. 
 
-#### heyu_web_interface_(bash)
+### heyu_web_interface_(bash)
     1. Once you setup heyu do not start it from terminal, instead let the web browser user start it.
     2. Point your web browser to http://localhost/heyu.sh to start the bash script
     3. If you're not sure everything is working right check the web server error logs and the system logs.
