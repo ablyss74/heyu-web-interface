@@ -2,20 +2,13 @@ Home directory /var/www not ours.
 High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
 	version 20120622000000; written and copyright by Michael Hipp and others
 	free software (LGPL/GPL) without any warranty but with best wishes
+Note: MIME type indicates that this is no playlist but an mpeg audio file... reopening as such.
 
 Directory: http://
-Playing MPEG stream 1 of 2: sfstream1.somafm.com:8880 ...
-ICY-NAME: Underground Eighties: UK Synthop and a bit of New Wave. [SomaFM]
-ICY-URL: http://somafm.com
+Playing MPEG stream 1 of 1: 149.255.33.74:8104 ...
+ICY-NAME: All Hit Remixes @MEGASHUFFLE.com
+ICY-URL: http://www.MEGASHUFFLE.com
 
 MPEG 1.0 layer III, 128 kbit/s, 44100 Hz stereo
 
-ICY-META: StreamTitle='Tin Tin - Kiss Me';StreamUrl='http://SomaFM.com/u80s/';
-
-ICY-META: StreamTitle='Heaven 17 - Honeymoon In New York';StreamUrl='http://SomaFM.com/u80s/';
-
-ICY-META: StreamTitle='Propaganda - P.machinery [Beta Mix]';StreamUrl='http://SomaFM.com/u80s/';
-
-ICY-META: StreamTitle='Cure - In Between Days';StreamUrl='http://SomaFM.com/u80s/';
-
-ICY-META: StreamTitle='Book Of Love - I Touch Roses (Long Stemmed Ve';StreamUrl='http://SomaFM.com/u80s/';
+ICY-META: StreamTitle='Liam Keegan f./Julissa Veloz & Kae Lou - Whatcha Feeling (Hi Def Remix) "2013"';StreamUrl='www.MEGASHUFFLE.com - facebook.com/ALLHITREMIXES - twitter.com/ALLHITREMIXES';
