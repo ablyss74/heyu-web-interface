@@ -24,11 +24,13 @@ echo "
    </head>
    <script type=text/javascript src=/heyu_javascripts/update.js></script>
      <body onload=ajax_update()>
+
       <div id=content>
-	<button class=mainplayerbutton><table class=control_panel_music><tr>
+      
+	<table class=mainplayerbutton><tr><td><table class=control_panel_music><tr>
         <td><B><center>Heyu Web Interface Internet Radio Player (Beta)</B>
         <tr>
-        <td><button class=currentlyplaying>"
+        <td><table class=mainplayerbutton><tr><td>"
 
 mapfile data <currently_playing
 
@@ -90,38 +92,36 @@ do
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
-  echo " <button class=volbutton>Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
-  <progress value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a></button>" 
+  echo " <table class=volbutton><tr><td>Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
+  <progress value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a></table>" 
 
 done
 }    
 if [[ $error ]];then
-  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and try the station again."
+  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and try the station again.</table>"
 fi
 
 if [[ $title ]];then 
 echo "<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
-<br><br>$name - <a href=$url target=_BLANK>$url</a><br><br>
+<br><br>$name - <a href=$url target=_BLANK>$url</a><br><br></table>
 "
 else
-echo "<br><br><br>"
+echo "<br><br><br></table>"
 fi
 
 echo "
-
+<form method=post action=?heyu_music=mpgstop>
   <table class=control_panel_music2><tr>
         <td >
         $(vol) 
-        </td><form method=post action=?heyu_music=mpgstop>
+        </td>
 	<td>
-	  
-	    <button class=stop_button type=submit>Stop</button>
-	  </form>
+	    <button type=submit class=stop_button><img src=../imgs/alloff.png class=stop_button_img></button></form>
 	 </td>
 	 </tr>
 
 </table>
-</button>"
+</table>"
 
 
 
@@ -168,23 +168,23 @@ if [[ -z ${isplayer_installed[0]} ]];then
   echo "${player% -@} not installed.  Please install it to play music.<br><br>"
 fi
 
-echo "  <table class=control_panel_playlist><tr><td align=center><b>Playlist</b><tr><td><button class=playlistbutton>"
+echo "  <table class=control_panel_playlist><tr><td align=center><b>Playlist</b><tr><td><table class=playlistbutton><tr><td>"
 while read -r playlist
  do
      p=${playlist//#/ }
      p=($p)
      echo "<a href=\"?heyu_music=$playlist\">${p[*]:1:9}</a><br>"
 done <./playlist
-echo "</button></table>"
+echo "</table></table>"
 
-echo "</button></table>"
+echo "</table></table>"
 
 #Debug stream info
 #echo "<pre>${data[*]}"
 
 echo "<br>"
 
-echo "</button></div></body></html>"
+echo "</table></div></body></html>"
 
 
 

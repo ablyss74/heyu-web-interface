@@ -209,13 +209,24 @@ table.scene_button td {
 	font-family: verdana,arial,sans-serif;
 	font-size:10px;
 	color:#333333;
+	font-weight:bold;
 	text-shadow:0px 1px 0px white;
 	width:50px;
-	height:32px;
+	height:33px;
 	background-color:#ccc;
 	border-width: 2px;	
 	border-style: groove;
 	border-color: #ccc;
+	vertical-align:top;
+	
+}
+.stop_button_img {
+	width:25px;
+	height:25px;
+	background-color:#ccc;
+	border-width: 0px;	
+	vertical-align:top;
+	
 }
 .playlistbutton {  
 	vertical-align:top;
