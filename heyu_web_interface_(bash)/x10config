@@ -42,7 +42,7 @@ ALIAS     Test1                   E1,2,3 # Group=Test1
 ALIAS     Grow_Lights            G1      StdAM # Group=Garage
 ALIAS     Water_Plants           G2      StdAM # Group=Garage
 
-ALIAS     Garage_Door            H1      StdAM # Group=Garage
+#ALIAS     Garage_Door            H1      StdAM # Group=Garage
 
 ALIAS     Irrigation_Front       l1      StdAM # Group=Irrigation
 ALIAS     Irrigation_Back        l2      StdAM # Group=Irrigation
@@ -55,7 +55,7 @@ SCENE  Entertainment bright A1-3 22 ; dim A1-3 4 # Group=Scene_Entertainment
 SCENE  Subtle_Moods  bright A1-3 22 ; dim A1-3 7 # Group=Scene_Subtle_Moods
 SCENE  All_Lights_Off alloff A                   # Group=Scene_All_Lights_Off
 SCENE  All_Lights_On lightson A                  # Group=Scene_All_Lights_On
-
+SCENE  Garage_Door on H1 # Group=Scene_Garage
 
 # The below sensors are experimental for testing heyu web interface
 # They are pseudo addresses copied from the man pages and can be deleted.

@@ -125,10 +125,16 @@ if [[ $QUERY_STRING != *Macro* ]];then
 		unit=${unit//Unit_/}
 		unit="${unit[0]}"	
 		
-
+	[[ $QUERY_STRING == *heyu_allon_* 	]] && "$heyu" -c "${x10config}" allon $unit
+	[[ $QUERY_STRING == *heyu_alloff_* 	]] && "$heyu" -c "${x10config}" alloff $unit
+	
+	
 	[[ $QUERY_STRING == *kill_all_hc* 	]] && "$heyu" -c "${x10config}" kill_all_hc
 	[[ $QUERY_STRING == *heyu_disable_* 	]] && "$heyu" -c "${x10config}" off $unit 
 	[[ $QUERY_STRING == *heyu_enable_* 	]] && "$heyu" -c "${x10config}" on $unit
+	
+	
+
 
 	if [[ $QUERY_STRING == *heyu_rheo_* ]];then
 	[[ ${unit[2]} -gt ${unit[3]} ]] && "$heyu" -c "${x10config}" bright $unit $((${unit[2]} - ${unit[3]}))
@@ -503,7 +509,7 @@ if [[ ${heyu_show_all_modules^^} == TRUE ]];then
 		while [[ $i -lt ${#arr[*]} ]]; do 
 		
 			echo "<td><button style=\"width:$Show_All_Modules_Width;Height:20;\" type=submit 
-				onclick=\"$(fstatus); show('Unit_${arr[$i]}1-16&heyu_enable_')\">
+				onclick=\"$(fstatus); show('Unit_${arr[$i]}&heyu_allon_')\">
 				 <font size=1>All On ${arr[$i]}</font></button>"
 		((i++))		
 		done
@@ -516,7 +522,7 @@ if [[ ${heyu_show_all_modules^^} == TRUE ]];then
 		while [[ $i -lt ${#arr[*]} ]]; do 
 		
 			echo "<td><button style=\"width:$Show_All_Modules_Width;Height:20;\" type=submit 
-				onclick=\"$(fstatus); show('Unit_${arr[$i]}1-16&heyu_disable_')\">
+				onclick=\"$(fstatus); show('Unit_${arr[$i]}&heyu_alloff_')\">
 				 <font size=1>All Off ${arr[$i]}</font></button>"
 		((i++))		
 		done
