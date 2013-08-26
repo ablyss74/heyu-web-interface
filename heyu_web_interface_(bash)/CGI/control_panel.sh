@@ -54,6 +54,7 @@ smenu()
 		<td><button type=button class=userconfigbutton onclick=\"$(fstatus); show('heyu=enter_cmd')\">Heyu Cmd...</button>
 		<td><button type=button class=userconfigbutton onclick=\"$(fstatus); show('kill_all_hc')\">All Off A-P</button>
 	        <td><button type=button class=userconfigbutton onclick=\"$(fstatus); show('heyu_restart')\">Heyu Restart</button>
+	        <td><button type=button class=userconfigbutton onclick=\"$(fstatus); show('heyu_insteon')\">Insteon Help</button>
 		"
 }
 
@@ -202,6 +203,48 @@ fi
 
 	fi 
    
+   if [[ $QUERY_STRING == *heyu_insteon* ]];then
+	  
+          var=heyu_insteon
+	  show() {
+			 Q=${QUERY_STRING/heyu_insteon_}
+			 if [[ $Q == *set_pri=* ]];then
+			 Q=${Q/set_pri=} && heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
+			 fi
+			 if [[ $Q == *rem_pri=* ]];then
+			 Q=${Q/rem_pri=} && heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
+			 fi
+			 echo "<table valign=top  class=control_panel><tr><td>
+			 <form method=post>Set X10 Primary Address:<td><input type=text name=heyu_insteon_set_pri><td><input type=submit></form>
+			 
+			 <tr><td><font size=1><i>Press & hold the Set button <br>(enter linking mode) LED will blink<br> LED will blink
+			 <br> Enter desired X10 Address and press submit.<br> The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
+			 <tr><td>
+			 
+			 <form method=post>Remove X10 Primary Address:<td><input type=text name=heyu_insteon_rem_pri><td><input type=submit></form>
+			 <tr><td><font size=1><i>Press & hold the Set button <br>(enter linking mode) LED will blink<br>Press & hold the Set button again 
+			 <br>(enter unlinking mode) LED will blink<br> Enter desired X10 Address and press submit.
+			 <br>The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
+			 
+			 <tr><td>
+			 <form method=post>Set On-Level:<td><input type=text readonly value=null name=heyu_insteon_on-lvel><td><input type=submit></form>
+			 
+			 <tr><td>
+			 <form method=post>Set Ramp Rate:<td><input type=text readonly value=null name=heyu_insteon_ramp-rate><td><input type=submit></form>
+			 
+			 </table>
+			 
+			 <br>TRADEMARKS:<br><br>
+			    Insteon is a trademark of INSTEON <a href=http://www.insteon.com target=_BLANK>http://www.insteon.com</a>
+			 
+			 "
+			 #echo "</textarea><table valign=top width=$ctaw class=control_panel><tr><td valign=top align=center><iframe align=center 
+		        #	src=./CGI/insteon.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
+		
+		 }
+
+	fi 
+
    if [[ $QUERY_STRING == *heyu_music* ]];then
 	  
           var=heyu_music
@@ -213,8 +256,6 @@ fi
 		 }
 
 	fi 
-
-
 	if [[ $QUERY_STRING == *heyu_reload* ]];then
 	
 	  show() {

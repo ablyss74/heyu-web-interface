@@ -60,7 +60,7 @@ echo "
 
 echo "</head>"   
 	page_refresh
-
+	
 if [[ ${Mobile_User_Active^^} == TRUE ]]; then 
 	echo "	<body onload=\"hideURLbar();$(frefresh)\" >
 		<div id=\"progress\" class=\"hide\">Please Wait</div><script>PhoneProgress()</script>"
@@ -68,7 +68,7 @@ if [[ ${Mobile_User_Active^^} == TRUE ]]; then
 	echo "	<body onload=\"$(frefresh)\" >
 		<div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>"
 fi
-
+	
 	echo "<div id=content>"
 	
 	
@@ -156,7 +156,7 @@ fi
 		 $QUERY_STRING == *heyu*cmd*           	            ||   ${QUERY_STRING,,} == *basicuserconfig*          	 || 
 		 -z $HTTP_COOKIE 				    || 	$QUERY_STRING == *heyu_reload*  	 		 ||      
 	         $QUERY_STRING == *manpage*	                    ||   $QUERY_STRING == *heyu_music*                  	 ||     
-	         $QUERY_STRING == *heyu_web_interface_version*             
+	         $QUERY_STRING == *heyu_insteon*                    ||  $QUERY_STRING == *heyu_web_interface_version*             
  	  ]]
 		then			
 			[[ -e ./CGI/control_panel.sh ]] && source ./CGI/control_panel.sh
