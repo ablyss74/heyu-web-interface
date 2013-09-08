@@ -69,6 +69,8 @@ if [[ ${Mobile_User_Active^^} == TRUE ]]; then
 		<div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>"
 fi
 	
+	
+	
 	echo "<div id=content>"
 	
 	

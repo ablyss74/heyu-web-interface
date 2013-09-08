@@ -208,34 +208,70 @@ fi
           var=heyu_insteon
 	  show() {
 			 Q=${QUERY_STRING/heyu_insteon_}
+			 Q=${Q/&heyu_insteon_set_pri=/}
+			 Q=${Q/&heyu_insteon_rem_pri=/}
 			 if [[ $Q == *set_pri=* ]];then
 			 Q=${Q/set_pri=} && heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
 			 fi
 			 if [[ $Q == *rem_pri=* ]];then
 			 Q=${Q/rem_pri=} && heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
 			 fi
-			 echo "<table valign=top  class=control_panel><tr><td>
-			 <form method=post>Set X10 Primary Address:<td><input type=text name=heyu_insteon_set_pri><td><input type=submit></form>
-			 
-			 <tr><td><font size=1><i>Press & hold the Set button <br>(enter linking mode) LED will blink<br> LED will blink
-			 <br> Enter desired X10 Address and press submit.<br> The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
+			 smenu
+			 echo "</table><table valign=top width=600 class=control_panel><tr><td>
+			 <form method=post><b>Set X10 Primary Address:</b><td>
+			 <select name=heyu_insteon_set_pri><option>A<option value=\"A\">B
+			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 </select>
+			 <select name=heyu_insteon_set_pri><option>1<option value=\"1\">2
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit value=OK></form> 			 
+			 <tr><td><font size=1><i>1. Press & hold the Set button <br>(enter linking mode) LED will blink<br>
+			 <br>2. Enter desired X10 Address and press OK.<br> The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
 			 <tr><td>
 			 
-			 <form method=post>Remove X10 Primary Address:<td><input type=text name=heyu_insteon_rem_pri><td><input type=submit></form>
-			 <tr><td><font size=1><i>Press & hold the Set button <br>(enter linking mode) LED will blink<br>Press & hold the Set button again 
-			 <br>(enter unlinking mode) LED will blink<br> Enter desired X10 Address and press submit.
+			 <form method=post><b>Remove X10 Primary Address:</b><td>
+			 <select name=heyu_insteon_rem_pri><option>A<option value=\"A\">B
+			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 </select>
+			 <select name=heyu_insteon_rem_pri><option>1<option value=\"1\">2
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit value=OK></form> 
+			 
+			 <tr><td><font size=1><i>
+			 1. Press & hold the Set button <br>(enter linking mode) LED will blink.<br>
+			 2. Press & hold the Set button again<br>
+			 (enter unlinking mode) LED will blink<br> 
+			 3. Enter desired X10 Address and press OK.
 			 <br>The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
 			 
 			 <tr><td>
-			 <form method=post>Set On-Level:<td><input type=text readonly value=null name=heyu_insteon_on-lvel><td><input type=submit></form>
+			 <form method=post><b>Set On-Level:</b><td>
+			 <select name=heyu_insteon_onlevel><option>A<option value=\"A\">B
+			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 </select>
+			 <select name=heyu_insteon_onlevel><option>1<option value=\"1\">2
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit disabled value=OK></form> 
 			 
 			 <tr><td>
-			 <form method=post>Set Ramp Rate:<td><input type=text readonly value=null name=heyu_insteon_ramp-rate><td><input type=submit></form>
+			 <form method=post><b>Set Ramp Rate:</b><td>
+			 <select name=heyu_insteon_ramprate><option>A<option value=\"A\">B
+			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 </select>
+			 <select name=heyu_insteon_ramprate><option>1<option value=\"1\">2
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit disabled value=OK></form> 
 			 
-			 </table>
 			 
+			 <tr><td>
 			 <br>TRADEMARKS:<br><br>
 			    Insteon is a trademark of INSTEON <a href=http://www.insteon.com target=_BLANK>http://www.insteon.com</a>
+			 <br>   
+			 <br>Nedd more Help?: <a href=/Help/insteon-x10-programming.html target=_BLANK>Insteon-x10-programming</a>
+			  
+			  
+			   </table> 
+			 
 			 
 			 "
 			 #echo "</textarea><table valign=top width=$ctaw class=control_panel><tr><td valign=top align=center><iframe align=center 
