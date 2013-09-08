@@ -267,7 +267,7 @@ fi
 			 <br>TRADEMARKS:<br><br>
 			    Insteon is a trademark of INSTEON <a href=http://www.insteon.com target=_BLANK>http://www.insteon.com</a>
 			 <br>   
-			 <br>Nedd more Help?: <a href=/Help/insteon-x10-programming.html target=_BLANK>Insteon-x10-programming</a>
+			 <br>Need more help?: <a href=/Help/insteon-x10-programming.html target=_BLANK>Insteon-x10-programming</a>
 			  
 			  
 			   </table> 
