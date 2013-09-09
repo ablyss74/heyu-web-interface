@@ -219,8 +219,8 @@ fi
 			 smenu
 			 echo "</table><table valign=top width=600 class=control_panel><tr><td>
 			 <form method=post><b>Set X10 Primary Address:</b><td>
-			 <select name=heyu_insteon_set_pri><option>A<option value=\"A\">B
-			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 <select name=heyu_insteon_set_pri><option value=\"A\">A
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
 			 </select>
 			 <select name=heyu_insteon_set_pri><option>1<option value=\"1\">2
 			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
@@ -230,8 +230,8 @@ fi
 			 <tr><td>
 			 
 			 <form method=post><b>Remove X10 Primary Address:</b><td>
-			 <select name=heyu_insteon_rem_pri><option>A<option value=\"A\">B
-			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 <select name=heyu_insteon_rem_pri><option value=\"A\">A
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
 			 </select>
 			 <select name=heyu_insteon_rem_pri><option>1<option value=\"1\">2
 			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
@@ -246,8 +246,8 @@ fi
 			 
 			 <tr><td>
 			 <form method=post><b>Set On-Level:</b><td>
-			 <select name=heyu_insteon_onlevel><option>A<option value=\"A\">B
-			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 <select name=heyu_insteon_onlevel><option value=\"A\">A
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
 			 </select>
 			 <select name=heyu_insteon_onlevel><option>1<option value=\"1\">2
 			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
@@ -255,8 +255,8 @@ fi
 			 
 			 <tr><td>
 			 <form method=post><b>Set Ramp Rate:</b><td>
-			 <select name=heyu_insteon_ramprate><option>A<option value=\"A\">B
-			 $(for i in {C..P}; do echo "<option value=\"$i\">$i"; done)
+			 <select name=heyu_insteon_ramprate><option value=\"A\">A
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
 			 </select>
 			 <select name=heyu_insteon_ramprate><option>1<option value=\"1\">2
 			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
