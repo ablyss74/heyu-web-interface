@@ -42,7 +42,7 @@ ALIAS     Test1                   E1,2,3 # Group=Test1
 ALIAS     Grow_Lights            G1      StdAM # Group=Garage
 ALIAS     Water_Plants           G2      StdAM # Group=Garage
 
-#ALIAS     Garage_Door            H1      StdAM # Group=Garage
+#ALIAS     Garage_Door            H1      StdAM # 
 
 ALIAS     Irrigation_Front       l1      StdAM # Group=Irrigation
 ALIAS     Irrigation_Back        l2      StdAM # Group=Irrigation
