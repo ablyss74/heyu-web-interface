@@ -176,14 +176,14 @@ fi
 	  show() {
 		
 			echo "</textarea>
-			      <table valign=top><tr><td valign=top align=center bgcolor=#ffffff >
-			      <iframe align=center src=$camera1_location border=0 height=240 width=320 scrolling=yes></iframe>
+			      <table valign=top><tr><td valign=top align=center bgcolor=#ffffff>
+			      <img src=$camera1_location alt=\"\" height=240 width=320>
 			      <td valign=top align=center bgcolor=#ffffff>
-			      <iframe align=center src=$camera2_location border=0 height=240 width=320 scrolling=yes></iframe>
+			       <img src=$camera2_location alt=\"\" height=240 width=320>
 			      <tr><td valign=top align=center bgcolor=#ffffff >
-			      <iframe align=center src=$camera3_location border=0 height=240 width=320 scrolling=yes></iframe>
+			      <img src=$camera3_location alt=\"\" height=240 width=320>
 			      <td valign=top align=center bgcolor=#ffffff>
-			      <iframe align=center src=$camera4_location border=0 height=240 width=320 scrolling=yes></iframe>
+			       <img src=$camera4_location alt=\"\" height=240 width=320>
 			      </table>"
 		 }
 

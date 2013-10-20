@@ -70,7 +70,6 @@ if [[ ${Mobile_User_Active^^} == TRUE ]]; then
 fi
 	
 	
-	
 	echo "<div id=content>"
 	
 	
