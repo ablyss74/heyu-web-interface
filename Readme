@@ -17,8 +17,8 @@
 
 ### heyu_web_interface_(python)
     1. Point your web browser to http://127.0.0.1/index.py to start the python cgi
-    2. Configuration settings are still be added but you can change some minor features like how fast 
+    2. Configuration settings are still being added but you can change some minor features like how fast 
        heyu refreshes by editing index.py
-    3. Experimental GTK front end is included 'gheyu.py'.
+    3. Experimental GTK frontend is included 'gheyu.py'.
     4. Crontab frontend is not finished. 
     5. .htaccess file is included to help configure apache

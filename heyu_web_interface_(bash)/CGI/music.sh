@@ -8,12 +8,17 @@ set -f
 # Licensed under the Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0
 
 # Define player to use.
+
 player="mpg123 -@"
-#player="mplayer"
+
+### If True will send stderr to stdout.  Helpful for not filling up the httpd error logs.  
+debug() { exec 2>&1 ; }
+dubug="True"
+
 
 echo Content-Type:Text/Html
 echo
-
+[[ ${dubug^^} == TRUE ]] && debug
 
 echo "
 <html>
@@ -92,7 +97,7 @@ do
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
-  echo " <table class=volbutton><tr><td>Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
+  echo "<table class=volbutton><tr><td>Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
   <progress value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a></table>" 
 
 done
@@ -163,8 +168,8 @@ for line in $(</etc/group);
 
 done
 
-isplayer_installed=($(${player% -@} --version))
-if [[ -z ${isplayer_installed[0]} ]];then
+is_player_installed=($(${player% -@} --version))
+if [[ -z ${is_player_installed[0]} ]];then
   echo "${player% -@} not installed.  Please install it to play music.<br><br>"
 fi
 

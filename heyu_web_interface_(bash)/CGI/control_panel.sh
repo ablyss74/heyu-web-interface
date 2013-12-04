@@ -19,7 +19,7 @@ example()
 	[[ ${Show_Module_Type^^} == TRUE	]] && echo "				<br>StdAM"
 	echo "			</table></button><br>"
 	
-    if [[ $HTTP_COOKIE == *html_range=True* ]];then
+    if [[ $HTTP_COOKIE == *html_range=True* ]] && [[ ${Disable_HTML5,,} != true ]];then
         echo "<input type=range min=0 max=21 class=sliderfx value=11 step=1>" 
                         
     else
@@ -1185,7 +1185,7 @@ xinfo()
 		html_footer
 		exit
 		fi	
-		 if [[ $QUERY_STRING == *BasicUserConfig=Buttons || $QUERY_STRING == *userconfig_submit=Save ]];then
+		 if [[ ${QUERY_STRING,,} == *basicuserconfig=buttons || ${QUERY_STRING,,} == *show_time_stamp*userconfig_submit=save ]];then
 		 echo "<tr><td><button type=button><table class=button>
 				<tr><td class=button><img src=./imgs/on2.png align=left class=icons>
 				Example<td class=info>
