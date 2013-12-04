@@ -1055,6 +1055,7 @@ xinfo()
 		if [[ ${HTTP_COOKIE,,} == *groupstatus\|on* && $QUERY_STRING == *heyugroup* || $QUERY_STRING == *\&heyugroup*  ]];then
 		
 		echo "</table>"
+		
 
 		while read -r f; do
 			  

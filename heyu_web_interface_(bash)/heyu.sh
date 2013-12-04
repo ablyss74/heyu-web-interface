@@ -262,16 +262,18 @@ xinfo()
        
        }
  top_buttons() {
- 
-	    echo "<button type=button class=scene_button onclick=\"$(fstatus); show('BasicUserConfig=css')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/tool.png\" alt=none class=icons>Control Panel</table></button>"
-	    echo "<button type=button class=scene_button onclick=\"$(fstatus); show('')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>Groups</table></button>"
-
+	    echo "<table><tr><td>"
+	    echo "<button type=button class=scene_button onclick=\"$(fstatus); show('BasicUserConfig=css')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/tool.png\" alt=none class=icons>Control Panel</table></button></table>"
+	    echo "<table><tr><td>"
+	    echo "<button type=button class=scene_button onclick=\"$(fstatus); show('')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>Groups</table></button></table>"
+	 
 	        }
 	        
 if [[ ${QUERY_STRING,,} != *macro* && ${HTTP_COOKIE,,} == *groupstatus\|on* && $QUERY_STRING == *heyugroup* || $QUERY_STRING == *\&heyugroup*   ]];then
 	
+		
 		top_buttons
-
+	      
 
 
 		while read -r f; do
@@ -311,29 +313,30 @@ if [[ ${QUERY_STRING,,} != *macro* && ${HTTP_COOKIE,,} == *groupstatus\|on* && $
 
 		    if [[ ${type,,} == *scene* || ${type,,} == *usersyn* ]];then
 		      if [[ $string == \*  ]];then		    
-		    echo  
+		    echo 
 
 		    else
 		    scene=${f[*]:1:1}
 
-
+			echo "<table class=button align=left><tr><td class=button>"
+			
                    	echo "<button type=button class=scene_button onclick=\"$(fstatus); show('do_scene=${scene}')\">
 					<table class=scene_button><tr><td class=scene_button>
 					<img src=\"imgs/scenes.png\" alt=none class=icons>
-					${scene//_/ }</table></button>"
+					${scene//_/ }</table></button></table>"
 					
  		       fi
  		        
 			    else
-			    
+			  
 		    Q=${QUERY_STRING//&/ }
 		    Q=($Q)
 		        for i in ${Q[*]}; do
 		           [[ ${i,,} == heyugroup* ]] && Q=${i}
 		        done
-	
+	  
 		    
-		    
+
 		    [[ -z $Q ]] && Q=$QUERY_STRING
 		    echo "<table class=button align=left><tr><td class=button>"
                     echo "<button type=button class=scene_button onclick=\"Status(); show('Unit_$addr&$(xstatus)&$Q')\">"
@@ -374,26 +377,27 @@ fi
 
 if [[ ${QUERY_STRING,,} != *macro* && ${HTTP_COOKIE,,} && ${HTTP_COOKIE,,} == *groupstatus\|on* ]];then
 	show() {
-	        
-	        top_buttons
+
+		top_buttons
+		echo "<table><tr><td>"
 		#echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=*')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>All Groups</table></button>"
 		echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=SCENE')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>Scenes</table></button>"
-
+		echo "</table>"
 
 	sub3cookie() {
 	
 	do_subs() {
-	
-	[[ $name == *Group1* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group2* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group3* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group4* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group5* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group6* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group7* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group8* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group9* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
-	[[ $name == *Group0* && ${value,,} != "null"  && $value != "" ]] &&  echo "<button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button>"
+
+	[[ $name == *Group1* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group2* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group3* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group4* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group5* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group6* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group7* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group8* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group9* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
+	[[ $name == *Group0* && ${value,,} != "null"  && $value != "" ]] &&  echo "<table><tr><td><button type=button class=scene_button onclick=\"$(fstatus); show('heyugroup=$value')\"><table class=scene_button><tr><td class=scene_button><img src=\"imgs/scenes.png\" alt=none class=icons>${value//_/ }</table></button></table>"
  
 
 	}
@@ -442,6 +446,7 @@ if [[ ${QUERY_STRING,,} != *macro* && ${HTTP_COOKIE,,} && ${HTTP_COOKIE,,} == *g
 	  }	  
 	  show
       # exit
+      echo "</table>"
 fi
 
 
