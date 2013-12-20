@@ -5,19 +5,11 @@
 
 TTY   /dev/ttyUSB0
 
-# Auto start the relay engine
-START_ENGINE AUTO
+# Your longitude & latitude coordinates of the computer that runs heyu
+# Needed for scheduling dusk to dawn properly.
 
-HOUSECODE   A
-
-### This should not be changed for the builtin log viewer to work properly.
-LOG_DIR ./heyu_logs
-
-# Change the longitude and latitude coordinates to the location that runs heyu
 LONGITUDE         W84:00       # [degrees:minutes East or West of Greenwich]
 LATITUDE          N33:94       # [degrees:minutes North or South of equator]
-
-### IMPORTANT ###  The SCHEDULE_FILE directive does not apply to heyu web interface.  Edit Interface Config instead if you wish to use a alternate schedule file.
 
 ### IMPORTANT ### The Group directive applies to Heyu Web Interface only.
 
@@ -27,7 +19,6 @@ ALIAS     Hall                   A3      StdLM # Group=Living_Room
 ALIAS     Master_Lights          A4      StdLM # Group=Master
 ALIAS     Master_Bathroom        A5      StdLM # Group=Master
 ALIAS     Basement_Lights        A6      StdLM # Group=Basement
-
 
 ALIAS     Polaris                B3      StdAM # Group=Pool
 ALIAS     Pool                   B5      StdAM # Group=Pool
@@ -76,6 +67,16 @@ SCENE  Garage_Door on H1 # Group=Scene_Garage
 # USERSYN normal_lights  on front_porch; on back_porch
 # USERSYN night_lights dimb front_porch $1; dimb back_porch $1
 
+
+# Auto start the relay engine. Required for heyu web interface script to function properly.
+START_ENGINE AUTO
+
+HOUSECODE   A
+
+### This should not be changed for the heyu web interface log viewer to function properly.
+LOG_DIR ./heyu_logs
+
+### IMPORTANT ###  The SCHEDULE_FILE directive does not apply to heyu web interface.  Edit Interface Config instead if you wish to use a alternate schedule file.
 
 # MODE              COMPATIBLE   # COMPATIBLE  HEYU
 # PROGRAM_DAYS      366          # [number of days 1 to 366]
