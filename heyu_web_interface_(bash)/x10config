@@ -10,6 +10,9 @@ START_ENGINE AUTO
 
 HOUSECODE   A
 
+### This should not be changed for the builtin log viewer to work properly.
+LOG_DIR ./heyu_logs
+
 # Change the longitude and latitude coordinates to the location that runs heyu
 LONGITUDE         W84:00       # [degrees:minutes East or West of Greenwich]
 LATITUDE          N33:94       # [degrees:minutes North or South of equator]
@@ -24,8 +27,7 @@ ALIAS     Hall                   A3      StdLM # Group=Living_Room
 ALIAS     Master_Lights          A4      StdLM # Group=Master
 ALIAS     Master_Bathroom        A5      StdLM # Group=Master
 ALIAS     Basement_Lights        A6      StdLM # Group=Basement
-ALIAS     Office_Lamp            A7      StdLM # Group=Office
-ALIAS     Office_Heater          A8      StdAM # Group=Office
+
 
 ALIAS     Polaris                B3      StdAM # Group=Pool
 ALIAS     Pool                   B5      StdAM # Group=Pool
@@ -37,7 +39,7 @@ ALIAS     Raspberry_Pi           C1      StdAM # Group=Office
 ALIAS     Floods                 C5      StdAM # Group=Flood_Lights
 ALIAS     Front_Recessed         D13     StdLM # Group=Landscape
 
-ALIAS     Test1                   E1,2,3 # Group=Test1
+ALIAS     Test1                  E1,2,3 # Group=Test1
 
 ALIAS     Grow_Lights            G1      StdAM # Group=Garage
 ALIAS     Water_Plants           G2      StdAM # Group=Garage
@@ -47,6 +49,8 @@ ALIAS     Water_Plants           G2      StdAM # Group=Garage
 ALIAS     Irrigation_Front       l1      StdAM # Group=Irrigation
 ALIAS     Irrigation_Back        l2      StdAM # Group=Irrigation
 ALIAS     Water_Level            l3      StdAM # Group=Pool
+
+ALIAS     Holiday_Lights         J1      StdLM # Group=Living_Room
 
 
 #USERSYN   USERSYN off            A8            # Group=USERSYN_USERSYN
@@ -72,7 +76,6 @@ SCENE  Garage_Door on H1 # Group=Scene_Garage
 # USERSYN normal_lights  on front_porch; on back_porch
 # USERSYN night_lights dimb front_porch $1; dimb back_porch $1
 
-# LOG_DIR  NONE
 
 # MODE              COMPATIBLE   # COMPATIBLE  HEYU
 # PROGRAM_DAYS      366          # [number of days 1 to 366]

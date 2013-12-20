@@ -292,6 +292,18 @@ fi
 		 }
 
 	fi 
+	
+    if [[ $QUERY_STRING == *heyu_logs* ]];then
+	  
+          var=heyu_logs
+	  show() {
+	  
+			 echo "</textarea><table valign=top width=$ctaw class=control_panel><tr><td valign=top align=center><iframe align=center 
+		        	src=./heyu_logs.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
+		
+		 }
+
+	fi 
 	if [[ $QUERY_STRING == *heyu_reload* ]];then
 	
 	  show() {
@@ -945,9 +957,13 @@ fi
 		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
 		<td><span class=control_panel>Top</table></button><br>
     
-     <button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_music')\">
+		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_music')\">
 		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
 		<td><span class=control_panel>Music Player</table></button><br>
+		
+		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_logs')\">
+		<table><tr><td width=20><img src=./imgs/filefind.png width=25 height=25> 
+		<td><span class=control_panel>Heyu Logs</table></button><br>
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_camera1')\">
 		<table><tr><td width=20><img src=./imgs/scenes.png width=25 height=25> 
