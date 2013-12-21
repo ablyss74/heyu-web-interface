@@ -10,18 +10,7 @@ set -f
 echo Content-Type:Text/Html
 echo
 
-
-echo "
-<html>
-  <head>
-       <title>Heyu Web Interface Logs</title>
-       <script type=text/javascript src=../heyu_javascripts/update.js></script>
-   </head>
-   <body bgcolor=#E5E5E5 onload=ajax_update()>
-      <div id=content>
-      <textarea cols=450 rows=100% readonly>"
 for x in $HTTP_COOKIE ; do
-#[[ $x == sub0cookie* ]] && echo $x
 	  x=${x//|/=}
 	  x=${x/sub0cookie=/}
 	  x=${x//^/ }
@@ -31,8 +20,42 @@ for x in $HTTP_COOKIE ; do
 		[[ ${i,,} == *x10config=* ]] && x10config="${i/x10config=/}"
 	      done	
 	  done
-"$heyu" -c "${x10config}" logtail 25
-echo "</textarea></body></html>"
+
+    while read -r config
+	do
+	[[ ${config} == TTY_AUX\ * ]] && TTY_AUX=(${config/TTY_AUX /}) && TTY_AUX=${TTY_AUX/\/dev\/}
+	[[ ${config} == TTY\ * ]] && TTY=(${config/TTY /}) && TTY=${TTY/\/dev\/}
+	done <"$x10config"
+		
+
+echo "
+<html>
+  <head>
+       <title>Heyu Web Interface Logs</title>
+       <script type=text/javascript src=../heyu_javascripts/update.js></script>
+   </head>
+   <body bgcolor=#E5E5E5 onload=ajax_update()>
+      <div id=content>"
+      
+      
+      logs=$(<./heyu_logs/heyu.log.$TTY)
+      if [[ $QUERY_STRING == clear_log ]];then
+	echo > ./heyu_logs/heyu.log.$TTY
+      fi
+ 
+      if [[ $((${#logs} / 1000)) -eq "0" ]];then 
+	echo "Log File Size: (${#logs} B) "
+	else
+	  echo "Log File Size: $((${#logs} / 1000)) KiB) "
+      fi
+      echo " | <a href=?clear_log>Erase Log File</a>"
+      
+      
+      echo "<textarea cols=450 rows=100% readonly>"
+
+     
+ "$heyu" -c "${x10config}" logtail 25
+echo "</textarea></div></body></html>"
 
 
 

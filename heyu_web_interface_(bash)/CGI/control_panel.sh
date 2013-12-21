@@ -274,8 +274,7 @@ fi
 			 
 			 
 			 "
-			 #echo "</textarea><table valign=top width=$ctaw class=control_panel><tr><td valign=top align=center><iframe align=center 
-		        #	src=./CGI/insteon.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
+	
 		
 		 }
 
@@ -963,7 +962,7 @@ fi
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_logs')\">
 		<table><tr><td width=20><img src=./imgs/filefind.png width=25 height=25> 
-		<td><span class=control_panel>Heyu Logs</table></button><br>
+		<td><span class=control_panel>Heyu Log</table></button><br>
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_camera1')\">
 		<table><tr><td width=20><img src=./imgs/scenes.png width=25 height=25> 
