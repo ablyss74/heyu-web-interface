@@ -92,8 +92,8 @@ do
   l=${l/]_/ }
   l=($l)
   s="${l[5]}"
-  
-  [[ ${#s} -gt 3 ]] && s="${l[6]}"
+
+  #[[ ${#s} -gt 3 ]] && s="${l[6]}"
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
@@ -107,8 +107,8 @@ if [[ $error ]];then
 fi
 
 if [[ $title ]];then 
-echo "<table class=music_fontz1><tr><td><a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
-<br><br>$name - <a href=$url target=_BLANK>$url</a></font><br><br></table></table>
+echo "<table class=music_fontz1><tr><td><a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK><b>${title}</b></a> 
+<br><br>$name - <a href=$url target=_BLANK><b>$url</b></a></font><br><br></table></table>
 "
 else
 echo "<br><br><br></table>"

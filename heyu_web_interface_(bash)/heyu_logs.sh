@@ -46,7 +46,7 @@ echo "
       if [[ $((${#logs} / 1000)) -eq "0" ]];then 
 	echo "Log File Size: (${#logs} B) "
 	else
-	  echo "Log File Size: $((${#logs} / 1000)) KiB) "
+	  echo "Log File Size: ($((${#logs} / 1000)) KiB) "
       fi
       echo " | <a href=?clear_log>Erase Log File</a>"
       

@@ -199,11 +199,12 @@ table.scene_button td {
 	
 }
 .volbutton {
+        text-align: center;
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;
 	text-shadow:0px 1px 0px white;
-	width:230px;
+	width:250px;
 	height:32px;
 	background-color:#ccc;
 	border-width: 2px;	
