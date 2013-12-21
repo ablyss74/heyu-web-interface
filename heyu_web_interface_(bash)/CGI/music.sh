@@ -97,7 +97,7 @@ do
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
-  echo "<table class=volbutton><tr><td>Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
+  echo "<table class=volbutton><tr><td >Vol: ${s}<a href=?heyu_music=amixer_set_$dec_sound%><img src=/imgs/down.png width=25 heigth=25 align=center></a>
   <progress value=\"$soundlevel\" max=100></progress><a href=?heyu_music=amixer_set_$inc_sound%><img src=/imgs/up.png width=25 heigth=25 align=center></a></table>" 
 
 done
@@ -107,8 +107,8 @@ if [[ $error ]];then
 fi
 
 if [[ $title ]];then 
-echo "<a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
-<br><br>$name - <a href=$url target=_BLANK>$url</a><br><br></table>
+echo "<table class=music_fontz1><tr><td><a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK>${title}</a> 
+<br><br>$name - <a href=$url target=_BLANK>$url</a></font><br><br></table></table>
 "
 else
 echo "<br><br><br></table>"
@@ -117,7 +117,7 @@ fi
 echo "
 <form method=post action=?heyu_music=mpgstop>
   <table class=control_panel_music2><tr>
-        <td >
+        <td>
         $(vol) 
         </td>
 	<td>
@@ -173,7 +173,7 @@ if [[ -z ${is_player_installed[0]} ]];then
   echo "${player% -@} not installed.  Please install it to play music.<br><br>"
 fi
 
-echo "  <table class=control_panel_playlist><tr><td align=center><b>Playlist</b><tr><td><table class=playlistbutton><tr><td>"
+echo "  <table class=music_fontz1><tr><td align=center><b>Playlist</b><tr><td class=playlistbutton>"
 while read -r playlist
  do
      p=${playlist//#/ }
@@ -182,7 +182,6 @@ while read -r playlist
 done <./playlist
 echo "</table></table>"
 
-echo "</table></table>"
 
 #Debug stream info
 #echo "<pre>${data[*]}"

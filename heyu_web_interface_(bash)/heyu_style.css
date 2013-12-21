@@ -191,9 +191,16 @@ table.scene_button td {
 	border-style: groove;
 	border-color: #ccc;	
 }
+.music_fontz1 {
+
+	font-size:12px;
+	font-family: verdana,arial,sans-serif;	
+	color:#000;
+	
+}
 .volbutton {
 	font-family: verdana,arial,sans-serif;
-	font-size:10px;
+	font-size:11px;
 	color:#333333;
 	text-shadow:0px 1px 0px white;
 	width:230px;
@@ -230,11 +237,9 @@ table.scene_button td {
 }
 .playlistbutton {  
 	vertical-align:top;
-	font-size:10px;
-	font-family:Arial;
-	font-weight:bold;
+	font-size:11px;
+	font-family: verdana,arial,sans-serif;	
 	color:#000;
-	text-shadow:0px 1px 0px white;
 	background-color:#ccc;
 	border-width: 2px;	
 	border-style: groove;
@@ -242,7 +247,7 @@ table.scene_button td {
 	text-align:left;
 	width:200px;
 	height:282px;
-	
+	font-weight:normal;	
 }
 .mainplayerbutton {  
 	vertical-align:top;
@@ -254,7 +259,7 @@ table.scene_button td {
 	border-width: 2px;	
 	border-style: groove;
 	border-color: #ccc;
-	width:522px;
+	width:650px;
 	text-align:left;
 
 	
