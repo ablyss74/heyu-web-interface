@@ -36,7 +36,7 @@ echo "
         <td><B><center>Heyu Web Interface Internet Radio Player (Beta)</B>
         <tr>
         <td><table class=mainplayerbutton><tr><td>"
-
+[[ ! -e currently_playing ]] && touch currently_playing
 mapfile data <currently_playing
 
     while [[ x -lt ${#data[*]} ]]
@@ -102,18 +102,21 @@ do
 
 done
 }    
-if [[ $error ]];then
-  echo "Ouch!! <br>Things bumped but nothng happened! ~ Please click stop and try the station again.</table>"
-fi
-
 if [[ $title ]];then 
 echo "<table class=music_fontz1><tr><td><a href=\"https://play.google.com/store/search?q=${title}&c=music\" title=\"Search this artist on Google Play\" target=_BLANK><b>${title}</b></a> 
 <br><br>$name - <a href=$url target=_BLANK><b>$url</b></a></font><br><br></table></table>
 "
 else
-echo "<br><br><br></table>"
-fi
+echo "<br>"
 
+[[ -s currently_playing ]] && echo "<tr><td align=center>Connecting To Audio Server. Please Wait...<br><br></table>"
+
+fi
+if [[ $error ]];then
+  echo "<tr><td align=center><br>Audio Failed To Start ~ Please Click The Stop Button And Try Again.<br>"
+fi
+echo ""
+echo "<br></table>"
 echo "
 <form method=post action=?heyu_music=mpgstop>
   <table class=control_panel_music2><tr>
@@ -137,13 +140,13 @@ QUERY_STRING=${QUERY_STRING/heyu_music=/}
 
 
 (
-[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing && killall -9 ${player% -@} && sleep 2s
-) & 
-wait
+[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing && killall -9 ${player% -@}
+)
 
 
 if  [[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]];then
-
+        echo > currently_playing
+	killall -9 ${player% -@}
 	([[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && $player $QUERY_STRING)>&currently_playing &
 fi
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -f
+#set -f (leave this unset for globbing archives)
 
 # Author: 	Kris Beazley
 # Copyright     2013 
@@ -10,6 +10,9 @@
 echo Content-Type:Text/Html
 echo
 
+
+
+### Need to import some vars from our cookies.
 for x in $HTTP_COOKIE ; do
 	  x=${x//|/=}
 	  x=${x/sub0cookie=/}
@@ -83,8 +86,8 @@ echo "
 	  done
 
       echo "<textarea cols=450 rows=100% readonly>"
-
-     
+      
+### Only need to display a small amount
  "$heyu" -c "${x10config}" logtail 30
 echo "</textarea></div></body></html>"
 
