@@ -19,6 +19,7 @@ ALIAS     Hall                   A3      StdLM # Group=Living_Room
 ALIAS     Master_Lights          A4      StdLM # Group=Master
 ALIAS     Master_Bathroom        A5      StdLM # Group=Master
 ALIAS     Basement_Lights        A6      StdLM # Group=Basement
+ALIAS     Office_Lights          A7      StdLM # Group=Office
 
 ALIAS     Polaris                B3      StdAM # Group=Pool
 ALIAS     Pool                   B5      StdAM # Group=Pool

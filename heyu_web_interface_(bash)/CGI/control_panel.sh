@@ -177,13 +177,13 @@ fi
 		
 			echo "</textarea>
 			      <table valign=top><tr><td valign=top align=center bgcolor=#ffffff>
-			      <img src=$camera1_location alt=\"\" height=240 width=320>
+			      <img src=$camera1_location alt=\"\" height=340 width=420>
 			      <td valign=top align=center bgcolor=#ffffff>
-			       <img src=$camera2_location alt=\"\" height=240 width=320>
+			       <img src=$camera2_location alt=\"\" height=340 width=420>
 			      <tr><td valign=top align=center bgcolor=#ffffff >
-			      <img src=$camera3_location alt=\"\" height=240 width=320>
+			      <img src=$camera3_location alt=\"\" height=340 width=420>
 			      <td valign=top align=center bgcolor=#ffffff>
-			       <img src=$camera4_location alt=\"\" height=240 width=320>
+			       <img src=$camera4_location alt=\"\" height=340 width=420>
 			      </table>"
 		 }
 

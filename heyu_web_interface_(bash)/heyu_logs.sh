@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -f
+#set -f
 
 # Author: 	Kris Beazley
 # Copyright     2013 
@@ -39,22 +39,53 @@ echo "
       
       
       logs=$(<./heyu_logs/heyu.log.$TTY)
+
+      if [[ $QUERY_STRING == delete_archive_* ]];then
+	rm ./${QUERY_STRING/delete_archive_/}
+      fi
+      
+      if [[ $QUERY_STRING == backup_log ]];then
+	echo "$logs" > ./heyu_logs/heyu.log.$TTY.Archive:$(date +%m.%d.%Y.%T)
+      fi
+      
       if [[ $QUERY_STRING == clear_log ]];then
 	echo > ./heyu_logs/heyu.log.$TTY
       fi
  
-      if [[ $((${#logs} / 1000)) -eq "0" ]];then 
-	echo "Log File Size: (${#logs} B) "
-	else
-	  echo "Log File Size: ($((${#logs} / 1000)) KiB) "
-      fi
-      echo " | <a href=?clear_log>Erase Log File</a>"
+      csize() {
+	      if [[ $((${#logs} / 1000)) -eq "0" ]];then 
+		echo "(${#logs} B) "
+		  else
+		    echo "($((${#logs} / 1000)) KiB) "
+	      fi
+	      }
+      echo "<a href=/heyu_logs/heyu.log.$TTY>View Full Log</a> $(csize) || <a href=?clear_log>Erase Current Log File</a> || <a href=?backup_log>Backup Current Log File</a>"
       
-      
+      echo "<br>"
+	for i in ./heyu_logs/heyu.log.$TTY.Archive*
+	  do
+		as() {
+		  asize=$(<$i)
+                  if [[ $((${#asize} / 1000)) -eq "0" ]];then 
+		    echo "(${#asize} B) "
+		    else
+		      echo "($((${#asize} / 1000)) KiB) "
+		    fi
+		    }
+	    file=${i/.\/heyu_logs\/heyu.log.$TTY.}
+	    file=${file/Archive/Archive }
+	    if [[ $file != "Archive *" ]];then
+	    echo "<a href=$i>$file</a> $(as) || <a href=?delete_archive_$i>Delete</a><br>"
+	    else
+	    echo "There Are No Current Archives. <a href=?backup_log>Backup Current Log File Now?</a>"
+	    fi
+	 
+	  done
+
       echo "<textarea cols=450 rows=100% readonly>"
 
      
- "$heyu" -c "${x10config}" logtail 25
+ "$heyu" -c "${x10config}" logtail 30
 echo "</textarea></div></body></html>"
 
 
