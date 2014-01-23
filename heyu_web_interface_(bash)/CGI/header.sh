@@ -18,7 +18,7 @@ set -f
     fi
 
     ### Current Version ###
-    Heyu_web_interface_version="11.60"
+    Heyu_web_interface_version="11.61_beta"
 
     ### Simple URL decoder
     ### Normally QUERY_STRING only uses GET data
