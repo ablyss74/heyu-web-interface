@@ -109,7 +109,7 @@ echo "<table class=music_fontz1><tr><td><a href=\"https://play.google.com/store/
 else
 echo "<br>"
 
-[[ -s currently_playing ]] && echo "<tr><td align=center>Connecting To Audio Server. Please Wait...<br><br></table>"
+[[ -s currently_playing ]] && echo "<tr><td align=center>Retrieving Audio Data. Please Wait...<br><br></table>"
 
 fi
 if [[ $error ]];then

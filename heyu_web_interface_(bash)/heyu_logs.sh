@@ -76,7 +76,10 @@ echo "
 		    fi
 		    }
 	    file=${i/.\/heyu_logs\/heyu.log.$TTY.}
-	    file=${file/Archive/Archive }
+	    file=${file/Archive:/Archive }
+	    file=${file/./\/}
+	    file=${file/./\/}
+	    file=${file/./ }
 	    if [[ $file != "Archive *" ]];then
 	    echo "<a href=$i>$file</a> $(as) || <a href=?delete_archive_$i>Delete</a><br>"
 	    else
