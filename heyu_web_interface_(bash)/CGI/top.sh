@@ -76,9 +76,15 @@ echo "
  
 
      
-var=$(top -b  -n 1)
+var=$(top -b -n 1)
 arr=($var)
-i=74
+while [[ ${arr[*]:${i}:1} != COMMAND ]]
+  do
+    # Increment $i to = Command so we grab the data we want
+    ((i++))
+  done
+  # Incrment one last time
+((i++))
 x=0
 while [[ $c -le 25 ]]
 do
@@ -86,10 +92,10 @@ do
 	  do
 	      [[ $x == 0 ]] && pid=${arr[*]:$i:1}
 	      [[ $x == 1 ]] && powner=${arr[*]:$i:1}
-	      [[ $x == 11 ]] && pname=${arr[*]:$i:1}
-	     
+	      [[ $x == 11 ]] && pname=${arr[*]:$i:1}	     
 	      echo "<td class=sty>${arr[*]:$i:1}"
-	      [[ $x == 11 ]] &&   echo "<td class=sty><a href=?kill_pid=$pid&$pname&$powner><img src=../imgs/alloff.png width=20 height=20></a>"
+	      [[ $x == 11 ]] &&   echo "<td class=sty><a href=?kill_pid=$pid&$pname&$powner>
+					<img src=../imgs/alloff.png width=20 height=20></a>"
 	      ((x++))
 	      ((i++))    
 	  done 
@@ -97,8 +103,6 @@ do
 echo "<tr>"
 ((c++))
 done
-
-
 echo "</table"
 echo "</textarea></body></html>"
 
