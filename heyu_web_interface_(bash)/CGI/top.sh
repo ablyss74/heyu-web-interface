@@ -36,7 +36,7 @@ echo "
 	box-shadow:2px 2px 6px rgba(0,0,0,0.6);
 	border-radius:4px;
 	text-align:center;
-}
+    }
 .sty2 {
 	
 	font-family: verdana,arial,sans-serif;
@@ -47,10 +47,14 @@ echo "
 	border: 1px solid black;
         text-align:center;
 
-}
-}
+      }
+.sty3 {
+	
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+      }
 </style>
-</style>
+
        <script type=text/javascript src=../heyu_javascripts/update.js></script>
    </head>
    <body bgcolor=#E5E5E5 onload=ajax_update()>"
@@ -63,8 +67,8 @@ echo "
       kill_=${kill_//&/ }
       kill_=($kill_)
 
-      echo "Are you sure you want to kill PID: <b>${kill_[0]}</b> Owner: <b>${kill_[2]}</b> Name: <b>${kill_[1]}</b>? &nbsp; <a href=?kill_confirm=$kill_>Yes</a>&nbsp;&nbsp; <a href=?>No</a><br>
-      Notice: You may not have permissions to kill this process."
+      echo "<font class=sty3>Are you sure you want to kill PID: <b>${kill_[0]}</b> Owner: <b>${kill_[2]}</b> Name: <b>${kill_[1]}</b>? &nbsp; <a href=?kill_confirm=$kill_>Yes</a>&nbsp;&nbsp; <a href=?>No</a><br>
+      <br>Notice: You may not have permissions to kill this process.</font><br><br>"
     fi
    echo "
      <div id=content>
