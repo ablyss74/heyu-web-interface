@@ -164,7 +164,7 @@ fi
 		 -z $HTTP_COOKIE 				    || 	$QUERY_STRING == *heyu_reload*  	 		 ||      
 	         $QUERY_STRING == *manpage*	                    ||   $QUERY_STRING == *heyu_music*                  	 ||     
 	         $QUERY_STRING == *heyu_logs*                       ||  $QUERY_STRING == *heyu_insteon*                          ||  
-	         $QUERY_STRING == *heyu_web_interface_version*             
+	         $QUERY_STRING == *heyu_sys_logs*                   ||  $QUERY_STRING == *heyu_web_interface_version*             
  	  ]]
 		then			
 			[[ -e ./CGI/control_panel.sh ]] && source ./CGI/control_panel.sh
