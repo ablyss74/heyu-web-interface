@@ -27,8 +27,9 @@ folder() {
 
 file() {
      for log in /var/log/$folder/* ; do
-     if [[ ! -d $log  ]];then
-     log=${log/\/\//\/}
+     if [[ ! -d $log && -s $log ]];then
+     #log=${log/\/\//\/}
+     log=${log//\/var\/log\/\/}
      echo "$log"
      fi
      done
@@ -41,6 +42,7 @@ echo "
 <html>
   <head>
     <!--<script type=text/javascript src=../heyu_javascripts/update.js></script>-->
+    <script type=text/javascript src=../heyu_javascripts/compact_theme.js></script>
     <style type=text/css>
 .sty {
 	width:100%;
@@ -82,7 +84,7 @@ echo "
 </style>
    </head>
    <body bgcolor=#E5E5E5 onload=ajax_update()>"
-   
+   # echo "<div id=content>"
 
 
 
@@ -90,15 +92,15 @@ echo "
       if [[ $QUERY_STRING == heyu_log_folder* ]];then  
 	 folder=${QUERY_STRING//heyu_log_folder=}
          folder=${folder//%2F}
-         [[ $folder == "" ]] && echo "log" || echo "$folder"
+         [[ $folder == "" ]] && echo "log/" || echo "log/$folder/"
       else
-         echo "log"
+         echo "log/"
       fi
       }
       
   
 	 echo "<form><b class=sty3>Folder</b>
-	 <select class=sty2 name=heyu_log_folder><option value=/>$(lf)$(for i in $(folder); do echo "<option value=\"$i\">$i"; done)
+	 <select class=sty2 name=heyu_log_folder size=1><option value=/>/var/$(lf) <optgroup label=..> $(for i in $(folder); do echo "<option value=\"$i\">$i"; done)
 	 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class=sty2  type=submit value=OK></form>"  
 
 	 if [[ $QUERY_STRING == heyu_log_folder* ]];then  
@@ -110,15 +112,13 @@ echo "
 	 <select class=sty2  name=heyu_view_log>$(for i in $(file); do echo "<option value=\"$i\">$i"; done)
 	 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class=sty2  type=submit value=OK></form>"
    
-		
+[[ -z $folder ]] && folder=/var/log/		
 data=$QUERY_STRING
 data=${data//heyu_view_log=}
 data=${data//%2F/\/}
+data=${folder}${data}
+data=${data//\/var\/log\/\/var\/log\///var/log/}
 
-
-
-echo $data
-    # echo "<div id=content>"
     echo "<table class=sty><tr><td bgcolor=white>"
   
 if [[ $QUERY_STRING != heyu_log_folder* && -n $QUERY_STRING ]];then
