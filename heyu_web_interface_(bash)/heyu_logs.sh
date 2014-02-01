@@ -80,7 +80,7 @@ echo "
 	    file=${file/./\/}
 	    file=${file/./\/}
 	    file=${file/./ }
-	    if [[ $file != "Archive *" ]];then
+	    if [[ $file != "Archive*" ]];then
 	    echo "<a href=$i>$file</a> $(as) || <a href=?delete_archive_$i>Delete</a><br>"
 	    else
 	    echo "There Are No Current Archives. <a href=?backup_log>Backup Current Log File Now?</a>"
