@@ -87,7 +87,7 @@ while [[ ${arr[*]:${i}:1} != COMMAND ]]
     # Increment $i to = Command so we grab the data we want
     ((i++))
   done
-  # Incrment one last time
+  # Increment one last time
 ((i++))
 x=0
 while [[ $c -le 25 ]]

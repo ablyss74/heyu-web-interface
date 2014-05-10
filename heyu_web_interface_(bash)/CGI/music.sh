@@ -139,19 +139,22 @@ QUERY_STRING=${QUERY_STRING/heyu_music=/}
 
 
 
-(
-[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing && killall -9 ${player% -@}
-)
+
+[[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]] && echo > currently_playing
+
 
 
 if  [[ -n $QUERY_STRING ]] && [[ $QUERY_STRING != *amixer_set* ]] && [[ $QUERY_STRING != *current_song* ]];then
+	(killall -9 ${player% -@})
+	### Wait for thread to close.
+	wait
+	
         echo > currently_playing
-	killall -9 ${player% -@}
+	
 	([[ $QUERY_STRING == *pls || $QUERY_STRING == *m3u || $QUERY_STRING == *:* ]] && $player $QUERY_STRING)>&currently_playing &
 fi
 
-if [[ $QUERY_STRING == *amixer_set* ]];then
-  
+if [[ $QUERY_STRING == *amixer_set* ]];then  
   amixer -q set Master ${QUERY_STRING/amixer_set_}
 fi
 
