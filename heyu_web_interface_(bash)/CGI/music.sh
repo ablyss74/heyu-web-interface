@@ -92,8 +92,11 @@ do
   l=${l/]_/ }
   l=($l)
   s="${l[5]}"
+  
+  #Fix for raspberry pi 
+  [[ ${#s} -gt 3 ]] && s="${l[6]}"
+  
 
-  #[[ ${#s} -gt 3 ]] && s="${l[6]}"
   soundlevel=${s//%/}
   inc_sound=$(($soundlevel + 5))
   dec_sound=$(($soundlevel - 5))
