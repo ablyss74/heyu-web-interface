@@ -184,11 +184,11 @@ fi
 # This creates a time delay in showing real-time status of the file ~ 5 seconds
 # To work around this we test the file to crontabs memory
 cl="$(<$file)"
-cl="${cl/#\n/}"
+cl="${cl/#$'\n'/}"
 cl="${cl/%$'\n'/}"
 
 [[ ! -e $file ]] && echo -e "#Examples \n#52 20 * * * /usr/local/bin/heyu on B13 # Front Porch\n#30 5 * * * /usr/local/bin/heyu off B13 # Front Porch"
-[[ $(crontab -u $user -l) != "$cl" ]] && echo -e "${cl}"
+[[ $(crontab -u $user -l) != "$cl" ]] && echo "${cl}"
 [[ $(crontab -u $user -l) == "$cl" ]] && crontab -u $user -l
 crontab -u $user $file
 

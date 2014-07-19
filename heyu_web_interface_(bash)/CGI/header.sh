@@ -36,7 +36,6 @@ set -f
         [[ -n $QUERY_STRING ]] && unset QUERY
 	[[ -z $QUERY_STRING ]] && QUERY_STRING=$QUERY
     
-
     ### Take the url encoded strings and decode them.
 
 	decode="${QUERY_STRING}"
@@ -61,8 +60,9 @@ set -f
 	decode="${decode//%28/(}"
 	decode=${decode//%B4/\'}
 	decode=${decode//%27/\'}
-	#' Leave this commit for some wysiwyg quote quarks 
 
+	#' Leave this commit for some wysiwyg quote quarks 
+	
 	decode="${decode//%29/)}"
 	decode="${decode//%2D/-}"
 	decode="${decode//%2B/+}"
@@ -78,7 +78,7 @@ set -f
 	
 	decode="${decode//%22/\"}"
 	decode="${decode//%3D/=}"
-	decode="${decode//%0D/\n}"
+	decode="${decode//%0D/$'\n'}"
 	decode=${decode//%7D/\}}
 	decode="${decode//%7B/{}"
 
@@ -88,7 +88,7 @@ set -f
 	decode="${decode//%95/&bull;}"
 	decode="${decode//%99/&trade;}"
 
-
+	
 	Decoded_QUERY_STRING="${decode/%=/}"
 	
         QUERY_STRING=$Decoded_QUERY_STRING

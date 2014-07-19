@@ -19,7 +19,8 @@ ALIAS     Hall                   A3      StdLM # Group=Living_Room
 ALIAS     Master_Lights          A4      StdLM # Group=Master
 ALIAS     Master_Bathroom        A5      StdLM # Group=Master
 ALIAS     Basement_Lights        A6      StdLM # Group=Basement
-ALIAS     Office_Lights          A7      StdAM # Group=Office
+ALIAS     Office_Lights          A7      StdAM # Group=Basement
+ALIAS     Pool_Fan               A8      StdAM # Group=Pool
 
 ALIAS     Polaris                B3      StdAM # Group=Pool
 ALIAS     Pool                   B5      StdAM # Group=Pool
@@ -31,7 +32,7 @@ ALIAS     Front_Recessed         D13     StdLM # Group=Landscape
 
 ALIAS     Test1                  E1,2,3 # Group=Test1
 
-ALIAS     Raspberry_Pi           F1      StdAM # Group=Office
+ALIAS     Raspberry_Pi           F1      StdAM # 
 
 ALIAS     Grow_Lights            G1      StdAM # Group=Garage
 ALIAS     Water_Plants           G2      StdAM # Group=Garage
