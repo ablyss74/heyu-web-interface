@@ -265,6 +265,22 @@ table.scene_button td {
 
 	
 }
+
+.weather1 {  
+	vertical-align:top;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000;
+	text-shadow:0px 1px 0px white;
+	border-width: 2px;	
+	border-style: groove;
+	border-color: #ccc;
+	width:650px;
+	text-align:left;
+
+	
+}
 .currentlyplaying {  
 	vertical-align:top;
 	font-size:10px;

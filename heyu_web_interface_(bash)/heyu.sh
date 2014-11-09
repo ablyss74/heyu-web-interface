@@ -162,9 +162,10 @@ fi
 		 $QUERY_STRING == *heyu_restart* 		    || 	$QUERY_STRING == *Interface_=Info            	  	 ||
 		 $QUERY_STRING == *heyu*cmd*           	            ||   ${QUERY_STRING,,} == *basicuserconfig*          	 || 
 		 -z $HTTP_COOKIE 				    || 	$QUERY_STRING == *heyu_reload*  	 		 ||      
-	         $QUERY_STRING == *manpage*	                    ||   $QUERY_STRING == *heyu_music*                  	 ||     
+	         $QUERY_STRING == *manpage*	                    ||   $QUERY_STRING == *heyu_music*                  	 ||  
+	         $QUERY_STRING == *heyu_weather*                    ||  $QUERY_STRING == *heyu_web_interface_version*   	 ||
 	         $QUERY_STRING == *heyu_logs*                       ||  $QUERY_STRING == *heyu_insteon*                          ||  
-	         $QUERY_STRING == *heyu_sys_logs*                   ||  $QUERY_STRING == *heyu_web_interface_version*             
+	         $QUERY_STRING == *heyu_sys_logs*                            
  	  ]]
 		then			
 			[[ -e ./CGI/control_panel.sh ]] && source ./CGI/control_panel.sh
@@ -216,7 +217,7 @@ xstatus()
  			            state="${state//heyu_enable_/}" 
         		    else		
 				        [[ ${Mobile_User_Active^^} == TRUE ]] && return		
-				        state="${state//heyu_disable_/<img src=\"imgs/on2.png\" class=icons>}"
+				        state="${state//heyu_disable_/<img src=\"imgs/on8.png\" class=icons>}"
  				        state="${state//heyu_enable_/}" 
         	        fi
                     echo "$state"
@@ -686,6 +687,10 @@ else
 	    
 		
 	fi
+	
+	
+	
+	
 			
 	#Scene / USERSYN 
 	
@@ -709,6 +714,21 @@ else
 					${scene//_/ }</table></button>"
                  fi
             done <<< "$("$heyu" -c "${x10config}" webhook config_dump)"
+            
+  
+            	    echo "
+	    <button type=submit class=scene_button onclick=\"$(fstatus); show('heyu_camera1')\" name=heyu_camera1>
+	    <table class=scene_button><tr><td class=scene_button>
+	    <img src=\"imgs/spy_icon.png\" alt=none class=icons>
+	    Camera</table></button>"
+            	    echo "
+	    <button type=submit class=scene_button onclick=\"$(fstatus); show('heyu_weather')\" name=heyu_weather>
+	    <table class=scene_button><tr><td class=scene_button>
+	    <img src=\"imgs/weather.png\" alt=none class=icons>"
+	    while read -r w; do 
+	    [[ $w = *Temp* ]] && w=($w) && echo "${w[*]:1}"; 	    
+	    done <<< "$(/usr/bin/weather KLZU)"
+	    echo "</table></button>"
 
 				echo "		</table>"
 	fi

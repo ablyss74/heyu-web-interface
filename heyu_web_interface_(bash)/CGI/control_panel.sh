@@ -292,6 +292,18 @@ fi
 
 	fi 
 	
+   if [[ $QUERY_STRING == *heyu_weather* ]];then
+	  
+          var=heyu_weather
+	  show() {
+		
+			 echo "</textarea><table valign=top width=$ctaw class=control_panel><tr><td valign=top align=center><iframe align=center 
+		        	src=./CGI/weather.sh border=0 height=$ctah width=$ctaw scrolling=yes></iframe></table>"		
+		
+		 }
+
+	fi
+	
     if [[ $QUERY_STRING == *heyu_logs* ]];then
 	  
           var=heyu_logs
@@ -860,7 +872,7 @@ fi
 		if [[ $QUERY_STRING == *manpage* ]];then
 		echo "
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('BasicUserConfig=css')\">
-		<table><tr><td width=20><img src=./imgs/edit_user.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/edit_user3.png width=25 height=25> 
 		<td><span class=control_panel>Interface Config</table></button><br>
 
 		<button class=control_panel_buttons type=button $([[ $QUERY_STRING == *manpage=heyu ]] && echo "disabled")
@@ -936,11 +948,11 @@ fi
 		echo "
 	
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('BasicUserConfig=css')\">
-		<table><tr><td width=20><img src=./imgs/edit_user.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/edit_user3.png width=25 height=25> 
 		<td><span class=control_panel>Interface Config</table></button><br>
 
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('Action=X10Config')\">
-		<table><tr><td width=20><img src=./imgs/OnLamp-icon.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/bulb2.png width=25 height=25> 
 		<td><span class=control_panel>Heyu Config</table></button><br>
 
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('Action=X10sched')\">
@@ -965,23 +977,27 @@ fi
 
 		echo "
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_top')\">
-		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/top2.png width=25 height=25> 
 		<td><span class=control_panel>Top</table></button><br>
     
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_music')\">
-		<table><tr><td width=20><img src=./imgs/top.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/music.png width=25 height=25> 
 		<td><span class=control_panel>Music Player</table></button><br>
+		
+		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_weather')\">
+		<table><tr><td width=20><img src=./imgs/weather.png width=25 height=25> 
+		<td><span class=control_panel>Weather</table></button><br>
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_logs')\">
 		<table><tr><td width=20><img src=./imgs/filefind.png width=25 height=25> 
 		<td><span class=control_panel>Heyu Log</table></button><br>
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_sys_logs')\">
-		<table><tr><td width=20><img src=./imgs/filefind.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/syslog.png width=25 height=25> 
 		<td><span class=control_panel>System Log</table></button><br>
 		
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('heyu_camera1')\">
-		<table><tr><td width=20><img src=./imgs/scenes.png width=25 height=25> 
+		<table><tr><td width=20><img src=./imgs/spy_icon.png width=25 height=25> 
 		<td><span class=control_panel>Camera</table></button><br>
 
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('change_theme')\">
@@ -992,7 +1008,7 @@ fi
 	
 		<button class=control_panel_buttons type=button onclick=\"$(fstatus); show('exit')\" name=\"Exit\">
 		<table><tr><td width=20>
-		<img src=./imgs/alloff.png width=25 height=25><td><span class=control_panel>Exit</table></button>"
+		<img src=./imgs/exit1.png width=25 height=25><td><span class=control_panel>Exit</table></button>"
 
 		 fi
 			fi
@@ -1000,7 +1016,7 @@ fi
 
 		echo "<td class=control_panel valign=top align=center style=\"background:#CCC\">"
 		
-		 	  xstatus()
+	xstatus()
          {
                 _addr_=$addr
                 

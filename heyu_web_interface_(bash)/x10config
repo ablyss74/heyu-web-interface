@@ -19,7 +19,7 @@ ALIAS     Hall                   A3      StdLM # Group=Living_Room
 ALIAS     Master_Lights          A4      StdLM # Group=Master
 ALIAS     Master_Bathroom        A5      StdLM # Group=Master
 ALIAS     Basement_Lights        A6      StdLM # Group=Basement
-ALIAS     Office_Lights          A7      StdAM # Group=Basement
+ALIAS     Office_Lights          A7      StdLM # Group=Basement
 ALIAS     Pool_Fan               A8      StdAM # Group=Pool
 
 ALIAS     Polaris                B3      StdAM # Group=Pool
@@ -52,7 +52,6 @@ SCENE  Entertainment bright A1-3 22 ; dim A1-3 4 # Group=Scene_Entertainment
 SCENE  Subtle_Moods  bright A1-3 22 ; dim A1-3 7 # Group=Scene_Subtle_Moods
 SCENE  All_Lights_Off alloff A                   # Group=Scene_All_Lights_Off
 SCENE  All_Lights_On lightson A                  # Group=Scene_All_Lights_On
-SCENE  Garage_Door on H1 # Group=Scene_Garage
 
 # The below sensors are experimental for testing heyu web interface
 # They are pseudo addresses copied from the man pages and can be deleted.
