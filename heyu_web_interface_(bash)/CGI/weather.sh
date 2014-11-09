@@ -22,11 +22,7 @@ echo "
 @import url(../heyu_style.css);
 </style>
    </head>
-   <script type=text/javascript src=/heyu_javascripts/update.js></script>
-     <body onload=ajax_updatec()>
-
-      <div id=content>
-      
+        <body>
 	<table class=weather1><tr><td>Heyu Web Interface Weather
         <tr>
         <td>"
@@ -103,7 +99,7 @@ echo '
 
 echo "</textarea>"
 
-echo "</table></div></body></html>"
+echo "</table></body></html>"
 
 
 
