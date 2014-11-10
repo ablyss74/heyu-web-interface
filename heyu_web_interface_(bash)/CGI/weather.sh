@@ -27,7 +27,13 @@ echo "
         <tr>
         <td>"
         
-        
+            if [[ -s /tmp/weather_data ]];then
+                   echo "
+	    
+	    <table class=scene_button><tr><td class=scene_button>
+	    <img src=\"../imgs/weather.png\" alt=none class=icons>$(</tmp/weather_data)
+	    </table>"
+	    fi        
      
 
 if [[ $QUERY_STRING == heyu_weather* ]];then
@@ -45,17 +51,17 @@ while read -r weather;
 
 if [[ $Temperature ]];then 
 echo "
-<br>
+<br><b>
 $Location <br>
 $Temperature <br>
 $Humidity <br>
 $Wind <br>
 $Sky <br>
-<br>
+<br></b>
 "
  fi
  else
- echo "<br><br><br><br><br><br><br>"
+ echo "<br>"
 fi
 
 
@@ -76,30 +82,39 @@ while read -r locations
      
 done <./weather_stations
 
-echo "<tr><td><u>Tools</u><Br>
+echo "<tr><td>
+"
+echo 'Crontab Examples <br>
+Please set <b>Shell=/bin/bash</b> in crontab for the script to work.<br>
+MAILTO is optional.<br>
+Note: Bash does not handle floating points ( ie 60.5 F  ).<br>
+This script removes floating points to just read 60 F
+<textarea readonly cols=70 rows=25>
+SHELL=/bin/bash
+MAILTO=""'
+echo '
+** Add to crontab to have heyu web interface read it.
+*/15 * * * * while read -r w; do [[ $w = *Temp* ]] && w=($w) && echo "${w[*]:1}" > /tmp/weather_data ;done <<< "$(/usr/bin/weather KLZU)"
+'
+echo '
+# Checks every 30 mintues, everyday, every month and every week between the hours of 11am and 3pm and turns on A7 if temperature is equal to or above 60F.
+*/30 11-15 * * * while read -r w; do [[ $w = *Temp* ]] && w=${w//./ } && w=(${w}) && [[ ${w[1]} -gt 60 ]] && /usr/local/bin/heyu on A7; done <<< "$(/usr/bin/weather KATL)"
+'
+
+echo '
+# Checks every 30 minutes and turns off A7 if temperature is less than 60F.
+*/30 * * * * while read -r w; do [[ $w = *Temp* ]] && w=${w//./ } && w=(${w}) && [[ ${w[1]} -lt 60 ]] && /usr/local/bin/heyu off A7; done <<< "$(/usr/bin/weather KATL)"
+
+</textarea>
+'
+
+
+echo "</textarea>
+<Br>
 Weather Source: <a href=http://weather.noaa.gov/ target=_BLANK>weather.noaa.gov</a>,
 <a href=http://fungi.yuggoth.org/weather/ target=_BLANK>source code</a>,
 <a href=http://fungi.yuggoth.org/weather/doc/license.rst target=_BLANK>license</a><br><br>
-"
-echo 'Crontab example 1 checks every 30 mintues, everyday, every month and every week between the hours of 11am and 3pm and turns on A7 if temperature is equal to or above 60F.
-<br><br>
-Crontab example 2 checks every 30 minutes and turns off A7 if temperature is less than 60F.<br><br><textarea readonly cols=70 rows=15>
-SHELL=/bin/bash
-MAILTO=""
-'
-echo '
-#Example 1
-*/30 11-15 * * * while read -r w; do [[ $w = *Temp* ]] && w=${w//./ } && w=(${w}) && [[ ${w[1]} -gt 60 ]] && /usr/local/bin/heyu on A7; done <<< "$(/usr/bin/weather KATL)"
-
-#Example 2
-*/30 * * * * while read -r w; do [[ $w = *Temp* ]] && w=${w//./ } && w=(${w}) && [[ ${w[1]} -lt 60 ]] && /usr/local/bin/heyu off A7; done <<< "$(/usr/bin/weather KATL)"
-
-'
-
-
-echo "</textarea>"
-
-echo "</table></body></html>"
+</table></body></html>"
 
 
 

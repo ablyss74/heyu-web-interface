@@ -721,15 +721,13 @@ else
 	    <table class=scene_button><tr><td class=scene_button>
 	    <img src=\"imgs/spy_icon.png\" alt=none class=icons>
 	    Camera</table></button>"
-            	    echo "
+            if [[ -s /tmp/weather_data ]];then
+                   echo "
 	    <button type=submit class=scene_button onclick=\"$(fstatus); show('heyu_weather')\" name=heyu_weather>
 	    <table class=scene_button><tr><td class=scene_button>
-	    <img src=\"imgs/weather.png\" alt=none class=icons>"
-	    while read -r w; do 
-	    [[ $w = *Temp* ]] && w=($w) && echo "${w[*]:1}"; 	    
-	    done <<< "$(/usr/bin/weather KLZU)"
-	    echo "</table></button>"
-
+	    <img src=\"imgs/weather.png\" alt=none class=icons>$(</tmp/weather_data)
+	    </table></button>"
+	    fi
 				echo "		</table>"
 	fi
 			
