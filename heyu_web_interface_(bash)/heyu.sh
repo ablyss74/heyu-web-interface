@@ -217,7 +217,7 @@ xstatus()
  			            state="${state//heyu_enable_/}" 
         		    else		
 				        [[ ${Mobile_User_Active^^} == TRUE ]] && return		
-				        state="${state//heyu_disable_/<img src=\"imgs/on8.png\" class=icons>}"
+				        state="${state//heyu_disable_/<img src=\"imgs/on2.png\" class=icons>}"
  				        state="${state//heyu_enable_/}" 
         	        fi
                     echo "$state"
