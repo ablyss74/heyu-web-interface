@@ -207,35 +207,70 @@ fi
 	  
           var=heyu_insteon
 	  show() {
+				
+			
 			 Q=${QUERY_STRING/heyu_insteon_}
 			 Q=${Q/&heyu_insteon_set_pri=/}
 			 Q=${Q/&heyu_insteon_rem_pri=/}
 			 if [[ $Q == *set_pri=* ]];then
-			 Q=${Q/set_pri=} && heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
+			    Q=${Q/set_pri=}
+			    heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
+			   		    
 			 fi
 			 if [[ $Q == *rem_pri=* ]];then
-			 Q=${Q/rem_pri=} && heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
+			    Q=${Q/rem_pri=}
+			    heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
+			  
 			 fi
 			 smenu
+
 			 echo "</table><table valign=top width=600 class=control_panel><tr><td>
-			 <form method=post><b>Set X10 Primary Address:</b><td>
+			 
+			 
+			 <form method=post><b>Set X10 Primary Address:</b>
+			 
 			 <select name=heyu_insteon_set_pri><option value=\"A\">A
+			 
 			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
 			 </select>
-			 <select name=heyu_insteon_set_pri><option>1<option value=\"1\">2
+			 
+			 <select name=heyu_insteon_set_pri>
+			 
+			 <option>1<option value=\"1\">2		
+			 
 			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
-			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit value=OK></form> 			 
-			 <tr><td><font size=1><i>1. Press & hold the Set button <br>(enter linking mode) LED will blink<br>
+			 
+			 </select>
+			 
+			 <input type=submit value=OK onclick=\"$(fstatus);\">
+			 
+			 </form>
+			 
+			 <tr><td>
+			 <font size=1><i>1. Press & hold the Set button <br>(enter linking mode) LED will blink<br>
 			 <br>2. Enter desired X10 Address and press OK.<br> The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
 			 <tr><td>
 			 
-			 <form method=post><b>Remove X10 Primary Address:</b><td>
+			 <form method=post><b>Remove X10 Primary Address:</b>
+			
 			 <select name=heyu_insteon_rem_pri><option value=\"A\">A
+			 
 			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
 			 </select>
-			 <select name=heyu_insteon_rem_pri><option>1<option value=\"1\">2
+			 
+			 <select name=heyu_insteon_rem_pri>
+			 
+			 <option>1<option value=\"1\">2
+			 
 			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
-			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit value=OK></form> 
+			 
+			 </select>
+			 
+			 <input type=submit value=OK>
+			 
+			 </form> 
 			 
 			 <tr><td><font size=1><i>
 			 1. Press & hold the Set button <br>(enter linking mode) LED will blink.<br>
@@ -245,25 +280,6 @@ fi
 			 <br>The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
 			 
 			 <tr><td>
-			 <form method=post><b>Set On-Level:</b><td>
-			 <select name=heyu_insteon_onlevel><option value=\"A\">A
-			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
-			 </select>
-			 <select name=heyu_insteon_onlevel><option>1<option value=\"1\">2
-			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
-			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit disabled value=OK></form> 
-			 
-			 <tr><td>
-			 <form method=post><b>Set Ramp Rate:</b><td>
-			 <select name=heyu_insteon_ramprate><option value=\"A\">A
-			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
-			 </select>
-			 <select name=heyu_insteon_ramprate><option>1<option value=\"1\">2
-			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
-			 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=submit disabled value=OK></form> 
-			 
-			 
-			 <tr><td>
 			 <br>TRADEMARKS:<br><br>
 			    Insteon is a trademark of INSTEON <a href=http://www.insteon.com target=_BLANK>http://www.insteon.com</a>
 			 <br>   
@@ -271,10 +287,7 @@ fi
 			  
 			  
 			   </table> 
-			 
-			 
 			 "
-	
 		
 		 }
 

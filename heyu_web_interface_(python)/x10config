@@ -23,11 +23,12 @@ ALIAS     Master_Lights          A4      StdLM #
 ALIAS     Master_Bathroom        A5      StdLM #
 ALIAS     Basement_Lights        A6      StdLM #
 
+
 ALIAS     Polaris                B3      StdAM #
 ALIAS     Pool                   B5      StdAM #
 ALIAS     Mushroom_Lights        B8      StdAM #
 ALIAS     Front_Sconces          B13     StdLM #
-alias     Office_Heater          A8      StdAM
+alias     Office_Lights          A8      StdAM
 
 ALIAS     Grow_Lights            G1      StdAM #
 ALIAS     Water_Plants           G2      StdAM #
