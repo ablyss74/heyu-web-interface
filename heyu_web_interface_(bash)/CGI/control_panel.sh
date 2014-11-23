@@ -212,16 +212,61 @@ fi
 			 Q=${QUERY_STRING/heyu_insteon_}
 			 Q=${Q/&heyu_insteon_set_pri=/}
 			 Q=${Q/&heyu_insteon_rem_pri=/}
+			 Q=${Q/&heyu_insteon_on-level=/}
+			 Q=${Q/&heyu_insteon_ramp-rate=/}
+			 Q=${Q/&heyu_insteon_scene-level=/}
+			 Q=${Q/&heyu_insteon_scene-ramp=/}
+			 Q=${Q/&heyu_insteon_rem-scene=/}
+			 
 			 if [[ $Q == *set_pri=* ]];then
 			    Q=${Q/set_pri=}
 			    heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
 			   		    
 			 fi
+			 
 			 if [[ $Q == *rem_pri=* ]];then
 			    Q=${Q/rem_pri=}
 			    heyu on $Q ; heyu address $Q ; heyu on $Q ; heyu address $Q ; heyu on $Q
 			  
 			 fi
+			 
+			 if [[ $Q == *on-level=* ]];then
+			    Q=${Q/on-level=}
+			    heyu address O16 ; heyu address N16 ; heyu address M16 ; heyu address P16 ; heyu address M16
+			    heyu address $Q
+			    heyu address P16 ; heyu address N16 ; heyu address M16 ; heyu address O16 ; heyu address M16	     
+			 fi
+			 
+			 if [[ $Q == *ramp-rate=* ]];then
+			    Q=${Q/ramp-rate=}
+			    heyu address O16 ; heyu address N16 ; heyu address M16 ; heyu address P16 ; heyu address M16
+			    heyu address $Q
+			    heyu address O16 ; heyu address P16 ; heyu address N16 ; heyu address M16 ; heyu address O16	     
+			 fi
+			 
+			 ############## Scenes
+			 if [[ $Q == *scene-level=* ]];then
+			    Q=${Q/scene-level=}
+			    heyu address O16 ; heyu address N16 ; heyu address M16 ; heyu address P16 ; heyu address M16
+			    heyu address M16 ; heyu address N16 ; heyu address O16 ; heyu address P16
+			    heyu address $Q
+			 fi	
+			 
+			 if [[ $Q == *scene-ramp=* ]];then
+			    Q=${Q/scene-ramp=}
+			    heyu address O16 ; heyu address N16 ; heyu address M16 ; heyu address P16 ; heyu address M16
+			    heyu address $Q
+			    heyu address N16 ; heyu address O16 ; heyu address M16 ; heyu address M16
+			    heyu address $Q	     
+			 fi			 
+			 
+			 if [[ $Q == *rem-scene=* ]];then
+			    Q=${Q/rem-scene=}
+			    heyu address O16 ; heyu address N16 ; heyu address M16 ; heyu address P16 ; heyu address M16
+			    heyu off $Q
+			    heyu address O16 ; heyu address P16 ; heyu address M16 ; heyu address N16 ; heyu address $Q	     
+			 fi			 
+			 
 			 smenu
 
 			 echo "</table><table valign=top width=600 class=control_panel><tr><td>
@@ -248,9 +293,10 @@ fi
 			 </form>
 			 
 			 <tr><td>
-			 <font size=1><i>1. Press & hold the Set button <br>(enter linking mode) LED will blink<br>
+			 <font size=1><i>1. Press & hold the Set button <br>(enter linking mode) LED will blink.
 			 <br>2. Enter desired X10 Address and press OK.<br> The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
-			 <tr><td>
+			 <tr><td> 
+			 
 			 
 			 <form method=post><b>Remove X10 Primary Address:</b>
 			
@@ -268,7 +314,7 @@ fi
 			 
 			 </select>
 			 
-			 <input type=submit value=OK>
+			 <input type=submit value=OK onclick=\"$(fstatus);\">
 			 
 			 </form> 
 			 
@@ -278,6 +324,130 @@ fi
 			 (enter unlinking mode) LED will blink<br> 
 			 3. Enter desired X10 Address and press OK.
 			 <br>The device will exit unlinking mode and<br> its LED will stop blinking.</i></font><br><br>
+			 
+			 
+			 <form method=post><b>Set X10 On-Level Address:</b>
+			
+			 <select name=heyu_insteon_on-level><option value=\"A\">A
+			 
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
+			 </select>
+			 
+			 <select name=heyu_insteon_on-level>
+			 
+			 <option>1<option value=\"1\">2
+			 
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 
+			 </select>
+			 
+			  <input type=submit value=OK onclick=\"$(fstatus);\">
+			 
+			 </form> 
+			 
+			  <tr><td><font size=1><i>
+			 1. Adjust your INSTEON device's load to the desired brightness level. <br>
+			 If you skip this step, the current On-Level will be used. (If you turn the load off, <br>
+			 the on level will become \"resume\" whereby the load will return to the brightness at which <br>
+			 it was at just before being turned off).<br>
+			 </i></font><br><br>
+			 
+			 
+			 
+			 <form method=post><b>Set X10 Ramp Rate Address:</b>
+			
+			 <select name=heyu_insteon_ramp-rate><option value=\"A\">A
+			 
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
+			 </select>
+			 
+			 <select name=heyu_insteon_ramp-rate>
+			 
+			 <option>1<option value=\"1\">2
+			 
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 
+			 </select>
+			 
+			  <input type=submit value=OK onclick=\"$(fstatus);\">
+			 
+			 </form> 
+			 
+			  <tr><td><font size=1><i>
+			 1. Use an X10 Controller to adjust your INSTEON device's load to the brightness <br>
+			 corresponding to the desired Ramp Rate using the ramp rate table under INSTEON Advanced features.<br>
+			 </i></font><br><br>
+			 
+			 
+			 <!-- Scenes still a work in progress /////////////
+			 
+			 <form method=post><b>Set X10 Scene On-Level Address:</b>
+			
+			 <select name=heyu_insteon_scene-level><option value=\"A\">A
+			 
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
+			 </select>
+			 
+			 <select name=heyu_insteon_scene-level>
+			 
+			 <option>1<option value=\"1\">2
+			 
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 
+			 </select>
+			 
+			  <input type=submit value=OK onclick=\"$(fstatus);\">
+			 
+			 </form> 
+			  <tr><td><font size=1><i>
+			 1. Adjust your device's load to the desired brightness level.<br> 
+			 2. Send the desired X10 scene address (house code and unit code) to lock in the new On-Level and X10 scene address.<br>
+			 </i></font><br><br>
+			 
+			 <form method=post><b>Set X10 Scene Ramp Address:</b>
+			
+			 <select name=heyu_insteon_scene-ramp><option value=\"A\">A
+			 
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
+			 </select>
+			 
+			 <select name=heyu_insteon_scene-ramp>
+			 
+			 <option>1<option value=\"1\">2
+			 
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 
+			 </select>
+			 
+			  <input type=submit value=OK onclick=\"$(fstatus);\">
+			 
+			 </form> 
+				 
+			 <form method=post><b>Remove X10 Scene Address:</b>
+			
+			 <select name=heyu_insteon_rem-scene><option value=\"A\">A
+			 
+			 $(for i in {B..P}; do echo "<option value=\"$i\">$i"; done)
+			 
+			 </select>
+			 
+			 <select name=heyu_insteon_rem-scene>
+			 
+			 <option>1<option value=\"1\">2
+			 
+			 $(var=3;while [[ $var -le 16 ]]; do echo "<option value=\"$var\">$((var++))"; done)
+			 
+			 </select>
+			 
+			  <input type=submit value=OK onclick=\"$(fstatus);\">
+			 
+			 </form>			 
+
+			 -->
 			 
 			 <tr><td>
 			 <br>TRADEMARKS:<br><br>
