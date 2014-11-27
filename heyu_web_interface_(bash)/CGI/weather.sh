@@ -24,7 +24,7 @@ echo "
 <script type=text/javascript src=../heyu_javascripts/progressbar.js></script>
    </head>
         <body>
-        <div id=progress class=hide><img src=imgs/loading2.gif alt=none>  Please Wait</div>
+        <div id=progress class=hide><img src=../imgs/loading2.gif alt=none>  Please Wait</div>
 	<table class=weather1><tr><td>Heyu Web Interface Weather
         <tr>
         <td>"
