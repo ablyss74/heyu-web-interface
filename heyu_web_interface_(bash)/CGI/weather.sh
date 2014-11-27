@@ -79,8 +79,8 @@ while read -r locations
      l=${locations//#/ }
      l=($l)
     
-     echo "<a href=\"?heyu_weather=$locations\" onclick=\"Status();\">${l[*]:1:9}</a><br>"    
-     
+    [[ $l ]] && echo "<a href=\"?heyu_weather=$locations\" onclick=\"Status();\">${l[*]:1:9}</a><br>"    
+                                               
 done <./weather_stations
 
 echo "<tr><td>
