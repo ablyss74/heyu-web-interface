@@ -21,6 +21,7 @@ echo "
   <style type=text/css>
 @import url(../heyu_style.css);
 </style>
+<script type=text/javascript src=../heyu_javascripts/progressbar.js></script>
    </head>
         <body>
 	<table class=weather1><tr><td>Heyu Web Interface Weather
