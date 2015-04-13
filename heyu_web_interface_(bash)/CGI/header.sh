@@ -20,6 +20,13 @@ set -f
     ### Current Version ###
     Heyu_web_interface_version="11.62_beta"
 
+    ### Make heyu_log directory if doesn't exit
+       if [[ ! -e ./heyu_logs ]]
+	  then
+	     mkdir ./heyu_logs
+       fi 
+
+
     ### Simple URL decoder
     ### Normally QUERY_STRING only uses GET data
     ### Using a simple temporary var to test STDIN we can let QUERY_STRING use GET or POST data 
