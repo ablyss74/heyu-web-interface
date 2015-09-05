@@ -86,32 +86,32 @@ done <./weather_stations
 
 echo "<tr><td>
 "
-echo 'Crontab Examples <br>
-Please set <b>Shell=/bin/bash</b> in crontab for the script to work.<br>
-MAILTO is optional.<br>
-Note: Bash does not handle floating points ( ie 60.5 F  ).<br>
-This script removes floating points to just read 60 F
-<textarea readonly cols=70 rows=25>
+echo '<br><h4>Crontab Examples</h4>
+<br>
+
+<textarea readonly cols=70 rows=10>
 SHELL=/bin/bash
 MAILTO=""'
 echo '
-** Add to crontab to have heyu web interface read it.
+# Saves the current weather temperature to a temporary file
+# and displays it on the main heyu web interface page.
+
 */15 * * * * while read -r w; do [[ $w = *Temp* ]] && w=($w) && echo "${w[*]:1}" > /tmp/weather_data ;done <<< "$(/usr/bin/weather KLZU)"
-'
-echo '
-# Checks every 30 mintues, everyday, every month and every week between the hours of 11am and 3pm and turns on A7 if temperature is equal to or above 60F.
+
+</textarea>'
+
+echo '<textarea readonly cols=70 rows=10>
+SHELL=/bin/bash
+MAILTO=""
+# Checks every 30 mintues, everyday, every month and every week 
+# between the hours of 11am and 3pm and turns on A7 if temperature 
+# is equal to or above 60F.
+
 */30 11-15 * * * while read -r w; do [[ $w = *Temp* ]] && w=${w//./ } && w=(${w}) && [[ ${w[1]} -gt 60 ]] && /usr/local/bin/heyu on A7; done <<< "$(/usr/bin/weather KATL)"
 '
 
-echo '
-# Checks every 30 minutes and turns off A7 if temperature is less than 60F.
-*/30 * * * * while read -r w; do [[ $w = *Temp* ]] && w=${w//./ } && w=(${w}) && [[ ${w[1]} -lt 60 ]] && /usr/local/bin/heyu off A7; done <<< "$(/usr/bin/weather KATL)"
-
-</textarea>
-'
-
-
-echo "</textarea>
+echo "</textarea><br>Bash does not handle floating points, i.e. 60.5 F .<br>
+This script removes floating points to just read 60 F
 <Br>
 Weather Source: <a href=http://weather.noaa.gov/ target=_BLANK>weather.noaa.gov</a>,
 <a href=http://fungi.yuggoth.org/weather/ target=_BLANK>source code</a>,
