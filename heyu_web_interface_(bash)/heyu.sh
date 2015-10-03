@@ -651,7 +651,7 @@ else
 
 #Options
 	if [[ ${Mobile_User_Active^^} != TRUE ]]; then echo "	
-	<h4 style=\"font-family:Tahoma\">HEYU WEB INTERFACE </h4>"
+	<!--<h4 style=\"font-family:Tahoma\">HEYU WEB INTERFACE </h4>-->"
 	fi	
 
 

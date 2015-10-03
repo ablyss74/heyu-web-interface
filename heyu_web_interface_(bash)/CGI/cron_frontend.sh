@@ -197,9 +197,8 @@ echo "</textarea>
 <input type=submit onclick=\"Status();show(this.value)\" name=Macro_Save_All value='Save All'></form>
 
 <font size=1>
-Help:<br>
-Save All: Skips the Wizard and directly edits the cron file.<br>
-Cron uses sh not bash.<br>
+(Save All skips the Wizard and directly edits the cron file.)<br>
+
 <br>
 Format of a cron job file: <br>
 [min] [hour] [day of month] [month] [day of week] [program to be run]<p>
