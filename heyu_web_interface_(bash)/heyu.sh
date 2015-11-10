@@ -23,6 +23,8 @@ source ./CGI/alerts.sh
 echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd\">
 <html><head><title>Heyu Web Interface v.$Heyu_web_interface_version</title>"
 
+ctaw=${ctaw/px/}
+ctah=${ctah/px/}
 
 [[ ${Mobile_User_Active^^} == TRUE ]] && heyu_css=$mobile_css
 echo "<style type=text/css>
@@ -31,6 +33,13 @@ echo "<style type=text/css>
 textarea {
 	width: $ctaw;
 	height: $ctah;
+}
+html { 
+margin-top:1px;
+margin-bottom:1px;
+margin-right:$((${ctaw} - 500));
+margin-left:40px;
+height:100%; 
 }
 </style>"
 

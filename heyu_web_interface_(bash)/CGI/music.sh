@@ -15,10 +15,11 @@ player="mpg123 -@"
 debug() { exec 2>&1 ; }
 dubug="True"
 
-
 echo Content-Type:Text/Html
 echo
 [[ ${dubug^^} == TRUE ]] && debug
+
+
 
 echo "
 <html>
@@ -27,7 +28,7 @@ echo "
 @import url(../heyu_style.css);
 </style>
    </head>
-   <script type=text/javascript src=/heyu_javascripts/update.js></script>
+      <script type=text/javascript src=/heyu_javascripts/update.js></script>
      <body onload=ajax_update()>
 
       <div id=content>
@@ -56,6 +57,18 @@ mapfile data <currently_playing
 	  m=($p)
 	  name=${m[0]}
 	  name=${name//_/ }
+	fi
+        if [[ ${data[$x]} == *Directory* ]];then
+	  p=${data[$x]}
+	  p=${p//Directory:  }
+	  p=${p//=\'/}
+	  p=${p// /_}
+	  p=${p//\';/ }
+	  m=($p)
+	  Directory=${m[0]}
+	  Directory=${Directory//_/ }
+	  Directory=${Directory//Directory: }
+	 
 	fi
 	if [[ ${data[$x]} == *ICY-META* ]];then
 	  p=${data[$x]}
@@ -117,6 +130,11 @@ echo "<br>"
 fi
 if [[ $error ]];then
   echo "<tr><td align=center><br>Audio Failed To Start ~ Please Click The Stop Button And Try Again.<br>"
+  #echo "$Directory"
+  #echo > currently_playing
+  #($player $Directory)>&currently_playing &
+  #echo "<meta http-equiv=\"refresh\" content=\"0;url=/?heyu_music=$Directory\""
+
 fi
 echo ""
 echo "<br></table>"
@@ -182,7 +200,7 @@ if [[ -z ${is_player_installed[0]} ]];then
   echo "${player% -@} not installed.  Please install it to play music.<br><br>"
 fi
 
-echo "  <table class=music_fontz1><tr><td align=center><b>Playlist</b><tr><td class=playlistbutton>"
+echo "  <table class=music_fontz1 width=200><tr><td align=center><b>Playlist</b><tr><td class=playlistbutton>"
 while read -r playlist
  do
      p=${playlist//#/ }
