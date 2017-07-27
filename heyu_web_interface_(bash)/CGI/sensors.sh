@@ -55,16 +55,18 @@ time_stamp() 	  { [[ ${Show_Time_Stamp^^} == TRUE ]] && echo "<br>$tstamp"  ; }
               echo "</table></button>"
 	    exit  
 
-	elif [[ ${mod_type} == wind* ]];then
+	elif [[ ${mod_type} == ore_wind* ]];then
 	      echo "windavsp :   $("$heyu" -c "${x10config}" orewindavsp $addr) - "
-	      echo "orewindsp :  $("$heyu" -c "${x10config}" orewindsp   $addr) - "
-	      echo "orewinddir : $("$heyu" -c "${x10config}" orewinddir  $addr)"
+	      echo "windsp :  $("$heyu" -c "${x10config}" orewindsp   $addr) - "
+	      echo "winddir : $("$heyu" -c "${x10config}" orewinddir  $addr)"
+	      low_battery_msg
               echo "</table></button>"
 	    exit  
 
-	elif [[ ${mod_type} == rain* ]];then
+	elif [[ ${mod_type} == ore_rain* ]];then
 	      echo "orerainrate : $("$heyu" -c "${x10config}" orerainrate $addr) - "
 	      echo "oreraintot :  $("$heyu" -c "${x10config}" oreraintot  $addr)"
+	      low_battery_msg
               echo "</table></button>"
 	    exit  
 
